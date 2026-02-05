@@ -32,6 +32,7 @@ Note: For agent/skill/config prompt files (this repo), longer files are acceptab
 - Always run tests after changes. Fix failures immediately.
 - Prefer unit tests. Integration tests for boundaries.
 - Test edge cases and error paths.
+- Use **Playwright** for browser automation and end-to-end testing when possible.
 
 ## Documentation
 
