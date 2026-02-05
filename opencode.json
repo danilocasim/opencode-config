@@ -1,0 +1,303 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "share": "manual",
+  "instructions": [
+    "instructions/core.md",
+    "instructions/documentation.md",
+    "instructions/testing.md",
+    "instructions/security.md",
+    "instructions/git.md",
+    "instructions/api.md",
+    "instructions/database.md"
+  ],
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+  "watcher": {
+    "ignore": [
+      "**/.git/**",
+      "**/.next/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/node_modules/**",
+      "**/vendor/**",
+      "**/.turbo/**",
+      "**/.pytest_cache/**",
+      "**/__pycache__/**",
+      "**/*.pyc",
+      "**/target/**"
+    ]
+  },
+  "permission": {
+    "external_directory": "ask",
+    "doom_loop": "ask",
+    "skill": {
+      "*": "allow"
+    },
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.pem": "deny",
+      "**/.npmrc": "deny",
+      "**/.pypirc": "deny",
+      "**/.netrc": "deny",
+      "**/.aws/**": "deny",
+      "**/.ssh/**": "deny",
+      "**/secrets/**": "deny",
+      "**/*credentials*": "deny",
+      "**/*credential*": "deny",
+      "**/*token*": "deny",
+      "**/*private_key*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      "**/.env": "deny",
+      "**/.env.*": "deny",
+      "**/secrets/**": "deny",
+      "**/.aws/**": "deny",
+      "**/.ssh/**": "deny"
+    },
+    "bash": {
+      "*": "allow",
+      "rm *": "ask",
+      "sudo *": "ask",
+      "chmod *": "ask",
+      "chown *": "ask",
+      "mv *": "ask",
+      "dd *": "ask",
+      "curl *": "ask",
+      "wget *": "ask",
+      "git push *": "ask",
+      "git reset *": "ask",
+      "git clean *": "ask",
+      "git rebase *": "ask",
+      "git commit --amend*": "ask"
+    },
+    "task": {
+      "*": "allow"
+    }
+  },
+  "formatter": {
+    "prettier": {
+      "command": [
+        "npx",
+        "prettier",
+        "--write",
+        "$FILE"
+      ],
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".json",
+        ".md",
+        ".yml",
+        ".yaml",
+        ".css",
+        ".scss"
+      ]
+    },
+    "ruff": {
+      "command": [
+        "ruff",
+        "format",
+        "$FILE"
+      ],
+      "extensions": [
+        ".py"
+      ]
+    },
+    "gofmt": {
+      "command": [
+        "gofmt",
+        "-w",
+        "$FILE"
+      ],
+      "extensions": [
+        ".go"
+      ]
+    },
+    "rustfmt": {
+      "command": [
+        "rustfmt",
+        "$FILE"
+      ],
+      "extensions": [
+        ".rs"
+      ]
+    },
+    "rubocop": {
+      "command": [
+        "bundle",
+        "exec",
+        "rubocop",
+        "-A",
+        "$FILE"
+      ],
+      "extensions": [
+        ".rb",
+        ".rake"
+      ]
+    }
+  },
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true
+    },
+    "diff_style": "auto"
+  },
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "permission": {
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "ls*": "allow",
+          "rg*": "allow"
+        },
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "mega-plan": {
+      "mode": "primary",
+      "description": "Deep planning mode for complex work (architecture, risks, tests, rollout)",
+      "temperature": 0.1,
+      "maxSteps": 40,
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "ls*": "allow",
+          "rg*": "allow"
+        },
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
+    "web-designer": {
+      "mode": "primary",
+      "description": "Senior UI/UX engineer creating beautiful, accessible Next.js + Tailwind + shadcn interfaces",
+      "temperature": 0.3
+    },
+    "code-reviewer": {
+      "mode": "subagent",
+      "description": "Reviews code for quality, DRY violations, over-engineering, and best practices",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    },
+    "security-auditor": {
+      "mode": "subagent",
+      "description": "Audits code for security vulnerabilities and unsafe patterns",
+      "temperature": 0.1,
+      "tools": {
+        "write": false,
+        "edit": false
+      }
+    },
+    "docs-writer": {
+      "mode": "subagent",
+      "description": "Generates and improves documentation with focus on WHY not just WHAT",
+      "temperature": 0.3,
+      "tools": {
+        "bash": false
+      }
+    },
+    "tdd-coach": {
+      "mode": "subagent",
+      "description": "Guides TDD workflow - red/green/refactor cycle",
+      "temperature": 0.2
+    },
+    "refactorer": {
+      "mode": "subagent",
+      "description": "Refactors code for simplicity, DRYness, and maintainability",
+      "temperature": 0.2
+    },
+    "planner": {
+      "mode": "subagent",
+      "description": "Creates implementation plans with clear steps and milestones",
+      "temperature": 0.3,
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    },
+    "debugger": {
+      "mode": "primary",
+      "description": "Debugs issues by reproducing, tracing, and fixing bugs with minimal, targeted changes",
+      "temperature": 0.2,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true,
+        "webfetch": true
+      }
+    },
+    "optimizer": {
+      "mode": "subagent",
+      "description": "Optimizes performance, memory, and responsiveness while preserving behavior",
+      "temperature": 0.2,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      }
+    },
+    "test-writer": {
+      "mode": "subagent",
+      "description": "Writes and maintains high-quality tests focused on behavior and edge cases",
+      "temperature": 0.25,
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      }
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "gh_grep": {
+      "type": "remote",
+      "url": "https://mcp.grep.app",
+      "enabled": true
+    },
+    "sentry": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "enabled": false,
+      "oauth": {}
+    }
+  }
+}
