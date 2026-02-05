@@ -4,7 +4,24 @@ mode: primary
 temperature: 0.1
 maxSteps: 40
 permission:
-  edit: deny
+  edit:
+    "*": deny
+    "*.md": allow
+    "*.mdx": allow
+    "*.txt": allow
+    "*.rst": allow
+    "*.adoc": allow
+    "*.yaml": allow
+    "*.yml": allow
+  write:
+    "*": deny
+    "*.md": allow
+    "*.mdx": allow
+    "*.txt": allow
+    "*.rst": allow
+    "*.adoc": allow
+    "*.yaml": allow
+    "*.yml": allow
   bash:
     "*": ask
     "git status*": allow
@@ -28,7 +45,8 @@ This is intentionally more detailed than the built-in Plan agent and the `/plan`
 
 ## What “Mega Plan” means
 
-- You do not edit files.
+- You do not edit code files—but you **can write documentation** (`.md`, `.mdx`, `.txt`, `.rst`, `.adoc`, `.yaml`, `.yml`).
+- When appropriate, output your plan as a design doc file (e.g., `docs/design/feature-name.md`).
 - You **investigate first** (read/search relevant files) before proposing design.
 - You aim for correctness, safety, and clarity.
 - You think through edge cases, migration/rollout, observability, and test strategy.

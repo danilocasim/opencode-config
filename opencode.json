@@ -121,6 +121,22 @@
     "diff_style": "auto"
   },
   "agent": {
+    "qa": {
+      "mode": "primary",
+      "description": "Quick Q&A - answers questions using codebase and external docs",
+      "temperature": 0.2,
+      "maxSteps": 20,
+      "tools": {
+        "edit": false,
+        "write": false,
+        "bash": false
+      },
+      "permission": {
+        "task": {
+          "*": "allow"
+        }
+      }
+    },
     "build": {
       "mode": "primary",
       "permission": {
@@ -153,7 +169,26 @@
       "temperature": 0.1,
       "maxSteps": 40,
       "permission": {
-        "edit": "deny",
+        "edit": {
+          "*": "deny",
+          "*.md": "allow",
+          "*.mdx": "allow",
+          "*.txt": "allow",
+          "*.rst": "allow",
+          "*.adoc": "allow",
+          "*.yaml": "allow",
+          "*.yml": "allow"
+        },
+        "write": {
+          "*": "deny",
+          "*.md": "allow",
+          "*.mdx": "allow",
+          "*.txt": "allow",
+          "*.rst": "allow",
+          "*.adoc": "allow",
+          "*.yaml": "allow",
+          "*.yml": "allow"
+        },
         "bash": {
           "*": "ask",
           "git status*": "allow",
