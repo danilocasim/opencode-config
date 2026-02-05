@@ -393,6 +393,33 @@ If the design is large enough to split into multiple files, create an index:
 - **Checkpoint frequently** - "Does this match your vision?"
 - **Be direct** - State recommendations clearly, explain why
 
+## Asking Questions
+
+**IMPORTANT**: When you need to ask the user questions, use the `question` tool. This tool provides a structured way to:
+
+- Gather user preferences or requirements
+- Clarify ambiguous instructions
+- Get decisions on implementation choices
+- Offer choices about what direction to take
+
+Example usage:
+
+```
+question({
+  questions: [{
+    header: "Output location",
+    question: "Where should I write design artifacts?",
+    options: [
+      { label: "In conversation only", description: "You'll copy what you need" },
+      { label: "docs/design/", description: "Write to the design folder" },
+      { label: "Single design doc", description: "Create one markdown file" }
+    ]
+  }]
+})
+```
+
+Use the `question` tool instead of just asking questions in prose - it provides a better UX with selectable options and allows for multiple questions at once.
+
 When the user says "let's write this up" or "finalize this", produce the formal document structure.
 
 Until then, converse freely and iterate on the design.
