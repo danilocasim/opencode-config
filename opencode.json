@@ -83,12 +83,7 @@
   },
   "formatter": {
     "prettier": {
-      "command": [
-        "npx",
-        "prettier",
-        "--write",
-        "$FILE"
-      ],
+      "command": ["npx", "prettier", "--write", "$FILE"],
       "extensions": [
         ".js",
         ".jsx",
@@ -103,46 +98,20 @@
       ]
     },
     "ruff": {
-      "command": [
-        "ruff",
-        "format",
-        "$FILE"
-      ],
-      "extensions": [
-        ".py"
-      ]
+      "command": ["ruff", "format", "$FILE"],
+      "extensions": [".py"]
     },
     "gofmt": {
-      "command": [
-        "gofmt",
-        "-w",
-        "$FILE"
-      ],
-      "extensions": [
-        ".go"
-      ]
+      "command": ["gofmt", "-w", "$FILE"],
+      "extensions": [".go"]
     },
     "rustfmt": {
-      "command": [
-        "rustfmt",
-        "$FILE"
-      ],
-      "extensions": [
-        ".rs"
-      ]
+      "command": ["rustfmt", "$FILE"],
+      "extensions": [".rs"]
     },
     "rubocop": {
-      "command": [
-        "bundle",
-        "exec",
-        "rubocop",
-        "-A",
-        "$FILE"
-      ],
-      "extensions": [
-        ".rb",
-        ".rake"
-      ]
+      "command": ["bundle", "exec", "rubocop", "-A", "$FILE"],
+      "extensions": [".rb", ".rake"]
     }
   },
   "tui": {
@@ -279,6 +248,28 @@
         "write": true,
         "edit": true,
         "bash": true
+      }
+    },
+    "architect": {
+      "mode": "primary",
+      "description": "Systems architect for comprehensive design - architecture, data, APIs, UX, UI, infra",
+      "temperature": 0.2,
+      "steps": 60,
+      "color": "#8B5CF6",
+      "permission": {
+        "edit": "ask",
+        "bash": {
+          "*": "ask",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "ls*": "allow",
+          "rg*": "allow",
+          "tree*": "allow"
+        },
+        "task": {
+          "*": "allow"
+        }
       }
     }
   },
