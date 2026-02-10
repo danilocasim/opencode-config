@@ -22,7 +22,22 @@
 - RuboCop with project-local config and minimal custom cops.
 - RSpec or Minitest as existing project standard.
 - Simple CI stages: lint -> test -> optional type check.
-- Route tests via ruby-rails path: `../testing/ruby.md` + `../rails/SKILL.md`.
+- Route tests via `../testing/ruby-rails.md`.
+
+## Minimal examples
+
+Local command loop:
+
+```bash
+bundle exec rubocop
+bundle exec rspec
+```
+
+CI shape (conceptual):
+
+```text
+lint (rubocop) -> test (rspec/minitest) -> optional type checks (steep/sorbet/rbs)
+```
 
 ## Anti-patterns
 

@@ -29,6 +29,39 @@ Use controller concerns to share request-layer plumbing so actions stay thin and
 - `ErrorRenderable`: map exceptions to consistent JSON/HTML responses.
 - `LocaleSwitching`: safe locale extraction from params/header/session.
 
+## Minimal examples
+
+```ruby
+# app/controllers/concerns/error_renderable.rb
+module ErrorRenderable
+  extend ActiveSupport::Concern
+
+  included do
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  end
+
+  private
+
+  def render_not_found
+    respond_to do |format|
+      format.html { render file: Rails.public_path.join("404.html"), status: :not_found, layout: false }
+      format.json { render json: { error: "not_found" }, status: :not_found }
+    end
+  end
+end
+```
+
+```ruby
+class Api::V1::ProjectsController < ApplicationController
+  include ErrorRenderable
+
+  def show
+    project = Project.find(params[:id])
+    render json: { id: project.id, name: project.name }
+  end
+end
+```
+
 ## Anti-patterns
 
 - Concern performing writes, transactions, or multi-step domain workflows.

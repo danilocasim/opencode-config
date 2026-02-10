@@ -33,6 +33,39 @@ Keep Rails maintainable by putting each rule in its smallest correct home: contr
 - `app/queries/*`: chainable `ActiveRecord::Relation` with explicit filters.
 - Keep names domain-first: `Orders::Checkout`, `Users::Search`, `Invoices::Overdue`.
 
+## Minimal examples
+
+Thin controller action (orchestrate only):
+
+```ruby
+class ProjectsController < ApplicationController
+  def create
+    result = Projects::Create.call(params: project_params, actor: current_user)
+
+    if result.ok?
+      redirect_to project_path(result.value), notice: "Created"
+    else
+      flash.now[:alert] = result.error
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def project_params
+    params.require(:project).permit(:name)
+  end
+end
+```
+
+Thin model (invariants only):
+
+```ruby
+class Project < ApplicationRecord
+  validates :name, presence: true
+end
+```
+
 ## Anti-patterns
 
 - Fat controllers doing branching, calculations, and persistence decisions.

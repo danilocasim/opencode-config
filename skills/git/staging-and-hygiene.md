@@ -31,6 +31,22 @@ Default staging loop:
 - `git diff --staged`
 - `git commit`
 
+## Minimal examples
+
+Stage only the relevant hunks:
+
+```bash
+git add -p
+git diff --staged
+git commit --verbose
+```
+
+Undo staging a hunk you staged by accident:
+
+```bash
+git restore -p --staged
+```
+
 Hygiene for noisy changes:
 
 - Separate formatting from behavior changes (separate commits).

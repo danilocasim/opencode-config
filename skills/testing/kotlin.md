@@ -6,6 +6,8 @@
 - Use MockK for mocking
 - Prefer behavior-focused tests
 
+## Minimal examples
+
 ## Example
 
 ```kotlin

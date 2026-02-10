@@ -26,6 +26,35 @@ Use this guide for Ruby gems/apps and Rails services. Prefer the framework alrea
 - System specs only for critical user journeys.
 - Result-oriented assertions over framework internals.
 
+## Minimal examples
+
+Service PORO unit spec:
+
+```ruby
+RSpec.describe Orders::Checkout do
+  it "returns ok result for owned order" do
+    order = create(:order, user: create(:user))
+
+    result = described_class.call(order_id: order.id, user_id: order.user_id)
+
+    expect(result.ok?).to eq(true)
+  end
+end
+```
+
+Request spec (status + contract):
+
+```ruby
+RSpec.describe "GET /api/v1/projects/:id" do
+  it "returns 404 when missing" do
+    get "/api/v1/projects/999999", as: :json
+
+    expect(response).to have_http_status(:not_found)
+    expect(JSON.parse(response.body)).to include("error" => "not_found")
+  end
+end
+```
+
 ```ruby
 RSpec.describe NormalizeEmail do
   it "strips spaces and downcases" do

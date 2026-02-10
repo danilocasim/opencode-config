@@ -24,6 +24,50 @@
 - Value object for domain primitives (money, email, date range).
 - Policy object for authorization decisions.
 
+## Minimal examples
+
+```ruby
+module Users
+  class Invite
+    def self.call(email:, mailer:)
+      new(email:, mailer:).call
+    end
+
+    def initialize(email:, mailer:)
+      @email = email
+      @mailer = mailer
+    end
+
+    def call
+      user = User.create!(email: @email)
+      @mailer.invite(user)
+      user
+    end
+  end
+end
+```
+
+```ruby
+module Users
+  class Search
+    def self.call(relation: User.all, q: nil)
+      new(relation:, q:).call
+    end
+
+    def initialize(relation:, q:)
+      @relation = relation
+      @q = q
+    end
+
+    def call
+      return @relation if @q.nil? || @q.strip.empty?
+
+      @relation.where("email ILIKE ?", "%#{@q.strip}%")
+    end
+  end
+end
+```
+
 ## Anti-patterns
 
 - God objects with mixed persistence, orchestration, and formatting.

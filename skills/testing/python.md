@@ -21,6 +21,13 @@ Use this guide for Python libraries, services, and web apps.
 
 ## Common patterns
 
+- Use `@pytest.mark.parametrize` for input matrices.
+- Use `pytest.raises(..., match=...)` for error contracts.
+- Use `monkeypatch` for env vars and globals.
+- Use tmp-path fixtures for filesystem isolation.
+
+## Minimal examples
+
 ```python
 import pytest
 

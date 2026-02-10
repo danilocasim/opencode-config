@@ -41,6 +41,18 @@ features/
       get-projects.ts
 ```
 
+## Minimal examples
+
+Promote local to shared only after reuse:
+
+```text
+features/projects/components/project-empty-state.tsx  (first)
+features/tasks/components/task-empty-state.tsx        (second)
+
+Then consider a shared:
+components/ui/empty-state.tsx
+```
+
 ## Anti-patterns
 
 - Domain-specific UI under `components/ui`.

@@ -9,6 +9,8 @@ If you are testing a Next.js app (App Router, server actions, route handlers), p
 
 ## Unit tests (Vitest)
 
+## Minimal examples
+
 ```ts
 import { describe, expect, it } from "vitest";
 

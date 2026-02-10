@@ -28,6 +28,23 @@ Revert (safe for shared history):
 
 - `git revert <sha>`
 
+## Minimal examples
+
+Revert a pushed bad deploy safely:
+
+```bash
+git revert <sha>
+git push
+```
+
+Backport a fix to a release branch:
+
+```bash
+git switch release/1.2
+git cherry-pick <sha>
+git push
+```
+
 Cherry-pick (backport):
 
 - `git cherry-pick <sha>`

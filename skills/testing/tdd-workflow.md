@@ -25,6 +25,28 @@ Use this workflow to keep scope small and feedback fast.
 - Keep fixtures minimal and explicit.
 - Control time/randomness/network at boundaries.
 
+## Minimal examples
+
+Tiny Red/Green loop (language-agnostic):
+
+1. Red (write test)
+
+```text
+test: normalize_email("  A@B.COM ") -> "a@b.com"
+```
+
+2. Green (minimal implementation)
+
+```text
+return input.strip.downcase
+```
+
+3. Refactor (extract + add error path)
+
+```text
+validate "@" present; raise/return error contract
+```
+
 ## Anti-patterns
 
 - Writing implementation first, then backfilling tests.

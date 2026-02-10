@@ -28,6 +28,38 @@ Document Rails code to preserve architectural intent: why logic is in concerns/P
 - Inline note above transaction blocks describing atomicity rationale.
 - Route general doc style questions through `../documentation/SKILL.md`.
 
+## Minimal examples
+
+YARD on a service with contract + side effects:
+
+```ruby
+module Users
+  class Invite
+    # Invite a user by email.
+    #
+    # Why: invitation is a multi-step workflow (create user, send email) and should
+    # not live in a controller action or model callback.
+    #
+    # @param email [String]
+    # @param actor_id [Integer]
+    # @return [Users::Invite::Result]
+    def self.call(email:, actor_id:)
+      # ...
+    end
+  end
+end
+```
+
+Inline rationale on transaction boundary:
+
+```ruby
+Order.transaction do
+  # Why: charging and marking paid must be atomic to avoid double-charge on retry.
+  charge!
+  mark_paid!
+end
+```
+
 ## Anti-patterns
 
 - Comments that restate obvious Ruby syntax.

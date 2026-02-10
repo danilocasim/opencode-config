@@ -24,6 +24,22 @@ Good tests are executable documentation. Comments should explain why a case exis
 - PR notes include changed behavior and which tests prove it.
 - Public contract changes include explicit regression tests.
 
+## Minimal examples
+
+```ruby
+it "returns 422 when email is invalid" do
+  # Regression: this used to 500 due to nil normalization.
+  post "/api/v1/users", params: { email: "nope" }, as: :json
+  expect(response).to have_http_status(:unprocessable_entity)
+end
+```
+
+```text
+Why this test exists:
+- bug repro for empty cache case
+- protects an API contract (status + error shape)
+```
+
 ## Anti-patterns
 
 - Comments that restate code.

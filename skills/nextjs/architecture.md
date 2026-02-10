@@ -29,6 +29,37 @@ App Router apps fail when boundaries are implicit. This file defines explicit bo
 - Feature-level server modules for read models.
 - Promote feature-local component to shared only after proven reuse.
 
+## Minimal examples
+
+Hybrid atomic + feature-first layout:
+
+```text
+components/
+  ui/
+    button.tsx
+    input.tsx
+
+features/
+  projects/
+    components/
+      project-card.tsx
+    actions/
+      create-project.ts
+    data/
+      get-projects.ts
+```
+
+Promotion rule in practice:
+
+```text
+Start: features/projects/components/project-card.tsx
+
+Promote to components/ui only if:
+- used by 2+ features
+- domain-neutral naming/API
+- no feature-specific data dependencies
+```
+
 ## Anti-patterns
 
 - Global dumping ground in `components/` with no ownership.

@@ -41,6 +41,35 @@ Suggested types (keep small set):
 
 - `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `build`, `ci`
 
+## Minimal examples
+
+Good subjects:
+
+- `fix(auth): reject expired refresh tokens`
+- `feat(projects): add archived filter to list`
+- `refactor(orders): move checkout workflow into service object`
+- `test(billing): add regression for retry double-charge`
+
+Bad subjects:
+
+- `updates`
+- `fix`
+- `wip`
+
+Splitting example (common):
+
+If your diff includes:
+
+- formatting across many files
+- a refactor to extract a service
+- the actual behavior change
+
+Prefer 2-3 commits:
+
+1. `chore: format` (only if necessary)
+2. `refactor(domain): extract service object`
+3. `fix(domain): correct behavior and add tests`
+
 ### Body template
 
 - `Why:` what problem prompted this

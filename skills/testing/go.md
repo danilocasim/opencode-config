@@ -6,6 +6,8 @@
 - `httptest` for HTTP handlers
 - Avoid global state; use dependency injection
 
+## Minimal examples
+
 ## Table test
 
 ```go

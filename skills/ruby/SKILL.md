@@ -46,7 +46,7 @@ before writing code.
 
 - Identify scope: Ruby-only, Ruby+Rails, or cross-cutting concern.
 - Open the one focused guide that matches the task.
-- Use `../testing/ruby.md` for tests and `../documentation/SKILL.md` for doc style.
+- Use `../testing/ruby-rails.md` for tests and `../documentation/SKILL.md` for doc style.
 
 ## References
 

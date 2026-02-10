@@ -27,6 +27,30 @@ Pure atomic design is often too rigid for product work. Hybrid atomic keeps a cl
 - `InvoiceStatusPill`, `ProjectMemberRow` in feature folders.
 - Promote to shared only when API can stay domain-neutral.
 
+## Minimal examples
+
+Shared primitive (domain-neutral):
+
+```tsx
+// components/ui/badge.tsx
+export function Badge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex rounded px-2 py-0.5 text-sm">{children}</span>
+  );
+}
+```
+
+Feature-local component (domain-specific):
+
+```tsx
+// features/invoices/components/invoice-status-pill.tsx
+import { Badge } from "@/components/ui/badge";
+
+export function InvoiceStatusPill({ status }: { status: "paid" | "overdue" }) {
+  return <Badge>{status === "paid" ? "Paid" : "Overdue"}</Badge>;
+}
+```
+
 ## Anti-patterns
 
 - Moving domain-specific components into shared `ui` too early.

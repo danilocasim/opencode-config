@@ -24,6 +24,34 @@
 - `Result = Data.define(:ok?, :value, :error)` style for expected outcomes.
 - Map low-level errors to domain errors at boundaries.
 
+## Minimal examples
+
+```ruby
+module Billing
+  class Error < StandardError; end
+  class CardDeclined < Error; end
+
+  Result = Data.define(:ok?, :value, :error) do
+    def self.ok(value) = new(true, value, nil)
+    def self.err(error) = new(false, nil, error)
+  end
+
+  def self.charge(card_token:, cents:)
+    Result.ok("ch_123")
+  rescue Stripe::CardError => e
+    Result.err(CardDeclined.new(e.message))
+  end
+end
+```
+
+```ruby
+def load_config(path)
+  JSON.parse(File.read(path))
+rescue JSON::ParserError => e
+  raise ArgumentError, "invalid config JSON", cause: e
+end
+```
+
 ## Anti-patterns
 
 - `rescue StandardError` inside deep domain code.

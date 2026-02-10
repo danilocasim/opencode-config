@@ -26,6 +26,41 @@ Most stale-data bugs come from unclear cache ownership. Define fetch intent up f
 - `revalidateTag` for domain-scoped invalidation.
 - `revalidatePath` for route-scoped refresh where coupling is acceptable.
 
+## Minimal examples
+
+Tag-based caching on reads:
+
+```ts
+// features/projects/data/get-projects.ts
+export async function getProjects() {
+  const res = await fetch("https://example.internal/projects", {
+    next: { tags: ["projects"], revalidate: 60 },
+  });
+
+  if (!res.ok) throw new Error("failed to load projects");
+
+  return (await res.json()) as { id: string; name: string }[];
+}
+```
+
+Mutation invalidates the same tag:
+
+```ts
+// features/projects/actions/create-project.ts
+"use server";
+
+import { revalidateTag } from "next/cache";
+
+export async function createProject(name: string) {
+  await fetch("https://example.internal/projects", {
+    method: "POST",
+    body: JSON.stringify({ name }),
+  });
+
+  revalidateTag("projects");
+}
+```
+
 ## Anti-patterns
 
 - Blanket `no-store` everywhere.

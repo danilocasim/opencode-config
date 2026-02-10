@@ -6,6 +6,8 @@
 - Prefer protocol-based mocks
 - Use async tests when needed
 
+## Minimal examples
+
 ## Example
 
 ```swift

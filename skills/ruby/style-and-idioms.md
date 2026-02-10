@@ -24,6 +24,42 @@
 - Use `Data.define`/`Struct` for lightweight immutable-ish value objects.
 - Use `{}` for single-line blocks and `do/end` for multiline blocks.
 
+## Minimal examples
+
+```ruby
+def parse_limit(raw, default: 20, max: 100)
+  return default if raw.nil? || raw.strip.empty?
+
+  limit = Integer(raw)
+  return default if limit <= 0
+
+  [limit, max].min
+rescue ArgumentError
+  default
+end
+```
+
+```ruby
+Email = Data.define(:value) do
+  def initialize(value)
+    super(value.strip.downcase)
+
+    raise ArgumentError, "invalid email" unless value.include?("@")
+  end
+end
+```
+
+```ruby
+case payload
+in { type: "user", id: Integer => id }
+  id
+in { type: "guest" }
+  nil
+else
+  raise ArgumentError, "unknown payload"
+end
+```
+
 ## Anti-patterns
 
 - Clever metaprogramming for routine control flow.

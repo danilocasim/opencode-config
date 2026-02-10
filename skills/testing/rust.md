@@ -6,6 +6,8 @@
 - Integration tests in `tests/`
 - Prefer `Result<()>` in tests when it improves readability
 
+## Minimal examples
+
 ## Unit test
 
 ```rust

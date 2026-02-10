@@ -29,6 +29,52 @@ Correct Server/Client boundaries are the main lever for performance, security, a
 - `error.tsx`: route-scoped recovery.
 - Route groups `(group)` for organization without URL changes.
 
+## Minimal examples
+
+Server page fetches and composes, client component handles interaction:
+
+```tsx
+// app/projects/page.tsx
+import { ProjectsList } from "@/features/projects/components/projects-list";
+import { getProjects } from "@/features/projects/data/get-projects";
+
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
+  return <ProjectsList projects={projects} />;
+}
+```
+
+```tsx
+// features/projects/components/projects-list.tsx
+"use client";
+
+import { useState } from "react";
+
+export function ProjectsList({
+  projects,
+}: {
+  projects: { id: string; name: string }[];
+}) {
+  const [q, setQ] = useState("");
+
+  const filtered = projects.filter((p) =>
+    p.name.toLowerCase().includes(q.toLowerCase()),
+  );
+
+  return (
+    <div>
+      <input value={q} onChange={(e) => setQ(e.target.value)} />
+      <ul>
+        {filtered.map((p) => (
+          <li key={p.id}>{p.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
 ## Anti-patterns
 
 - Broad `'use client'` at high tree levels.

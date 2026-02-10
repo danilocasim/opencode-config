@@ -29,6 +29,34 @@ Use model concerns to share small, cohesive model behavior without turning `Appl
 - Repeated validations tied to the same business rule.
 - Small concern-level callbacks with clear intent and low surprise.
 
+## Minimal examples
+
+```ruby
+# app/models/concerns/archivable.rb
+module Archivable
+  extend ActiveSupport::Concern
+
+  included do
+    scope :archived, -> { where.not(archived_at: nil) }
+    scope :active, -> { where(archived_at: nil) }
+  end
+
+  def archive!
+    update!(archived_at: Time.current)
+  end
+
+  def archived?
+    archived_at.present?
+  end
+end
+```
+
+```ruby
+class Project < ApplicationRecord
+  include Archivable
+end
+```
+
 ## Anti-patterns
 
 - Kitchen sink concerns with unrelated methods.

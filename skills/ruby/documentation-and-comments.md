@@ -24,6 +24,24 @@
 - Document side effects (DB writes, network calls, retries).
 - Route doc style decisions through `../documentation/SKILL.md`.
 
+## Minimal examples
+
+```ruby
+# Normalize a user-supplied email.
+#
+# Why: we store canonical emails to avoid duplicate accounts due to casing/spacing.
+#
+# @param raw [String]
+# @return [String]
+# @raise [ArgumentError] if email is invalid
+def normalize_email(raw)
+  value = raw.to_s.strip.downcase
+  raise ArgumentError, "invalid email" unless value.include?("@")
+
+  value
+end
+```
+
 ## Anti-patterns
 
 - Restating obvious code in comments.

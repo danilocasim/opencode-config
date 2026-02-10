@@ -27,6 +27,29 @@ In Next.js, behavior is split across server/client/cache boundaries. Comments sh
 - One-line rationale above `'use client'` where non-obvious.
 - Feature README section: reads, writes, invalidation map.
 
+## Minimal examples
+
+Rationale on a client island:
+
+```tsx
+"use client";
+
+// Why client: this component uses local interactive state and DOM events.
+export function SearchBox() {
+  // ...
+}
+```
+
+Cache intent + invalidation note:
+
+```ts
+// Why cache: projects list is safe to revalidate every 60s.
+// Invalidation: mutations call revalidateTag("projects").
+export async function getProjects() {
+  // ...
+}
+```
+
 ## Anti-patterns
 
 - Comments that duplicate obvious code behavior.

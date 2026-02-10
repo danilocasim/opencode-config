@@ -29,10 +29,59 @@ Use this guide for Node backends, shared TS/JS libs, and Next.js apps.
 ```ts
 import { describe, expect, it } from "vitest";
 
+const normalizeSlug = (s: string) => s.toLowerCase().replaceAll(" ", "-");
+
 describe("normalizeSlug", () => {
   it("lowercases and replaces spaces", () => {
     expect(normalizeSlug("Hello World")).toBe("hello-world");
   });
+});
+```
+
+## Minimal examples
+
+React component test (RTL):
+
+```tsx
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { useState } from "react";
+
+function Counter() {
+  const [n, setN] = useState(0);
+
+  return (
+    <button type="button" onClick={() => setN((x) => x + 1)}>
+      <span>Count:</span> <span>{n}</span>
+    </button>
+  );
+}
+
+it("increments when clicked", async () => {
+  const user = userEvent.setup();
+
+  render(<Counter />);
+
+  await user.click(screen.getByRole("button", { name: /count/i }));
+
+  expect(screen.getByText(/count: 1/i)).toBeInTheDocument();
+});
+```
+
+Route handler unit/integration-style test (pure function contract):
+
+```ts
+import { expect, it } from "vitest";
+
+export async function GET() {
+  return Response.json({ ok: true }, { status: 200 });
+}
+
+it("returns ok json", async () => {
+  const res = await GET();
+
+  expect(res.status).toBe(200);
+  await expect(res.json()).resolves.toEqual({ ok: true });
 });
 ```
 

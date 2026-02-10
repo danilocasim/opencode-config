@@ -49,6 +49,26 @@ PR body template:
 - `How to test:` commands or steps
 - `Risks/rollout:` migrations, flags, backwards compatibility
 
+## Minimal examples
+
+PR body (copy-ready):
+
+```text
+Why:
+- Users sometimes hit a 500 when the cache is empty.
+
+What:
+- Default missing cache entries to an empty list.
+- Add regression tests for the empty-cache path.
+
+How to test:
+- run: <project test command>
+- manual: open <page> and verify no error on first load
+
+Risks/rollout:
+- Low risk; change only affects empty-cache behavior.
+```
+
 ## Anti-patterns
 
 - Branch names like `new`, `test`, `stuff`.

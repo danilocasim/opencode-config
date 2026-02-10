@@ -26,6 +26,54 @@ Writes are where consistency breaks. Centralizing mutations in Server Actions ke
 - Action result shape: `{ ok: true, value }` or `{ ok: false, code, message, fields }`.
 - Keep action files scoped by domain/feature.
 
+## Minimal examples
+
+Typed action result shape:
+
+```ts
+type ActionResult<T> =
+  | { ok: true; value: T }
+  | { ok: false; code: string; message: string };
+
+function requireNonEmpty(input: string, field: string): ActionResult<string> {
+  const v = input.trim();
+
+  if (!v) {
+    return { ok: false, code: "invalid", message: `${field} is required` };
+  }
+
+  return { ok: true, value: v };
+}
+```
+
+```ts
+// features/projects/actions/create-project.ts
+"use server";
+
+import { revalidateTag } from "next/cache";
+
+export async function createProject(
+  formData: FormData,
+): Promise<ActionResult<{ id: string }>> {
+  const nameRes = requireNonEmpty(String(formData.get("name") ?? ""), "name");
+
+  if (!nameRes.ok) return nameRes;
+
+  const res = await fetch("https://example.internal/projects", {
+    method: "POST",
+    body: JSON.stringify({ name: nameRes.value }),
+  });
+
+  if (!res.ok) {
+    return { ok: false, code: "server", message: "failed to create" };
+  }
+
+  revalidateTag("projects");
+
+  return { ok: true, value: (await res.json()) as { id: string } };
+}
+```
+
 ## Anti-patterns
 
 - Client-side direct writes to protected resources.
