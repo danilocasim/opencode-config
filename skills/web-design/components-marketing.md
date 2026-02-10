@@ -9,6 +9,23 @@ Components for landing pages, marketing sites, and conversion.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Pricing Card
 
 **Purpose**: Display a pricing tier/plan.
@@ -26,6 +43,7 @@ Components for landing pages, marketing sites, and conversion.
 | With toggle | Monthly/annual switch affects price |
 
 **Best practices**:
+
 - Highlight recommended plan visually
 - Show savings on annual plans
 - Limit to 3-4 plans for easy comparison
@@ -42,12 +60,14 @@ Components for landing pages, marketing sites, and conversion.
 **Usual contents**: Feature rows, plan columns, checkmarks/x marks, CTAs.
 
 **Features**:
+
 - Sticky header row on scroll
 - Feature grouping by category
 - Tooltips for feature explanations
 - Mobile: Convert to stacked cards
 
 **Best practices**:
+
 - Group related features together
 - Use checkmarks (✓) and dashes (—) not ✗
 - Highlight differences, not similarities
@@ -72,6 +92,7 @@ Components for landing pages, marketing sites, and conversion.
 | With image | Background image/gradient |
 
 **Best practices**:
+
 - One clear action (or primary + secondary)
 - Urgent, benefit-focused headline
 - Contrasting background to stand out
@@ -95,6 +116,7 @@ Components for landing pages, marketing sites, and conversion.
 | Searchable | Filter questions by keyword |
 
 **Best practices**:
+
 - Most common questions first
 - Keep answers concise
 - Link to detailed docs for complex topics
@@ -119,6 +141,7 @@ Components for landing pages, marketing sites, and conversion.
 | With incentive | "Get 10% off" messaging |
 
 **Best practices**:
+
 - Clear value proposition (what they'll receive)
 - Privacy reassurance ("We won't spam")
 - Single field (email only) reduces friction
@@ -143,6 +166,7 @@ Components for landing pages, marketing sites, and conversion.
 | Grayscale | Muted logos, color on hover |
 
 **Best practices**:
+
 - Consistent logo sizing/spacing
 - Grayscale keeps focus on content
 - "Trusted by" or "Featured in" heading
@@ -166,6 +190,7 @@ Components for landing pages, marketing sites, and conversion.
 | Before/After | Old way vs new way |
 
 **Best practices**:
+
 - Highlight your advantages prominently
 - Be honest about limitations
 - Use your brand column as reference point (first or center)
@@ -188,6 +213,7 @@ Components for landing pages, marketing sites, and conversion.
 | Inline | Within content area |
 
 **Best practices**:
+
 - Keep message short (one line)
 - Make dismissible (respect user choice)
 - Don't overuse (banner blindness)
@@ -214,6 +240,7 @@ Components for landing pages, marketing sites, and conversion.
 | Inline | Within content flow |
 
 **Best practices**:
+
 - Pre-fill share text when possible
 - Include only relevant platforms
 - Copy link as universal fallback
@@ -237,6 +264,7 @@ Components for landing pages, marketing sites, and conversion.
 | Modal | Centered overlay |
 
 **Best practices**:
+
 - Don't use dark patterns (reject should be equally visible)
 - Remember user preference
 - Link to full privacy policy
@@ -261,6 +289,7 @@ Components for landing pages, marketing sites, and conversion.
 | Featured | One large + several small |
 
 **Best practices**:
+
 - Mix of personas/industries
 - Include company logos when possible
 - Real names and photos increase trust
@@ -273,9 +302,10 @@ Components for landing pages, marketing sites, and conversion.
 **When to use**: Product pages, feature sections, landing pages.
 
 **Structure**:
+
 ```tsx
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {features.map(feature => (
+  {features.map((feature) => (
     <div key={feature.id} className="flex gap-4">
       <div className="flex-shrink-0">
         <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -294,6 +324,7 @@ Components for landing pages, marketing sites, and conversion.
 ```
 
 **Variants**:
+
 ```tsx
 // With checkmarks
 <div className="space-y-4">
@@ -328,43 +359,45 @@ Components for landing pages, marketing sites, and conversion.
 **When to use**: Social proof, landing pages, about pages.
 
 **Structure**:
+
 ```tsx
 function AnimatedCounter({ value, suffix = "" }: CounterProps) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true })
-  
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
   useEffect(() => {
     if (isInView) {
-      const duration = 2000
-      const steps = 60
-      const increment = value / steps
-      let current = 0
-      
+      const duration = 2000;
+      const steps = 60;
+      const increment = value / steps;
+      let current = 0;
+
       const timer = setInterval(() => {
-        current += increment
+        current += increment;
         if (current >= value) {
-          setCount(value)
-          clearInterval(timer)
+          setCount(value);
+          clearInterval(timer);
         } else {
-          setCount(Math.floor(current))
+          setCount(Math.floor(current));
         }
-      }, duration / steps)
-      
-      return () => clearInterval(timer)
+      }, duration / steps);
+
+      return () => clearInterval(timer);
     }
-  }, [isInView, value])
-  
+  }, [isInView, value]);
+
   return (
     <span ref={ref} className="tabular-nums">
-      {count.toLocaleString()}{suffix}
+      {count.toLocaleString()}
+      {suffix}
     </span>
-  )
+  );
 }
 
 // Usage
 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-  {stats.map(stat => (
+  {stats.map((stat) => (
     <div key={stat.label} className="text-center">
       <div className="text-3xl md:text-4xl font-bold">
         <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -372,10 +405,11 @@ function AnimatedCounter({ value, suffix = "" }: CounterProps) {
       <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
     </div>
   ))}
-</div>
+</div>;
 ```
 
 **Accessibility**:
+
 - Provide static values for screen readers
 - Don't autoplay if user prefers reduced motion
 - Ensure numbers are readable
@@ -389,27 +423,31 @@ function AnimatedCounter({ value, suffix = "" }: CounterProps) {
 **When to use**: Integration pages, partner showcases, ecosystem pages.
 
 **Structure**:
+
 ```tsx
 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-  {integrations.map(integration => (
+  {integrations.map((integration) => (
     <a
       key={integration.id}
       href={integration.url}
       className="group flex flex-col items-center p-4 rounded-lg border hover:border-primary transition-colors"
     >
-      <img 
-        src={integration.logo} 
+      <img
+        src={integration.logo}
         alt={integration.name}
         className="h-12 w-12 object-contain"
       />
       <span className="mt-2 text-sm font-medium">{integration.name}</span>
-      <span className="text-xs text-muted-foreground">{integration.category}</span>
+      <span className="text-xs text-muted-foreground">
+        {integration.category}
+      </span>
     </a>
   ))}
 </div>
 ```
 
 **Accessibility**:
+
 - Meaningful alt text for logos
 - Clear hover/focus states
 - Consider grayscale until hover

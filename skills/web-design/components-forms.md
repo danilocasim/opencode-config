@@ -9,6 +9,23 @@ Components for user input and data collection.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Input
 
 **Purpose**: Single-line text entry.
@@ -18,17 +35,16 @@ Components for user input and data collection.
 **Usual contents**: Label, input field, helper text, error message.
 
 **Structure**:
+
 ```tsx
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 <div className="grid w-full max-w-sm gap-1.5">
   <Label htmlFor="email">Email</Label>
   <Input type="email" id="email" placeholder="you@example.com" />
-  <p className="text-sm text-muted-foreground">
-    We'll never share your email.
-  </p>
-</div>
+  <p className="text-sm text-muted-foreground">We'll never share your email.</p>
+</div>;
 ```
 
 **Variants**:
@@ -41,6 +57,7 @@ import { Label } from "@/components/ui/label"
 | Disabled | Non-editable |
 
 **With icon**:
+
 ```tsx
 <div className="relative">
   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -49,23 +66,26 @@ import { Label } from "@/components/ui/label"
 ```
 
 **Error state**:
+
 ```tsx
 <div className="grid gap-1.5">
   <Label htmlFor="email">Email</Label>
-  <Input 
-    id="email" 
-    className="border-destructive focus-visible:ring-destructive" 
+  <Input
+    id="email"
+    className="border-destructive focus-visible:ring-destructive"
   />
   <p className="text-sm text-destructive">Please enter a valid email.</p>
 </div>
 ```
 
 **Accessibility**:
+
 - Always associate `<Label>` with input via `htmlFor`
 - Use `aria-describedby` for helper/error text
 - `aria-invalid="true"` for error state
 
 **Refs**:
+
 - shadcn Input: https://ui.shadcn.com/docs/components/input
 
 ---
@@ -79,28 +99,31 @@ import { Label } from "@/components/ui/label"
 **Usual contents**: Label, textarea, character count (optional).
 
 **Structure**:
+
 ```tsx
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 
 <div className="grid w-full gap-1.5">
   <Label htmlFor="message">Message</Label>
   <Textarea id="message" placeholder="Type your message here." rows={4} />
-</div>
+</div>;
 ```
 
 **Auto-resize**:
+
 ```tsx
 // Using react-textarea-autosize
-import TextareaAutosize from 'react-textarea-autosize'
+import TextareaAutosize from "react-textarea-autosize";
 
-<TextareaAutosize 
+<TextareaAutosize
   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2"
   minRows={3}
   maxRows={10}
-/>
+/>;
 ```
 
 **With character count**:
+
 ```tsx
 const [value, setValue] = useState("")
 const maxLength = 280
@@ -114,6 +137,7 @@ const maxLength = 280
 ```
 
 **Refs**:
+
 - shadcn Textarea: https://ui.shadcn.com/docs/components/textarea
 
 ---
@@ -127,6 +151,7 @@ const maxLength = 280
 **Usual contents**: Trigger, options list with optional groups.
 
 **Structure**:
+
 ```tsx
 import {
   Select,
@@ -134,7 +159,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -145,10 +170,11 @@ import {
     <SelectItem value="banana">Banana</SelectItem>
     <SelectItem value="orange">Orange</SelectItem>
   </SelectContent>
-</Select>
+</Select>;
 ```
 
 **With groups**:
+
 ```tsx
 <SelectContent>
   <SelectGroup>
@@ -165,10 +191,12 @@ import {
 ```
 
 **Accessibility**:
+
 - Full keyboard support (Radix)
 - `aria-expanded`, `aria-selected` managed
 
 **Refs**:
+
 - shadcn Select: https://ui.shadcn.com/docs/components/select
 
 ---
@@ -182,16 +210,18 @@ import {
 **Usual contents**: Checkbox, label, optional description.
 
 **Structure**:
+
 ```tsx
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 
 <div className="flex items-center space-x-2">
   <Checkbox id="terms" />
   <Label htmlFor="terms">Accept terms and conditions</Label>
-</div>
+</div>;
 ```
 
 **With description**:
+
 ```tsx
 <div className="flex items-start space-x-3">
   <Checkbox id="newsletter" className="mt-1" />
@@ -205,6 +235,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 ```
 
 **Checkbox group**:
+
 ```tsx
 <div className="space-y-3">
   <Label>Select features</Label>
@@ -218,10 +249,12 @@ import { Checkbox } from "@/components/ui/checkbox"
 ```
 
 **Accessibility**:
+
 - Use `<Label>` with `htmlFor`
 - `aria-checked` managed by Radix
 
 **Refs**:
+
 - shadcn Checkbox: https://ui.shadcn.com/docs/components/checkbox
 
 ---
@@ -235,8 +268,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 **Usual contents**: Group label, radio options with labels.
 
 **Structure**:
+
 ```tsx
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 <RadioGroup defaultValue="comfortable">
   <div className="flex items-center space-x-2">
@@ -251,10 +285,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
     <RadioGroupItem value="compact" id="r3" />
     <Label htmlFor="r3">Compact</Label>
   </div>
-</RadioGroup>
+</RadioGroup>;
 ```
 
 **Card variant**:
+
 ```tsx
 <RadioGroup className="grid gap-4 md:grid-cols-3">
   {plans.map((plan) => (
@@ -271,6 +306,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 ```
 
 **Refs**:
+
 - shadcn Radio Group: https://ui.shadcn.com/docs/components/radio-group
 
 ---
@@ -284,16 +320,18 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 **Usual contents**: Switch, label, optional description.
 
 **Structure**:
+
 ```tsx
-import { Switch } from "@/components/ui/switch"
+import { Switch } from "@/components/ui/switch";
 
 <div className="flex items-center space-x-2">
   <Switch id="airplane-mode" />
   <Label htmlFor="airplane-mode">Airplane Mode</Label>
-</div>
+</div>;
 ```
 
 **Settings row pattern**:
+
 ```tsx
 <div className="flex items-center justify-between">
   <div className="space-y-0.5">
@@ -307,10 +345,12 @@ import { Switch } from "@/components/ui/switch"
 ```
 
 **Accessibility**:
+
 - `role="switch"` applied by Radix
 - `aria-checked` managed
 
 **Refs**:
+
 - shadcn Switch: https://ui.shadcn.com/docs/components/switch
 
 ---
@@ -324,13 +364,15 @@ import { Switch } from "@/components/ui/switch"
 **Usual contents**: Slider, optional value display, optional range labels.
 
 **Structure**:
-```tsx
-import { Slider } from "@/components/ui/slider"
 
-<Slider defaultValue={[50]} max={100} step={1} className="w-[60%]" />
+```tsx
+import { Slider } from "@/components/ui/slider";
+
+<Slider defaultValue={[50]} max={100} step={1} className="w-[60%]" />;
 ```
 
 **With value display**:
+
 ```tsx
 const [value, setValue] = useState([50])
 
@@ -344,11 +386,13 @@ const [value, setValue] = useState([50])
 ```
 
 **Range slider**:
+
 ```tsx
 <Slider defaultValue={[25, 75]} max={100} step={1} />
 ```
 
 **Refs**:
+
 - shadcn Slider: https://ui.shadcn.com/docs/components/slider
 
 ---
@@ -362,6 +406,7 @@ const [value, setValue] = useState([50])
 **Usual contents**: Input trigger, calendar popover.
 
 **Structure**:
+
 ```tsx
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -383,15 +428,23 @@ const [date, setDate] = useState<Date>()
 ```
 
 **Date range**:
+
 ```tsx
-<Calendar mode="range" selected={dateRange} onSelect={setDateRange} numberOfMonths={2} />
+<Calendar
+  mode="range"
+  selected={dateRange}
+  onSelect={setDateRange}
+  numberOfMonths={2}
+/>
 ```
 
 **Accessibility**:
+
 - Full keyboard navigation
 - `aria-label` for calendar
 
 **Refs**:
+
 - shadcn Calendar: https://ui.shadcn.com/docs/components/calendar
 - shadcn Date Picker: https://ui.shadcn.com/docs/components/date-picker
 
@@ -406,14 +459,19 @@ const [date, setDate] = useState<Date>()
 **Usual contents**: Drop zone, file input, preview, progress.
 
 **Structure**:
+
 ```tsx
-{/* Simple file input */}
+{
+  /* Simple file input */
+}
 <div className="grid w-full max-w-sm gap-1.5">
   <Label htmlFor="file">Upload file</Label>
   <Input id="file" type="file" />
-</div>
+</div>;
 
-{/* Drop zone */}
+{
+  /* Drop zone */
+}
 <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12">
   <Upload className="h-8 w-8 text-muted-foreground" />
   <p className="mt-2 text-sm text-muted-foreground">
@@ -423,29 +481,33 @@ const [date, setDate] = useState<Date>()
       <input type="file" className="sr-only" />
     </label>
   </p>
-  <p className="mt-1 text-xs text-muted-foreground">
-    PNG, JPG up to 10MB
-  </p>
-</div>
+  <p className="mt-1 text-xs text-muted-foreground">PNG, JPG up to 10MB</p>
+</div>;
 ```
 
 **With preview**:
+
 ```tsx
-{file && (
-  <div className="flex items-center gap-4 rounded-lg border p-4">
-    <FileIcon className="h-8 w-8 text-muted-foreground" />
-    <div className="flex-1 min-w-0">
-      <p className="truncate font-medium">{file.name}</p>
-      <p className="text-sm text-muted-foreground">{formatBytes(file.size)}</p>
+{
+  file && (
+    <div className="flex items-center gap-4 rounded-lg border p-4">
+      <FileIcon className="h-8 w-8 text-muted-foreground" />
+      <div className="flex-1 min-w-0">
+        <p className="truncate font-medium">{file.name}</p>
+        <p className="text-sm text-muted-foreground">
+          {formatBytes(file.size)}
+        </p>
+      </div>
+      <Button variant="ghost" size="icon" onClick={removeFile}>
+        <X className="h-4 w-4" />
+      </Button>
     </div>
-    <Button variant="ghost" size="icon" onClick={removeFile}>
-      <X className="h-4 w-4" />
-    </Button>
-  </div>
-)}
+  );
+}
 ```
 
 **Accessibility**:
+
 - Label the file input
 - Announce upload status
 
@@ -460,6 +522,7 @@ const [date, setDate] = useState<Date>()
 **Usual contents**: Search input, filtered options list.
 
 **Structure**:
+
 ```tsx
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -492,6 +555,7 @@ const [value, setValue] = useState("")
 ```
 
 **Refs**:
+
 - shadcn Combobox: https://ui.shadcn.com/docs/components/combobox
 
 ---
@@ -505,19 +569,20 @@ const [value, setValue] = useState("")
 **Usual contents**: Search icon, input, clear button, suggestions.
 
 **Structure**:
+
 ```tsx
 <div className="relative">
   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-  <Input 
-    placeholder="Search..." 
+  <Input
+    placeholder="Search..."
     className="pl-10 pr-10"
     value={query}
     onChange={(e) => setQuery(e.target.value)}
   />
   {query && (
-    <Button 
-      variant="ghost" 
-      size="icon" 
+    <Button
+      variant="ghost"
+      size="icon"
       className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7"
       onClick={() => setQuery("")}
     >
@@ -528,6 +593,7 @@ const [value, setValue] = useState("")
 ```
 
 **With keyboard shortcut hint**:
+
 ```tsx
 <div className="relative">
   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -549,25 +615,34 @@ const [value, setValue] = useState("")
 **Usual contents**: Multiple fields, validation messages, submit button.
 
 **Structure** (with React Hook Form + Zod):
+
 ```tsx
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-})
+});
 
 function MyForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { email: "", password: "" },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
   }
 
   return (
@@ -603,11 +678,12 @@ function MyForm() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
 **Refs**:
+
 - shadcn Form: https://ui.shadcn.com/docs/components/form
 - React Hook Form: https://react-hook-form.com/
 - Zod: https://zod.dev/
@@ -619,32 +695,34 @@ function MyForm() {
 **When to use**: Checkout flows, onboarding, complex configurations, surveys.
 
 **Structure**:
+
 ```tsx
 export function WizardForm() {
-  const [step, setStep] = useState(1)
-  const [data, setData] = useState({})
-  const totalSteps = 3
-  
+  const [step, setStep] = useState(1);
+  const [data, setData] = useState({});
+  const totalSteps = 3;
+
   const updateData = (stepData: any) => {
-    setData(prev => ({ ...prev, ...stepData }))
-  }
-  
-  const next = () => setStep(s => Math.min(s + 1, totalSteps))
-  const back = () => setStep(s => Math.max(s - 1, 1))
-  
+    setData((prev) => ({ ...prev, ...stepData }));
+  };
+
+  const next = () => setStep((s) => Math.min(s + 1, totalSteps));
+  const back = () => setStep((s) => Math.max(s - 1, 1));
+
   return (
     <div className="max-w-2xl mx-auto">
       {/* Progress indicator */}
       <div className="mb-8">
         <div className="flex justify-between mb-2">
           {Array.from({ length: totalSteps }).map((_, i) => (
-            <div 
+            <div
               key={i}
               className={cn(
                 "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
                 step > i + 1 && "bg-primary text-primary-foreground",
-                step === i + 1 && "bg-primary/20 text-primary border-2 border-primary",
-                step < i + 1 && "bg-muted text-muted-foreground"
+                step === i + 1 &&
+                  "bg-primary/20 text-primary border-2 border-primary",
+                step < i + 1 && "bg-muted text-muted-foreground",
               )}
             >
               {step > i + 1 ? <Check className="w-4 h-4" /> : i + 1}
@@ -653,47 +731,53 @@ export function WizardForm() {
         </div>
         <Progress value={(step / totalSteps) * 100} />
       </div>
-      
+
       {/* Step content */}
       <div className="border rounded-lg p-6">
         {step === 1 && (
           <StepOne data={data} onNext={next} updateData={updateData} />
         )}
         {step === 2 && (
-          <StepTwo data={data} onNext={next} onBack={back} updateData={updateData} />
+          <StepTwo
+            data={data}
+            onNext={next}
+            onBack={back}
+            updateData={updateData}
+          />
         )}
         {step === 3 && (
           <StepThree data={data} onBack={back} onSubmit={handleSubmit} />
         )}
       </div>
-      
+
       {/* Step indicator text */}
       <p className="text-center text-sm text-muted-foreground mt-4">
         Step {step} of {totalSteps}
       </p>
     </div>
-  )
+  );
 }
 ```
 
 **Individual step component**:
+
 ```tsx
 function StepOne({ data, onNext, updateData }: StepProps) {
   const form = useForm({
     resolver: zodResolver(stepOneSchema),
-    defaultValues: data
-  })
-  
+    defaultValues: data,
+  });
+
   const onSubmit = (values: any) => {
-    updateData(values)
-    onNext()
-  }
-  
+    updateData(values);
+    onNext();
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <h2 className="text-lg font-semibold">Personal Information</h2>
-        
+
         <FormField
           control={form.control}
           name="name"
@@ -707,7 +791,7 @@ function StepOne({ data, onNext, updateData }: StepProps) {
             </FormItem>
           )}
         />
-        
+
         <div className="flex justify-end">
           <Button type="submit">
             Continue
@@ -716,17 +800,18 @@ function StepOne({ data, onNext, updateData }: StepProps) {
         </div>
       </form>
     </Form>
-  )
+  );
 }
 ```
 
 **Review step**:
+
 ```tsx
 function ReviewStep({ data, onBack, onSubmit }: ReviewProps) {
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold">Review Your Information</h2>
-      
+
       <dl className="space-y-4">
         <div className="flex justify-between py-2 border-b">
           <dt className="text-muted-foreground">Name</dt>
@@ -737,22 +822,21 @@ function ReviewStep({ data, onBack, onSubmit }: ReviewProps) {
           <dd className="font-medium">{data.email}</dd>
         </div>
       </dl>
-      
+
       <div className="flex justify-between">
         <Button variant="outline" onClick={onBack}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back
         </Button>
-        <Button onClick={onSubmit}>
-          Submit
-        </Button>
+        <Button onClick={onSubmit}>Submit</Button>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 **Accessibility**:
+
 - Announce step changes to screen readers
 - Maintain focus management between steps
 - Allow navigation back to previous steps
@@ -767,34 +851,35 @@ function ReviewStep({ data, onBack, onSubmit }: ReviewProps) {
 **When to use**: Quick edits, tables, profile information, settings.
 
 **Structure**:
+
 ```tsx
 export function InlineEdit({ value, onSave, label }: InlineEditProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [editValue, setEditValue] = useState(value)
-  const inputRef = useRef<HTMLInputElement>(null)
-  
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(value);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (isEditing) {
-      inputRef.current?.focus()
-      inputRef.current?.select()
+      inputRef.current?.focus();
+      inputRef.current?.select();
     }
-  }, [isEditing])
-  
+  }, [isEditing]);
+
   const handleSave = () => {
-    onSave(editValue)
-    setIsEditing(false)
-  }
-  
+    onSave(editValue);
+    setIsEditing(false);
+  };
+
   const handleCancel = () => {
-    setEditValue(value)
-    setIsEditing(false)
-  }
-  
+    setEditValue(value);
+    setIsEditing(false);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleSave()
-    if (e.key === "Escape") handleCancel()
-  }
-  
+    if (e.key === "Enter") handleSave();
+    if (e.key === "Escape") handleCancel();
+  };
+
   if (isEditing) {
     return (
       <div className="flex items-center gap-2">
@@ -813,9 +898,9 @@ export function InlineEdit({ value, onSave, label }: InlineEditProps) {
           <X className="h-4 w-4" />
         </Button>
       </div>
-    )
+    );
   }
-  
+
   return (
     <button
       onClick={() => setIsEditing(true)}
@@ -825,35 +910,36 @@ export function InlineEdit({ value, onSave, label }: InlineEditProps) {
       <span>{value}</span>
       <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-50" />
     </button>
-  )
+  );
 }
 ```
 
 **Table cell inline edit**:
+
 ```tsx
 function EditableCell({ value, onSave }: CellProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <TableCell>
       {isEditing ? (
         <Input
           defaultValue={value}
           onBlur={(e) => {
-            onSave(e.target.value)
-            setIsEditing(false)
+            onSave(e.target.value);
+            setIsEditing(false);
           }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              onSave(e.currentTarget.value)
-              setIsEditing(false)
+              onSave(e.currentTarget.value);
+              setIsEditing(false);
             }
           }}
           className="h-8"
           autoFocus
         />
       ) : (
-        <span 
+        <span
           onClick={() => setIsEditing(true)}
           className="cursor-pointer hover:bg-muted px-2 py-1 rounded -mx-2"
         >
@@ -861,21 +947,22 @@ function EditableCell({ value, onSave }: CellProps) {
         </span>
       )}
     </TableCell>
-  )
+  );
 }
 ```
 
 **Inline form (edit multiple fields)**:
+
 ```tsx
 export function InlineProfileEdit() {
-  const [isEditing, setIsEditing] = useState(false)
-  const form = useForm({ defaultValues: user })
-  
+  const [isEditing, setIsEditing] = useState(false);
+  const form = useForm({ defaultValues: user });
+
   const onSubmit = (data: any) => {
-    updateUser(data)
-    setIsEditing(false)
-  }
-  
+    updateUser(data);
+    setIsEditing(false);
+  };
+
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
@@ -903,10 +990,14 @@ export function InlineProfileEdit() {
                   </FormItem>
                 )}
               />
-              
+
               <div className="flex gap-2">
                 <Button type="submit">Save</Button>
-                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsEditing(false)}
+                >
                   Cancel
                 </Button>
               </div>
@@ -926,11 +1017,12 @@ export function InlineProfileEdit() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
 ```
 
 **Accessibility**:
+
 - Clear edit/save/cancel actions
 - Keyboard support (Enter to save, Escape to cancel)
 - Focus management on edit
@@ -941,6 +1033,7 @@ export function InlineProfileEdit() {
 ## Form Layout Patterns
 
 ### Two-Column Layout
+
 ```tsx
 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
   <FormField name="firstName" ... />
@@ -952,6 +1045,7 @@ export function InlineProfileEdit() {
 ```
 
 ### Fieldsets with Legend
+
 ```tsx
 <fieldset className="border rounded-lg p-4 space-y-4">
   <legend className="text-sm font-medium px-2">Address</legend>
@@ -961,12 +1055,11 @@ export function InlineProfileEdit() {
 ```
 
 ### Sticky Actions
+
 ```tsx
 <div className="relative">
-  <div className="space-y-4 pb-20">
-    {/* Form fields */}
-  </div>
-  
+  <div className="space-y-4 pb-20">{/* Form fields */}</div>
+
   <div className="fixed bottom-0 left-0 right-0 border-t bg-background p-4">
     <div className="container flex justify-end gap-2">
       <Button variant="outline">Cancel</Button>
@@ -977,6 +1070,7 @@ export function InlineProfileEdit() {
 ```
 
 **Accessibility**:
+
 - Group related fields with `<fieldset>`
 - Use `<legend>` for group labels
 - Maintain logical tab order

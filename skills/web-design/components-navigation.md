@@ -9,6 +9,23 @@ Components for site/app navigation and wayfinding.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Navbar
 
 **Purpose**: Primary site navigation, typically fixed at top.
@@ -18,6 +35,7 @@ Components for site/app navigation and wayfinding.
 **Usual contents**: Logo, nav links, CTA button, mobile menu trigger.
 
 **Structure**:
+
 ```tsx
 <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
   <div className="container flex h-14 items-center">
@@ -26,23 +44,25 @@ Components for site/app navigation and wayfinding.
       <Logo className="h-6 w-6" />
       <span className="font-bold">Brand</span>
     </Link>
-    
+
     {/* Desktop nav */}
     <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
       <Link href="/features">Features</Link>
       <Link href="/pricing">Pricing</Link>
       <Link href="/about">About</Link>
     </nav>
-    
+
     {/* Spacer */}
     <div className="flex-1" />
-    
+
     {/* Actions */}
     <div className="flex items-center space-x-4">
-      <Button variant="ghost" size="sm">Sign in</Button>
+      <Button variant="ghost" size="sm">
+        Sign in
+      </Button>
       <Button size="sm">Get Started</Button>
     </div>
-    
+
     {/* Mobile menu trigger */}
     <MobileNav className="md:hidden" />
   </div>
@@ -58,6 +78,7 @@ Components for site/app navigation and wayfinding.
 | Centered | Logo center, nav items split |
 
 **Scroll behavior**:
+
 ```tsx
 // Hide on scroll down, show on scroll up
 const [hidden, setHidden] = useState(false)
@@ -69,12 +90,14 @@ const [scrolled, setScrolled] = useState(false)
 ```
 
 **Accessibility**:
+
 - Use `<header>` with `<nav>` inside
 - `aria-label="Main navigation"`
 - Skip link to main content
 - Keyboard navigable
 
 **Refs**:
+
 - shadcn Navigation Menu: https://ui.shadcn.com/docs/components/navigation-menu
 
 ---
@@ -88,8 +111,9 @@ const [scrolled, setScrolled] = useState(false)
 **Usual contents**: Logo, close button, nav links (larger touch targets), CTA.
 
 **Structure**:
+
 ```tsx
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 <Sheet>
   <SheetTrigger asChild>
@@ -118,7 +142,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
       <Button className="w-full">Get Started</Button>
     </nav>
   </SheetContent>
-</Sheet>
+</Sheet>;
 ```
 
 **Variants**:
@@ -130,12 +154,14 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 | Bottom sheet | Slides up from bottom |
 
 **Accessibility**:
+
 - Focus trap when open
 - Close on Escape
 - Return focus to trigger on close
 - `aria-expanded` on trigger
 
 **Refs**:
+
 - shadcn Sheet: https://ui.shadcn.com/docs/components/sheet
 
 ---
@@ -149,6 +175,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 **Usual contents**: Logo, nav groups with items, user menu, collapse toggle.
 
 **Structure**:
+
 ```tsx
 <aside className="flex h-screen w-64 flex-col border-r bg-muted/40">
   {/* Header */}
@@ -158,20 +185,30 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
       <span>App Name</span>
     </Link>
   </div>
-  
+
   {/* Navigation */}
   <nav className="flex-1 space-y-1 overflow-y-auto p-4">
     <NavGroup title="Main">
-      <NavItem href="/dashboard" icon={Home}>Dashboard</NavItem>
-      <NavItem href="/projects" icon={Folder}>Projects</NavItem>
-      <NavItem href="/tasks" icon={CheckSquare}>Tasks</NavItem>
+      <NavItem href="/dashboard" icon={Home}>
+        Dashboard
+      </NavItem>
+      <NavItem href="/projects" icon={Folder}>
+        Projects
+      </NavItem>
+      <NavItem href="/tasks" icon={CheckSquare}>
+        Tasks
+      </NavItem>
     </NavGroup>
     <NavGroup title="Settings">
-      <NavItem href="/settings" icon={Settings}>Settings</NavItem>
-      <NavItem href="/help" icon={HelpCircle}>Help</NavItem>
+      <NavItem href="/settings" icon={Settings}>
+        Settings
+      </NavItem>
+      <NavItem href="/help" icon={HelpCircle}>
+        Help
+      </NavItem>
     </NavGroup>
   </nav>
-  
+
   {/* Footer */}
   <div className="border-t p-4">
     <UserMenu />
@@ -180,6 +217,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 ```
 
 **Nav Item component**:
+
 ```tsx
 function NavItem({ href, icon: Icon, children, active }) {
   return (
@@ -187,15 +225,15 @@ function NavItem({ href, icon: Icon, children, active }) {
       href={href}
       className={cn(
         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-        active 
-          ? "bg-primary text-primary-foreground" 
-          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+        active
+          ? "bg-primary text-primary-foreground"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground",
       )}
     >
       <Icon className="h-4 w-4" />
       {children}
     </Link>
-  )
+  );
 }
 ```
 
@@ -207,11 +245,13 @@ function NavItem({ href, icon: Icon, children, active }) {
 | Mini | 48px | Yes | Hidden |
 
 **Accessibility**:
+
 - Use `<nav>` with `aria-label`
 - `aria-current="page"` for active item
 - Keyboard navigation (arrow keys optional)
 
 **Refs**:
+
 - shadcn Sidebar: https://ui.shadcn.com/docs/components/sidebar
 
 ---
@@ -225,6 +265,7 @@ function NavItem({ href, icon: Icon, children, active }) {
 **Usual contents**: Home link, parent pages, current page (not linked).
 
 **Structure**:
+
 ```tsx
 import {
   Breadcrumb,
@@ -233,7 +274,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+} from "@/components/ui/breadcrumb";
 
 <Breadcrumb>
   <BreadcrumbList>
@@ -249,10 +290,11 @@ import {
       <BreadcrumbPage>Current Product</BreadcrumbPage>
     </BreadcrumbItem>
   </BreadcrumbList>
-</Breadcrumb>
+</Breadcrumb>;
 ```
 
 **Variants**:
+
 ```tsx
 // With icons
 <BreadcrumbLink href="/"><Home className="h-4 w-4" /></BreadcrumbLink>
@@ -276,11 +318,13 @@ import {
 ```
 
 **Accessibility**:
+
 - Use `<nav aria-label="Breadcrumb">`
 - Last item is not a link
 - `aria-current="page"` on current page
 
 **Refs**:
+
 - shadcn Breadcrumb: https://ui.shadcn.com/docs/components/breadcrumb
 
 ---
@@ -294,8 +338,9 @@ import {
 **Usual contents**: Tab triggers (labels), tab panels (content).
 
 **Structure**:
+
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 <Tabs defaultValue="account" className="w-full">
   <TabsList>
@@ -312,7 +357,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
   <TabsContent value="notifications">
     <NotificationSettings />
   </TabsContent>
-</Tabs>
+</Tabs>;
 ```
 
 **Variants**:
@@ -324,9 +369,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 | Vertical | Stacked vertically |
 
 **Underline variant**:
+
 ```tsx
 <TabsList className="h-auto p-0 bg-transparent border-b rounded-none">
-  <TabsTrigger 
+  <TabsTrigger
     value="tab1"
     className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary"
   >
@@ -336,11 +382,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 ```
 
 **Accessibility**:
+
 - Automatic: arrow key navigation
 - `role="tablist"`, `role="tab"`, `role="tabpanel"`
 - `aria-selected` managed by Radix
 
 **Refs**:
+
 - shadcn Tabs: https://ui.shadcn.com/docs/components/tabs
 - Radix Tabs: https://www.radix-ui.com/primitives/docs/components/tabs
 
@@ -355,6 +403,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 **Usual contents**: Previous/next buttons, page numbers, optional page size selector.
 
 **Structure**:
+
 ```tsx
 import {
   Pagination,
@@ -364,7 +413,7 @@ import {
   PaginationNext,
   PaginationPrevious,
   PaginationEllipsis,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 
 <Pagination>
   <PaginationContent>
@@ -375,7 +424,9 @@ import {
       <PaginationLink href="#">1</PaginationLink>
     </PaginationItem>
     <PaginationItem>
-      <PaginationLink href="#" isActive>2</PaginationLink>
+      <PaginationLink href="#" isActive>
+        2
+      </PaginationLink>
     </PaginationItem>
     <PaginationItem>
       <PaginationLink href="#">3</PaginationLink>
@@ -387,7 +438,7 @@ import {
       <PaginationNext href="#" />
     </PaginationItem>
   </PaginationContent>
-</Pagination>
+</Pagination>;
 ```
 
 **Variants**:
@@ -399,11 +450,13 @@ import {
 | With size | + Page size selector |
 
 **Accessibility**:
+
 - Use `<nav aria-label="Pagination">`
 - `aria-current="page"` on active page
 - Disabled states for first/last page
 
 **Refs**:
+
 - shadcn Pagination: https://ui.shadcn.com/docs/components/pagination
 
 ---
@@ -417,6 +470,7 @@ import {
 **Usual contents**: Logo, link groups, social icons, copyright, legal links.
 
 **Structure**:
+
 ```tsx
 <footer className="border-t bg-muted/40">
   <div className="container py-12 md:py-16">
@@ -431,44 +485,66 @@ import {
           Brief company description or tagline.
         </p>
       </div>
-      
+
       {/* Link columns */}
       <div>
         <h3 className="font-semibold">Product</h3>
         <ul className="mt-4 space-y-2 text-sm">
-          <li><Link href="/features">Features</Link></li>
-          <li><Link href="/pricing">Pricing</Link></li>
-          <li><Link href="/changelog">Changelog</Link></li>
+          <li>
+            <Link href="/features">Features</Link>
+          </li>
+          <li>
+            <Link href="/pricing">Pricing</Link>
+          </li>
+          <li>
+            <Link href="/changelog">Changelog</Link>
+          </li>
         </ul>
       </div>
-      
+
       <div>
         <h3 className="font-semibold">Company</h3>
         <ul className="mt-4 space-y-2 text-sm">
-          <li><Link href="/about">About</Link></li>
-          <li><Link href="/blog">Blog</Link></li>
-          <li><Link href="/careers">Careers</Link></li>
+          <li>
+            <Link href="/about">About</Link>
+          </li>
+          <li>
+            <Link href="/blog">Blog</Link>
+          </li>
+          <li>
+            <Link href="/careers">Careers</Link>
+          </li>
         </ul>
       </div>
-      
+
       <div>
         <h3 className="font-semibold">Legal</h3>
         <ul className="mt-4 space-y-2 text-sm">
-          <li><Link href="/privacy">Privacy</Link></li>
-          <li><Link href="/terms">Terms</Link></li>
+          <li>
+            <Link href="/privacy">Privacy</Link>
+          </li>
+          <li>
+            <Link href="/terms">Terms</Link>
+          </li>
         </ul>
       </div>
     </div>
-    
+
     {/* Bottom bar */}
     <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
       <p className="text-sm text-muted-foreground">
         © 2024 Brand. All rights reserved.
       </p>
       <div className="flex space-x-4">
-        <Link href="#" aria-label="Twitter"><Twitter className="h-5 w-5" /></Link>
-        <Link href="#" aria-label="GitHub"><Github className="h-5 w-5" /></Link>
-        <Link href="#" aria-label="LinkedIn"><Linkedin className="h-5 w-5" /></Link>
+        <Link href="#" aria-label="Twitter">
+          <Twitter className="h-5 w-5" />
+        </Link>
+        <Link href="#" aria-label="GitHub">
+          <Github className="h-5 w-5" />
+        </Link>
+        <Link href="#" aria-label="LinkedIn">
+          <Linkedin className="h-5 w-5" />
+        </Link>
       </div>
     </div>
   </div>
@@ -483,6 +559,7 @@ import {
 | Extended | 5+ | + Newsletter, + app badges |
 
 **Accessibility**:
+
 - Use `<footer>` element
 - `aria-label` on social icon links
 - Group related links
@@ -498,6 +575,7 @@ import {
 **Usual contents**: Menu items, separators, sub-menus.
 
 **Structure**:
+
 ```tsx
 import {
   DropdownMenu,
@@ -506,7 +584,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -531,15 +609,17 @@ import {
       Delete
     </DropdownMenuItem>
   </DropdownMenuContent>
-</DropdownMenu>
+</DropdownMenu>;
 ```
 
 **Accessibility**:
+
 - Full keyboard support (Radix)
 - Focus management
 - `aria-expanded` on trigger
 
 **Refs**:
+
 - shadcn Dropdown Menu: https://ui.shadcn.com/docs/components/dropdown-menu
 
 ---
@@ -553,13 +633,14 @@ import {
 **Usual contents**: Same as dropdown menu.
 
 **Structure**:
+
 ```tsx
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu"
+} from "@/components/ui/context-menu";
 
 <ContextMenu>
   <ContextMenuTrigger className="flex h-[150px] w-[300px] items-center justify-center rounded-md border border-dashed">
@@ -570,10 +651,11 @@ import {
     <ContextMenuItem>Paste</ContextMenuItem>
     <ContextMenuItem>Delete</ContextMenuItem>
   </ContextMenuContent>
-</ContextMenu>
+</ContextMenu>;
 ```
 
 **Refs**:
+
 - shadcn Context Menu: https://ui.shadcn.com/docs/components/context-menu
 
 ---
@@ -587,6 +669,7 @@ import {
 **Usual contents**: Search input, categorized commands, keyboard shortcuts.
 
 **Structure**:
+
 ```tsx
 import {
   CommandDialog,
@@ -642,11 +725,13 @@ useEffect(() => {
 ```
 
 **Accessibility**:
+
 - Full keyboard navigation
 - Screen reader announcements
 - Focus trap when open
 
 **Refs**:
+
 - shadcn Command: https://ui.shadcn.com/docs/components/command
 - cmdk: https://cmdk.paco.me/
 
@@ -657,41 +742,47 @@ useEffect(() => {
 **When to use**: Checkout flows, onboarding, wizards, form steps.
 
 **Structure**:
+
 ```tsx
 <nav aria-label="Progress">
   <ol className="flex items-center w-full">
     {steps.map((step, index) => (
       <li key={step.id} className="flex items-center">
         {/* Step indicator */}
-        <div className={cn(
-          "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
-          step.isComplete && "bg-primary text-primary-foreground",
-          step.isCurrent && "bg-primary/20 text-primary border-2 border-primary",
-          !step.isComplete && !step.isCurrent && "bg-muted text-muted-foreground"
-        )}>
-          {step.isComplete ? (
-            <Check className="w-4 h-4" />
-          ) : (
-            index + 1
+        <div
+          className={cn(
+            "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
+            step.isComplete && "bg-primary text-primary-foreground",
+            step.isCurrent &&
+              "bg-primary/20 text-primary border-2 border-primary",
+            !step.isComplete &&
+              !step.isCurrent &&
+              "bg-muted text-muted-foreground",
           )}
+        >
+          {step.isComplete ? <Check className="w-4 h-4" /> : index + 1}
         </div>
-        
+
         {/* Step label */}
-        <span className={cn(
-          "ml-2 text-sm font-medium",
-          step.isComplete && "text-primary",
-          step.isCurrent && "text-foreground",
-          !step.isComplete && !step.isCurrent && "text-muted-foreground"
-        )}>
+        <span
+          className={cn(
+            "ml-2 text-sm font-medium",
+            step.isComplete && "text-primary",
+            step.isCurrent && "text-foreground",
+            !step.isComplete && !step.isCurrent && "text-muted-foreground",
+          )}
+        >
           {step.label}
         </span>
-        
+
         {/* Connector line */}
         {index < steps.length - 1 && (
-          <div className={cn(
-            "w-full h-0.5 mx-4",
-            step.isComplete ? "bg-primary" : "bg-muted"
-          )} />
+          <div
+            className={cn(
+              "w-full h-0.5 mx-4",
+              step.isComplete ? "bg-primary" : "bg-muted",
+            )}
+          />
         )}
       </li>
     ))}
@@ -707,6 +798,7 @@ useEffect(() => {
 | `compact` | Icons only | Mobile |
 
 **Vertical stepper**:
+
 ```tsx
 <ol className="space-y-0">
   {steps.map((step, index) => (
@@ -720,16 +812,14 @@ useEffect(() => {
           <div className="w-0.5 flex-1 bg-muted my-2" />
         )}
       </div>
-      
+
       {/* Right column: content */}
       <div className="flex-1 pb-8">
         <h3 className="font-medium">{step.title}</h3>
         <p className="text-sm text-muted-foreground">{step.description}</p>
-        
+
         {/* Step content */}
-        {step.isCurrent && (
-          <div className="mt-4">{step.content}</div>
-        )}
+        {step.isCurrent && <div className="mt-4">{step.content}</div>}
       </div>
     </li>
   ))}
@@ -737,11 +827,13 @@ useEffect(() => {
 ```
 
 **Accessibility**:
+
 - Use `<nav>` with aria-label
 - Mark current step with `aria-current="step"`
 - Show completed steps with checkmark icon
 
 **Refs**:
+
 - shadcn Stepper: https://ui.shadcn.com/docs/components/stepper
 
 ---
@@ -753,40 +845,40 @@ useEffect(() => {
 **When to use**: Any navigation, replacing raw `<a>` tags.
 
 **Structure**:
+
 ```tsx
-import { Link, useLocation } from "react-router-dom"
-import { cn } from "@/lib/utils"
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 interface NavLinkProps {
-  to: string
-  children: React.ReactNode
-  className?: string
+  to: string;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export function NavLink({ to, children, className }: NavLinkProps) {
-  const location = useLocation()
-  const isActive = location.pathname === to
-  
+  const location = useLocation();
+  const isActive = location.pathname === to;
+
   return (
     <Link
       to={to}
       className={cn(
         "inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors",
         "hover:text-primary focus-visible:outline-none focus-visible:ring-2",
-        isActive 
-          ? "text-primary" 
-          : "text-muted-foreground",
-        className
+        isActive ? "text-primary" : "text-muted-foreground",
+        className,
       )}
       aria-current={isActive ? "page" : undefined}
     >
       {children}
     </Link>
-  )
+  );
 }
 ```
 
 **Variants**:
+
 ```tsx
 // Underline style
 <a className={cn(
@@ -799,8 +891,8 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 // Pill style
 <a className={cn(
   "px-4 py-2 rounded-lg transition-colors",
-  isActive 
-    ? "bg-primary text-primary-foreground" 
+  isActive
+    ? "bg-primary text-primary-foreground"
     : "hover:bg-muted"
 )}>
 
@@ -812,8 +904,9 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 ```
 
 **External links**:
+
 ```tsx
-<a 
+<a
   href={href}
   target="_blank"
   rel="noopener noreferrer"
@@ -825,6 +918,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 ```
 
 **Accessibility**:
+
 - Use `aria-current="page"` for active link
 - External links: indicate with icon + `rel="noopener noreferrer"`
 - Ensure sufficient color contrast
@@ -838,8 +932,9 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 **When to use**: Create actions, main CTA on mobile, speed dial.
 
 **Structure**:
+
 ```tsx
-<button 
+<button
   className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl transition-shadow"
   aria-label="Create new item"
 >
@@ -855,6 +950,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 | `extended` | Auto width | With text label |
 
 **Extended FAB**:
+
 ```tsx
 <button className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-lg">
   <Plus className="h-5 w-5" />
@@ -863,13 +959,18 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 ```
 
 **Speed dial (multiple actions)**:
+
 ```tsx
 <div className="fixed bottom-6 right-6 z-50">
   {/* Action buttons */}
-  <div className={cn(
-    "flex flex-col-reverse gap-2 mb-4 transition-all",
-    isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-  )}>
+  <div
+    className={cn(
+      "flex flex-col-reverse gap-2 mb-4 transition-all",
+      isOpen
+        ? "opacity-100 translate-y-0"
+        : "opacity-0 translate-y-4 pointer-events-none",
+    )}
+  >
     <button className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
       <FileText className="h-4 w-4" />
     </button>
@@ -877,18 +978,24 @@ export function NavLink({ to, children, className }: NavLinkProps) {
       <Image className="h-4 w-4" />
     </button>
   </div>
-  
+
   {/* Main FAB */}
-  <button 
+  <button
     onClick={() => setIsOpen(!isOpen)}
     className="h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg"
   >
-    <Plus className={cn("h-6 w-6 mx-auto transition-transform", isOpen && "rotate-45")} />
+    <Plus
+      className={cn(
+        "h-6 w-6 mx-auto transition-transform",
+        isOpen && "rotate-45",
+      )}
+    />
   </button>
 </div>
 ```
 
 **Accessibility**:
+
 - Always use aria-label (icon-only)
 - Ensure sufficient touch target (48px minimum)
 - Speed dial: trap focus when open
@@ -902,27 +1009,32 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 **When to use**: All pages with navigation, accessibility requirement.
 
 **Structure**:
+
 ```tsx
-<a 
+<a
   href="#main-content"
   className="fixed top-4 left-4 z-[100] -translate-y-[200%] focus:translate-y-0 bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium transition-transform"
 >
   Skip to main content
-</a>
+</a>;
 
-{/* Later in page */}
+{
+  /* Later in page */
+}
 <main id="main-content" tabIndex={-1}>
   {/* Page content */}
-</main>
+</main>;
 ```
 
 **How it works**:
+
 - Hidden by default (`-translate-y-[200%]`)
 - Appears on focus (keyboard tab)
 - Clicking jumps to main content
 - Focus moves to main content area
 
 **Accessibility**:
+
 - First focusable element in body
 - Visible only on keyboard focus
 - Main content must have `tabIndex={-1}` to receive focus
@@ -936,6 +1048,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 **When to use**: Multi-language sites, i18n implementations.
 
 **Structure**:
+
 ```tsx
 <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -946,11 +1059,15 @@ export function NavLink({ to, children, className }: NavLinkProps) {
   </DropdownMenuTrigger>
   <DropdownMenuContent align="end">
     <DropdownMenuItem onClick={() => setLocale("en")}>
-      <span className={cn("mr-2", current === "en" && "font-bold")}>English</span>
+      <span className={cn("mr-2", current === "en" && "font-bold")}>
+        English
+      </span>
       {current === "en" && <Check className="h-4 w-4 ml-auto" />}
     </DropdownMenuItem>
     <DropdownMenuItem onClick={() => setLocale("es")}>
-      <span className={cn("mr-2", current === "es" && "font-bold")}>Español</span>
+      <span className={cn("mr-2", current === "es" && "font-bold")}>
+        Español
+      </span>
       {current === "es" && <Check className="h-4 w-4 ml-auto" />}
     </DropdownMenuItem>
   </DropdownMenuContent>
@@ -958,6 +1075,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 ```
 
 **Accessibility**:
+
 - Indicate current language with checkmark
 - Use `lang` attribute on html element
 - Provide hreflang for alternate versions

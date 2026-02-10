@@ -1,46 +1,53 @@
 ---
 name: testing
-description: Test strategy and framework index by language (unit, integration, e2e)
+description: TDD-first testing playbook with stack routing (unit, integration, e2e)
 ---
 
 # Testing Skill Index
 
-This skill routes test-writing to the correct framework conventions.
+Use this skill to produce reliable tests before implementation changes.
 
-## Defaults
+## When to load
 
-- Prefer tests that prevent regressions (bug repro -> red -> fix -> green)
-- Keep tests deterministic (no time, network, randomness without control)
-- Prefer unit tests; use integration tests at boundaries
+- You are adding/changing behavior and need confidence.
+- You are fixing a bug and need a repro test first.
+- You need to choose a test framework or level for a stack.
 
-## Language mapping
+## When NOT to load
 
-- Python: pytest
-  - See: `skills/testing/python.md`
-- TypeScript/JavaScript: Vitest or Jest
-  - See: `skills/testing/typescript.md`
-- React UI tests: React Testing Library + user-event
-  - See: `skills/testing/typescript.md`
-- Ruby/Rails: RSpec (or Minitest if project uses it)
-  - See: `skills/testing/ruby.md`
-- Go: standard library `testing` + table tests
-  - See: `skills/testing/go.md`
-- Rust: `#[test]` + integration tests in `tests/`
-  - See: `skills/testing/rust.md`
-- Swift: XCTest
-  - See: `skills/testing/swift.md`
-- Kotlin: JUnit 5 + MockK
-  - See: `skills/testing/kotlin.md`
+- Work is pure docs/content with no behavior change.
+- You only need static checks (lint/type/format) with no runtime behavior.
+
+## Default policy (TDD-first)
+
+- Red -> Green -> Refactor is default.
+- Start at lowest layer that can prove behavior.
+- Keep tests deterministic (no real network/time randomness without control).
+- Assert outcomes, not implementation internals.
+- Add regression test for every bug fix.
+
+## Stack mapping
+
+- Ruby/Rails -> `ruby-rails.md`
+- Node/Next.js -> `node-nextjs.md`
+- Python -> `python.md`
+- Test docs/comment style -> `documentation-and-comments.md`
+- Other stacks:
+  - Go -> `go.md`
+  - Rust -> `rust.md`
+  - Swift -> `swift.md`
+  - Kotlin -> `kotlin.md`
 
 ## Test levels
 
-- Unit: pure logic, fast, isolated
-- Integration: DB/filesystem/process boundaries
-- End-to-end: full system flows (browser/API) when needed
+- Unit: pure logic, fast, isolated.
+- Integration: DB/filesystem/process/API boundaries.
+- End-to-end: full user workflows when necessary.
 
-## What good tests include
+## Quick start checklist
 
-- Clear naming (behavior focused)
-- Edge cases and error paths
-- Minimal setup with helpers/fixtures
-- Assertions on outcomes, not implementation
+- Identify behavior change in one sentence.
+- Write failing test that proves the change.
+- Implement minimal code to pass.
+- Refactor with tests green.
+- Update docs for public behavior changes.

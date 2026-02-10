@@ -9,6 +9,23 @@ Components for user actions and system feedback.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Button
 
 **Purpose**: Primary action trigger.
@@ -18,6 +35,7 @@ Components for user actions and system feedback.
 **Usual contents**: Label, optional icon.
 
 **Structure**:
+
 ```tsx
 import { Button } from "@/components/ui/button"
 
@@ -40,6 +58,7 @@ import { Button } from "@/components/ui/button"
 | destructive | Delete, dangerous actions |
 
 **Sizes**:
+
 ```tsx
 <Button size="sm">Small</Button>
 <Button size="default">Default</Button>
@@ -50,6 +69,7 @@ import { Button } from "@/components/ui/button"
 ```
 
 **With icon**:
+
 ```tsx
 <Button>
   <Mail className="mr-2 h-4 w-4" />
@@ -63,6 +83,7 @@ import { Button } from "@/components/ui/button"
 ```
 
 **Loading state**:
+
 ```tsx
 <Button disabled>
   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -71,6 +92,7 @@ import { Button } from "@/components/ui/button"
 ```
 
 **As link**:
+
 ```tsx
 <Button asChild>
   <Link href="/dashboard">Go to Dashboard</Link>
@@ -78,11 +100,13 @@ import { Button } from "@/components/ui/button"
 ```
 
 **Accessibility**:
+
 - Use semantic `<button>` (default)
 - `aria-label` for icon-only buttons
 - Disabled state visible and announced
 
 **Refs**:
+
 - shadcn Button: https://ui.shadcn.com/docs/components/button
 
 ---
@@ -96,8 +120,9 @@ import { Button } from "@/components/ui/button"
 **Usual contents**: Icon, title, description.
 
 **Structure**:
+
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 <Alert>
   <Terminal className="h-4 w-4" />
@@ -105,10 +130,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
   <AlertDescription>
     You can add components to your app using the CLI.
   </AlertDescription>
-</Alert>
+</Alert>;
 ```
 
 **Variants**:
+
 ```tsx
 // Default (info)
 <Alert>...</Alert>
@@ -129,30 +155,35 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 ```
 
 **Dismissible**:
-```tsx
-const [visible, setVisible] = useState(true)
 
-{visible && (
-  <Alert className="relative">
-    <AlertTitle>Notice</AlertTitle>
-    <AlertDescription>This is dismissible.</AlertDescription>
-    <Button 
-      variant="ghost" 
-      size="icon" 
-      className="absolute right-2 top-2 h-6 w-6"
-      onClick={() => setVisible(false)}
-    >
-      <X className="h-4 w-4" />
-    </Button>
-  </Alert>
-)}
+```tsx
+const [visible, setVisible] = useState(true);
+
+{
+  visible && (
+    <Alert className="relative">
+      <AlertTitle>Notice</AlertTitle>
+      <AlertDescription>This is dismissible.</AlertDescription>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute right-2 top-2 h-6 w-6"
+        onClick={() => setVisible(false)}
+      >
+        <X className="h-4 w-4" />
+      </Button>
+    </Alert>
+  );
+}
 ```
 
 **Accessibility**:
+
 - Use `role="alert"` for important messages
 - Icon should be decorative (`aria-hidden`)
 
 **Refs**:
+
 - shadcn Alert: https://ui.shadcn.com/docs/components/alert
 
 ---
@@ -166,6 +197,7 @@ const [visible, setVisible] = useState(true)
 **Usual contents**: Title, description, optional action button.
 
 **Structure**:
+
 ```tsx
 // In component
 import { useToast } from "@/components/ui/use-toast"
@@ -183,32 +215,40 @@ import { Toaster } from "@/components/ui/toaster"
 ```
 
 **Variants**:
+
 ```tsx
 // Default
-toast({ title: "Success", description: "Operation completed." })
+toast({ title: "Success", description: "Operation completed." });
 
 // Destructive
-toast({ variant: "destructive", title: "Error", description: "Something went wrong." })
+toast({
+  variant: "destructive",
+  title: "Error",
+  description: "Something went wrong.",
+});
 
 // With action
 toast({
   title: "File deleted",
   description: "The file has been moved to trash.",
   action: <ToastAction altText="Undo">Undo</ToastAction>,
-})
+});
 ```
 
 **Positioning** (in Toaster):
+
 ```tsx
 <Toaster position="top-right" /> // top-left, top-center, bottom-left, bottom-center, bottom-right
 ```
 
 **Accessibility**:
+
 - Auto-announced by screen readers
 - Dismissible with close button
 - Action buttons focusable
 
 **Refs**:
+
 - shadcn Toast: https://ui.shadcn.com/docs/components/toast
 - Sonner (alternative): https://sonner.emilkowal.ski/
 
@@ -223,6 +263,7 @@ toast({
 **Usual contents**: Title, description, content, action buttons.
 
 **Structure**:
+
 ```tsx
 import {
   Dialog,
@@ -232,7 +273,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 <Dialog>
   <DialogTrigger asChild>
@@ -245,17 +286,16 @@ import {
         Make changes to your profile here. Click save when done.
       </DialogDescription>
     </DialogHeader>
-    <div className="py-4">
-      {/* Form content */}
-    </div>
+    <div className="py-4">{/* Form content */}</div>
     <DialogFooter>
       <Button type="submit">Save changes</Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 **Sizes**:
+
 ```tsx
 <DialogContent className="sm:max-w-sm">   // Small
 <DialogContent className="sm:max-w-md">   // Medium
@@ -265,6 +305,7 @@ import {
 ```
 
 **Controlled**:
+
 ```tsx
 const [open, setOpen] = useState(false)
 
@@ -274,11 +315,13 @@ const [open, setOpen] = useState(false)
 ```
 
 **Accessibility**:
+
 - Focus trapped inside
 - Close on Escape
 - `aria-labelledby` and `aria-describedby` automatic
 
 **Refs**:
+
 - shadcn Dialog: https://ui.shadcn.com/docs/components/dialog
 
 ---
@@ -292,6 +335,7 @@ const [open, setOpen] = useState(false)
 **Usual contents**: Title, description, cancel and confirm buttons.
 
 **Structure**:
+
 ```tsx
 import {
   AlertDialog,
@@ -303,7 +347,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 <AlertDialog>
   <AlertDialogTrigger asChild>
@@ -313,8 +357,8 @@ import {
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete your
-        account and remove your data from our servers.
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
@@ -324,14 +368,16 @@ import {
       </AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
-</AlertDialog>
+</AlertDialog>;
 ```
 
 **Accessibility**:
+
 - Cannot be dismissed by clicking outside
 - Forces user to make explicit choice
 
 **Refs**:
+
 - shadcn Alert Dialog: https://ui.shadcn.com/docs/components/alert-dialog
 
 ---
@@ -345,6 +391,7 @@ import {
 **Usual contents**: Header, scrollable content, optional footer.
 
 **Structure**:
+
 ```tsx
 import {
   Sheet,
@@ -353,7 +400,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 
 <Sheet>
   <SheetTrigger asChild>
@@ -364,14 +411,13 @@ import {
       <SheetTitle>Edit Profile</SheetTitle>
       <SheetDescription>Make changes to your profile.</SheetDescription>
     </SheetHeader>
-    <div className="py-4">
-      {/* Content */}
-    </div>
+    <div className="py-4">{/* Content */}</div>
   </SheetContent>
-</Sheet>
+</Sheet>;
 ```
 
 **Sides**:
+
 ```tsx
 <SheetContent side="right"> // default
 <SheetContent side="left">
@@ -380,12 +426,14 @@ import {
 ```
 
 **Sizes**:
+
 ```tsx
 <SheetContent className="w-[400px] sm:w-[540px]">
 <SheetContent className="sm:max-w-lg">
 ```
 
 **Refs**:
+
 - shadcn Sheet: https://ui.shadcn.com/docs/components/sheet
 
 ---
@@ -399,6 +447,7 @@ import {
 **Usual contents**: Same as Sheet/Dialog.
 
 **Structure**:
+
 ```tsx
 import {
   Drawer,
@@ -407,7 +456,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer"
+} from "@/components/ui/drawer";
 
 <Drawer>
   <DrawerTrigger asChild>
@@ -418,14 +467,13 @@ import {
       <DrawerTitle>Drawer Title</DrawerTitle>
       <DrawerDescription>Drawer description.</DrawerDescription>
     </DrawerHeader>
-    <div className="p-4">
-      {/* Content */}
-    </div>
+    <div className="p-4">{/* Content */}</div>
   </DrawerContent>
-</Drawer>
+</Drawer>;
 ```
 
 **Refs**:
+
 - shadcn Drawer: https://ui.shadcn.com/docs/components/drawer
 - Vaul: https://vaul.emilkowal.ski/
 
@@ -440,13 +488,14 @@ import {
 **Usual contents**: Short text (1-2 sentences max).
 
 **Structure**:
+
 ```tsx
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip";
 
 <TooltipProvider>
   <Tooltip>
@@ -459,10 +508,11 @@ import {
       <p>Settings</p>
     </TooltipContent>
   </Tooltip>
-</TooltipProvider>
+</TooltipProvider>;
 ```
 
 **Positioning**:
+
 ```tsx
 <TooltipContent side="top">    // default
 <TooltipContent side="right">
@@ -471,10 +521,12 @@ import {
 ```
 
 **Accessibility**:
+
 - Shows on focus for keyboard users
 - Short delay before showing
 
 **Refs**:
+
 - shadcn Tooltip: https://ui.shadcn.com/docs/components/tooltip
 
 ---
@@ -488,12 +540,13 @@ import {
 **Usual contents**: Any content (forms, lists, etc.).
 
 **Structure**:
+
 ```tsx
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 
 <Popover>
   <PopoverTrigger asChild>
@@ -510,10 +563,11 @@ import {
       {/* More content */}
     </div>
   </PopoverContent>
-</Popover>
+</Popover>;
 ```
 
 **Refs**:
+
 - shadcn Popover: https://ui.shadcn.com/docs/components/popover
 
 ---
@@ -527,13 +581,15 @@ import {
 **Usual contents**: Progress bar, optional percentage.
 
 **Structure**:
-```tsx
-import { Progress } from "@/components/ui/progress"
 
-<Progress value={33} />
+```tsx
+import { Progress } from "@/components/ui/progress";
+
+<Progress value={33} />;
 ```
 
 **With label**:
+
 ```tsx
 <div className="space-y-2">
   <div className="flex justify-between text-sm">
@@ -545,15 +601,18 @@ import { Progress } from "@/components/ui/progress"
 ```
 
 **Indeterminate** (no known progress):
+
 ```tsx
 <Progress className="[&>div]:animate-pulse" />
 ```
 
 **Accessibility**:
+
 - `role="progressbar"` applied
 - `aria-valuenow`, `aria-valuemin`, `aria-valuemax` managed
 
 **Refs**:
+
 - shadcn Progress: https://ui.shadcn.com/docs/components/progress
 
 ---
@@ -567,32 +626,40 @@ import { Progress } from "@/components/ui/progress"
 **Usual contents**: None (decorative).
 
 **Structure**:
+
 ```tsx
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
-{/* Single skeleton */}
-<Skeleton className="h-4 w-[250px]" />
+{
+  /* Single skeleton */
+}
+<Skeleton className="h-4 w-[250px]" />;
 
-{/* Card skeleton */}
+{
+  /* Card skeleton */
+}
 <div className="flex items-center space-x-4">
   <Skeleton className="h-12 w-12 rounded-full" />
   <div className="space-y-2">
     <Skeleton className="h-4 w-[250px]" />
     <Skeleton className="h-4 w-[200px]" />
   </div>
-</div>
+</div>;
 
-{/* Table skeleton */}
+{
+  /* Table skeleton */
+}
 <div className="space-y-3">
   {[...Array(5)].map((_, i) => (
     <Skeleton key={i} className="h-12 w-full" />
   ))}
-</div>
+</div>;
 ```
 
 **Pattern**: Match skeleton shape to actual content shape.
 
 **Refs**:
+
 - shadcn Skeleton: https://ui.shadcn.com/docs/components/skeleton
 
 ---
@@ -606,25 +673,33 @@ import { Skeleton } from "@/components/ui/skeleton"
 **Usual contents**: Animated icon.
 
 **Structure**:
+
 ```tsx
-import { Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react";
 
-{/* Simple spinner */}
-<Loader2 className="h-4 w-4 animate-spin" />
+{
+  /* Simple spinner */
+}
+<Loader2 className="h-4 w-4 animate-spin" />;
 
-{/* Centered full page */}
+{
+  /* Centered full page */
+}
 <div className="flex h-screen items-center justify-center">
   <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-</div>
+</div>;
 
-{/* With text */}
+{
+  /* With text */
+}
 <div className="flex items-center gap-2">
   <Loader2 className="h-4 w-4 animate-spin" />
   <span>Loading...</span>
-</div>
+</div>;
 ```
 
 **Accessibility**:
+
 - Add `aria-label="Loading"` or visible text
 - Consider `role="status"` for live updates
 
@@ -635,6 +710,7 @@ import { Loader2 } from "lucide-react"
 **When to use**: Status labels, counts, notifications, categories.
 
 **Structure**:
+
 ```tsx
 <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors">
   Active
@@ -652,6 +728,7 @@ import { Loader2 } from "lucide-react"
 | `warning` | `border-transparent bg-yellow-500 text-white` | Warning |
 
 **With icon**:
+
 ```tsx
 <Badge variant="success">
   <Check className="mr-1 h-3 w-3" />
@@ -660,6 +737,7 @@ import { Loader2 } from "lucide-react"
 ```
 
 **Dot indicator**:
+
 ```tsx
 <span className="relative flex h-3 w-3">
   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -668,6 +746,7 @@ import { Loader2 } from "lucide-react"
 ```
 
 **Refs**:
+
 - shadcn Badge: https://ui.shadcn.com/docs/components/badge
 
 ---
@@ -679,48 +758,53 @@ import { Loader2 } from "lucide-react"
 **When to use**: Task completion, milestones, success states.
 
 **Structure**:
+
 ```tsx
-import confetti from 'canvas-confetti'
+import confetti from "canvas-confetti";
 
 function celebrate() {
   confetti({
     particleCount: 100,
     spread: 70,
-    origin: { y: 0.6 }
-  })
+    origin: { y: 0.6 },
+  });
 }
 
 // Trigger on success
-<Button onClick={() => {
-  handleSuccess()
-  celebrate()
-}}>
+<Button
+  onClick={() => {
+    handleSuccess();
+    celebrate();
+  }}
+>
   Complete
-</Button>
+</Button>;
 ```
 
 **Variants**:
+
 ```tsx
 // Side cannons
-const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
 function randomInRange(min: number, max: number) {
-  return Math.random() * (max - min) + min
+  return Math.random() * (max - min) + min;
 }
 
 confetti({
   ...defaults,
   particleCount: 50,
-  origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-})
+  origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+});
 confetti({
   ...defaults,
   particleCount: 50,
-  origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-})
+  origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+});
 ```
 
 **Accessibility**:
+
 - Keep it optional (respect `prefers-reduced-motion`)
 - Don't autoplay on load
 - Provide alternative feedback
@@ -734,16 +818,22 @@ confetti({
 **When to use**: Reviews, feedback, satisfaction scores.
 
 **Structure**:
+
 ```tsx
-export function Rating({ value, max = 5, onChange, readOnly = false }: RatingProps) {
-  const [hoverValue, setHoverValue] = useState<number | null>(null)
-  
+export function Rating({
+  value,
+  max = 5,
+  onChange,
+  readOnly = false,
+}: RatingProps) {
+  const [hoverValue, setHoverValue] = useState<number | null>(null);
+
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: max }).map((_, i) => {
-        const starValue = i + 1
-        const isFilled = (hoverValue ?? value) >= starValue
-        
+        const starValue = i + 1;
+        const isFilled = (hoverValue ?? value) >= starValue;
+
         return (
           <button
             key={i}
@@ -755,30 +845,35 @@ export function Rating({ value, max = 5, onChange, readOnly = false }: RatingPro
             className={cn(
               "p-1 transition-colors",
               isFilled ? "text-yellow-400" : "text-muted-foreground",
-              !readOnly && "hover:scale-110 cursor-pointer"
+              !readOnly && "hover:scale-110 cursor-pointer",
             )}
             aria-label={`Rate ${starValue} stars`}
           >
-            <Star className="h-5 w-5" fill={isFilled ? "currentColor" : "none"} />
+            <Star
+              className="h-5 w-5"
+              fill={isFilled ? "currentColor" : "none"}
+            />
           </button>
-        )
+        );
       })}
-      
+
       <span className="ml-2 text-sm text-muted-foreground">
         {value} / {max}
       </span>
     </div>
-  )
+  );
 }
 ```
 
 **Half-star precision**:
+
 ```tsx
 // Use half-filled icon
 <StarHalf className="h-5 w-5 text-yellow-400" fill="currentColor" />
 ```
 
 **Accessibility**:
+
 - Use proper aria-labels
 - Support keyboard navigation
 - Clear visual feedback
@@ -792,31 +887,43 @@ export function Rating({ value, max = 5, onChange, readOnly = false }: RatingPro
 **When to use**: Onboarding, wizards, multi-step forms.
 
 **Structure**:
+
 ```tsx
 <div className="flex items-center w-full">
   {steps.map((step, index) => (
     <div key={step.id} className="flex items-center flex-1 last:flex-none">
-      <div className={cn(
-        "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
-        step.isComplete && "bg-primary text-primary-foreground",
-        step.isCurrent && "bg-primary/20 text-primary border-2 border-primary",
-        !step.isComplete && !step.isCurrent && "bg-muted text-muted-foreground"
-      )}>
+      <div
+        className={cn(
+          "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
+          step.isComplete && "bg-primary text-primary-foreground",
+          step.isCurrent &&
+            "bg-primary/20 text-primary border-2 border-primary",
+          !step.isComplete &&
+            !step.isCurrent &&
+            "bg-muted text-muted-foreground",
+        )}
+      >
         {step.isComplete ? <Check className="w-4 h-4" /> : index + 1}
       </div>
-      
-      <span className={cn(
-        "ml-2 text-sm hidden sm:block",
-        step.isCurrent ? "text-foreground font-medium" : "text-muted-foreground"
-      )}>
+
+      <span
+        className={cn(
+          "ml-2 text-sm hidden sm:block",
+          step.isCurrent
+            ? "text-foreground font-medium"
+            : "text-muted-foreground",
+        )}
+      >
         {step.label}
       </span>
-      
+
       {index < steps.length - 1 && (
-        <div className={cn(
-          "flex-1 h-0.5 mx-4",
-          step.isComplete ? "bg-primary" : "bg-muted"
-        )} />
+        <div
+          className={cn(
+            "flex-1 h-0.5 mx-4",
+            step.isComplete ? "bg-primary" : "bg-muted",
+          )}
+        />
       )}
     </div>
   ))}
@@ -824,6 +931,7 @@ export function Rating({ value, max = 5, onChange, readOnly = false }: RatingPro
 ```
 
 **Accessibility**:
+
 - Use `<nav>` with aria-label
 - Mark current step with `aria-current="step"`
 - Show completed state clearly

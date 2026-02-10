@@ -3,102 +3,54 @@ name: rails
 description: Ruby on Rails conventions (Rails 7.x/8.x, 2024-2026)
 ---
 
-# Rails Conventions (Rails 7.x/8.x)
+# Rails Skills Index
 
-## Core Principles
-- **Convention over Configuration**
-- **DRY** - Don't Repeat Yourself
-- **Fat models, skinny controllers**
+Routing index for Rails 7.x/8.x work, optimized for thin models/controllers and PORO architecture.
 
-## Modern Rails (7.x/8.x)
-- **Hotwire**: Turbo + Stimulus over heavy JS
-- **Import maps**: Default for JS (no bundler needed)
-- **Propshaft**: Asset pipeline replacement
-- **Solid Queue/Cache/Cable**: Database-backed adapters
+## Core architecture policy
 
-## File Structure
-```
-app/
-  models/          # Business logic
-  controllers/     # Request handling
-  views/           # Templates
-  helpers/         # View helpers
-  jobs/            # Background jobs
-  mailers/         # Email
-  components/      # ViewComponents (recommended)
-config/
-db/
-  migrate/         # Migrations
-test/ or spec/
-```
+- Controllers orchestrate request/response, not business rules.
+- Models keep data invariants, not multi-step workflows.
+- Complex behavior belongs in POROs: services, queries, form objects, policies, value objects.
+- Concerns are for cohesive shared behavior, not cross-domain dumping grounds.
 
-## Models
-- One model per file
-- Validations at the top
-- Associations after validations
-- Scopes for common queries
-- Callbacks sparingly (prefer service objects)
+## Quick routing
 
-```ruby
-class User < ApplicationRecord
-  # Constants
-  ROLES = %w[admin member guest].freeze
+| Task                                    | Load                            | Why                                   |
+| --------------------------------------- | ------------------------------- | ------------------------------------- |
+| Decide where logic should live          | `thin-mvc-architecture.md`      | Placement decision matrix             |
+| Share model behavior safely             | `model-concerns.md`             | Concern boundaries and anti-patterns  |
+| Keep controllers thin and composable    | `controller-concerns.md`        | Controller concerns and orchestration |
+| Implement domain workflows or filtering | `service-and-query-objects.md`  | PORO patterns with contracts          |
+| API docs and internal commenting style  | `documentation-and-comments.md` | Rails-specific docs/comment standards |
+| Write/structure tests                   | `../testing/ruby-rails.md`      | TDD + Rails test pyramid              |
 
-  # Associations
-  has_many :posts, dependent: :destroy
-  belongs_to :organization
+## Where should this logic go?
 
-  # Validations
-  validates :email, presence: true, uniqueness: true
-  validates :role, inclusion: { in: ROLES }
+| Use case                                         | Place it in        |
+| ------------------------------------------------ | ------------------ |
+| Validation/data invariant                        | Model              |
+| Multi-step write workflow                        | Service object     |
+| Reusable query/filter/sort                       | Query object       |
+| Shared model behavior within one bounded context | Model concern      |
+| Shared controller plumbing (auth, pagination)    | Controller concern |
+| Authorization                                    | Policy object      |
+| Domain primitive (money, email, range)           | Value object       |
 
-  # Scopes
-  scope :active, -> { where(active: true) }
-  scope :admins, -> { where(role: 'admin') }
+## When NOT to load this skill
 
-  # Instance methods
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-end
-```
+- Pure Ruby library work without Rails runtime -> use `skills/ruby/SKILL.md`.
+- Frontend-only React/Next.js UI work -> use `../react/SKILL.md` or `../nextjs/SKILL.md`.
+- Generic API contract design -> use `../api/SKILL.md`.
 
-## Controllers
-- 7 RESTful actions max
-- Use `before_action` for shared logic
-- Strong parameters for mass assignment
-- Respond to multiple formats when needed
+## Related skills
 
-## Service Objects
-- For complex business logic
-- Single responsibility
-- `call` as the public interface
+- Documentation style: `../documentation/SKILL.md`
+- Security checklist: `../security/SKILL.md`
+- Database safety: `../database/SKILL.md`
 
-```ruby
-class Users::Create
-  def initialize(params)
-    @params = params
-  end
+## Reference docs
 
-  def call
-    User.create!(@params)
-  end
-end
-```
-
-## Testing
-- RSpec or Minitest
-- FactoryBot for fixtures
-- System tests with Capybara
-- Request specs over controller specs
-
-## Tools
-- Rubocop + rubocop-rails
-- Brakeman for security
-- bullet for N+1 queries
-
-## Reference Docs
 - Rails Guides: https://guides.rubyonrails.org/
 - Rails API: https://api.rubyonrails.org/
 - Rails Style Guide: https://rails.rubystyle.guide/
-

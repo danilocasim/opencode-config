@@ -9,6 +9,23 @@ Components for displaying structured data and collections.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Table
 
 **Purpose**: Display tabular data in rows and columns.
@@ -41,6 +58,7 @@ Components for displaying structured data and collections.
 **Usual contents**: Toolbar (search, filters), table, pagination.
 
 **Features**:
+
 - Column sorting (asc/desc)
 - Column visibility toggle
 - Row selection (checkbox)
@@ -50,7 +68,8 @@ Components for displaying structured data and collections.
 
 **Accessibility**: Announce sort changes, maintain focus on pagination.
 
-**Refs**: 
+**Refs**:
+
 - https://ui.shadcn.com/docs/components/data-table
 - TanStack Table: https://tanstack.com/table
 
@@ -108,6 +127,7 @@ Components for displaying structured data and collections.
 **Usual contents**: Parent nodes (expandable), leaf nodes, optional icons.
 
 **Features**:
+
 - Expand/collapse nodes
 - Selection (single or multiple)
 - Drag and drop (optional)
@@ -148,6 +168,7 @@ Components for displaying structured data and collections.
 **Usual contents**: Any overflowing content.
 
 **Features**:
+
 - Custom scrollbar styling
 - Horizontal and/or vertical scroll
 - Auto-hide scrollbars
@@ -175,6 +196,7 @@ Components for displaying structured data and collections.
 | First time | User hasn't created anything yet |
 
 **Best practices**:
+
 - Clear explanation of why empty
 - Actionable next step (CTA)
 - Friendly, not blaming tone
@@ -186,19 +208,20 @@ Components for displaying structured data and collections.
 **When to use**: Project management, task tracking, workflow visualization.
 
 **Structure**:
+
 ```tsx
 <div className="flex gap-4 overflow-x-auto pb-4">
-  {columns.map(column => (
+  {columns.map((column) => (
     <div key={column.id} className="w-80 flex-shrink-0">
       {/* Column header */}
       <div className="flex items-center justify-between mb-3">
         <h3 className="font-semibold">{column.title}</h3>
         <Badge variant="secondary">{column.tasks.length}</Badge>
       </div>
-      
+
       {/* Tasks */}
       <div className="space-y-2 min-h-[200px] bg-muted/50 rounded-lg p-2">
-        {column.tasks.map(task => (
+        {column.tasks.map((task) => (
           <Card key={task.id} className="cursor-move">
             <CardContent className="p-3">
               <p className="font-medium text-sm">{task.title}</p>
@@ -214,7 +237,7 @@ Components for displaying structured data and collections.
           </Card>
         ))}
       </div>
-      
+
       {/* Add task button */}
       <Button variant="ghost" className="w-full mt-2" size="sm">
         <Plus className="h-4 w-4 mr-2" />
@@ -226,6 +249,7 @@ Components for displaying structured data and collections.
 ```
 
 **Variants**:
+
 ```tsx
 // Horizontal swimlanes
 <div className="space-y-6">
@@ -241,11 +265,13 @@ Components for displaying structured data and collections.
 ```
 
 **Accessibility**:
+
 - Keyboard navigation between columns
 - ARIA live regions for updates
 - Clear visual indicators for drag state
 
 **Refs**:
+
 - @dnd-kit: https://dndkit.com/
 - react-beautiful-dnd: https://github.com/atlassian/react-beautiful-dnd
 
@@ -258,26 +284,26 @@ Components for displaying structured data and collections.
 **When to use**: Scheduling, booking, date filtering.
 
 **Structure**:
+
 ```tsx
 <Popover>
   <PopoverTrigger asChild>
-    <Button variant="outline" className="w-[280px] justify-start text-left font-normal">
+    <Button
+      variant="outline"
+      className="w-[280px] justify-start text-left font-normal"
+    >
       <CalendarIcon className="mr-2 h-4 w-4" />
       {date ? format(date, "PPP") : <span>Pick a date</span>}
     </Button>
   </PopoverTrigger>
   <PopoverContent className="w-auto p-0">
-    <Calendar
-      mode="single"
-      selected={date}
-      onSelect={setDate}
-      initialFocus
-    />
+    <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
   </PopoverContent>
 </Popover>
 ```
 
 **Date range picker**:
+
 ```tsx
 <Calendar
   mode="range"
@@ -295,11 +321,13 @@ Components for displaying structured data and collections.
 | `multiple` | Many dates | Recurring events |
 
 **Accessibility**:
+
 - Full keyboard navigation
 - ARIA labels for dates
 - Clear focus indicators
 
 **Refs**:
+
 - shadcn Calendar: https://ui.shadcn.com/docs/components/calendar
 - react-day-picker: https://react-day-picker.js.org/
 
@@ -312,35 +340,36 @@ Components for displaying structured data and collections.
 **When to use**: Lists with 1000+ items, chat messages, logs.
 
 **Structure**:
+
 ```tsx
-import { useVirtualizer } from '@tanstack/react-virtual'
+import { useVirtualizer } from "@tanstack/react-virtual";
 
 function VirtualList({ items }) {
-  const parentRef = useRef<HTMLDivElement>(null)
-  
+  const parentRef = useRef<HTMLDivElement>(null);
+
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 50, // Estimated row height
-  })
-  
+  });
+
   return (
     <div ref={parentRef} className="h-[400px] overflow-auto">
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
+          width: "100%",
+          position: "relative",
         }}
       >
-        {virtualizer.getVirtualItems().map(virtualItem => (
+        {virtualizer.getVirtualItems().map((virtualItem) => (
           <div
             key={virtualItem.key}
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 0,
               left: 0,
-              width: '100%',
+              width: "100%",
               height: `${virtualItem.size}px`,
               transform: `translateY(${virtualItem.start}px)`,
             }}
@@ -350,16 +379,18 @@ function VirtualList({ items }) {
         ))}
       </div>
     </div>
-  )
+  );
 }
 ```
 
 **Accessibility**:
+
 - Maintain focus when scrolling
 - ARIA setsize/posinset for screen readers
 - Consider pagination as alternative
 
 **Refs**:
+
 - @tanstack/react-virtual: https://tanstack.com/virtual/latest
 
 ---
@@ -371,6 +402,7 @@ function VirtualList({ items }) {
 **When to use**: Tables, lists, galleries with large datasets.
 
 **Structure**:
+
 ```tsx
 <div className="flex flex-col gap-4">
   {/* Search */}
@@ -383,7 +415,7 @@ function VirtualList({ items }) {
       className="pl-10"
     />
   </div>
-  
+
   {/* Filters */}
   <div className="flex flex-wrap gap-2">
     <Select value={status} onValueChange={setStatus}>
@@ -396,7 +428,7 @@ function VirtualList({ items }) {
         <SelectItem value="inactive">Inactive</SelectItem>
       </SelectContent>
     </Select>
-    
+
     <Select value={sortBy} onValueChange={setSortBy}>
       <SelectTrigger className="w-[140px]">
         <SelectValue placeholder="Sort by" />
@@ -407,19 +439,19 @@ function VirtualList({ items }) {
         <SelectItem value="status">Status</SelectItem>
       </SelectContent>
     </Select>
-    
+
     {/* Clear filters */}
-    {(searchQuery || status !== 'all') && (
+    {(searchQuery || status !== "all") && (
       <Button variant="ghost" size="sm" onClick={clearFilters}>
         <X className="h-4 w-4 mr-2" />
         Clear
       </Button>
     )}
   </div>
-  
+
   {/* Active filters */}
   <div className="flex flex-wrap gap-2">
-    {activeFilters.map(filter => (
+    {activeFilters.map((filter) => (
       <Badge key={filter.id} variant="secondary" className="gap-1">
         {filter.label}
         <button onClick={() => removeFilter(filter.id)}>
@@ -432,6 +464,7 @@ function VirtualList({ items }) {
 ```
 
 **Accessibility**:
+
 - Clear button labels
 - ARIA live region for results count
 - Keyboard shortcuts (Ctrl+K for search)

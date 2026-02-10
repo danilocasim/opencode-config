@@ -1,39 +1,58 @@
-# Python Testing (pytest)
+# Python Testing (pytest, TDD-First)
 
-## Defaults
+Use this guide for Python libraries, services, and web apps.
 
-- Use `pytest`
-- Prefer fixtures over setup/teardown
-- Prefer `pytest.mark.parametrize` for case tables
-- For async: `pytest-asyncio`
+## When to load
 
-## Patterns
+- You are testing Python logic, APIs, or async behavior.
+- You need deterministic pytest workflows.
+
+## When NOT to load
+
+- Non-Python stacks.
+- Pure benchmark/profiling tasks.
+
+## Core rules
+
+- Use `pytest` and keep tests behavior-focused.
+- Prefer fixtures over setup/teardown boilerplate.
+- Use `pytest.mark.parametrize` for case matrices.
+- For async behavior, use `pytest-asyncio`.
+
+## Common patterns
 
 ```python
 import pytest
+
 
 @pytest.mark.parametrize(
-    "input,expected",
-    [
-        ("a", "A"),
-        ("", ""),
-    ],
+    "raw, expected",
+    [("  A@EXAMPLE.COM ", "a@example.com"), ("x@y.com", "x@y.com")],
 )
-def test_uppercase(input: str, expected: str) -> None:
-    assert input.upper() == expected
+def test_normalize_email(raw: str, expected: str) -> None:
+    assert normalize_email(raw) == expected
+
+
+def test_normalize_email_rejects_invalid() -> None:
+    with pytest.raises(ValueError, match="invalid email"):
+        normalize_email("not-an-email")
 ```
 
-## Error paths
+## Anti-patterns
 
-```python
-import pytest
+- Huge autouse fixtures with hidden setup.
+- Uncontrolled time/randomness/network in tests.
+- Happy-path-only coverage without error branches.
+- Monkeypatch leakage across tests.
 
-def test_raises_on_invalid_input() -> None:
-    with pytest.raises(ValueError, match="invalid"):
-        parse_date("nope")
-```
+## Checklist
 
-## Isolation
+- Is there a failing test before implementation?
+- Are edge/error paths covered?
+- Are fixtures scoped minimally (`function` by default)?
+- Are env/time/network dependencies controlled?
 
-- Use `monkeypatch` for environment and globals
-- Use `freezegun` or controlled clocks if needed
+## References
+
+- pytest docs: https://docs.pytest.org/
+- pytest-asyncio: https://pytest-asyncio.readthedocs.io/

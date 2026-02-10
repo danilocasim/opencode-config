@@ -9,6 +9,23 @@ Components for displaying content, media, and information.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Hero
 
 **Purpose**: Above-the-fold attention grabber, typically first section on landing pages.
@@ -18,6 +35,7 @@ Components for displaying content, media, and information.
 **Usual contents**: Headline, subheadline, CTA buttons, visual (image/video/illustration).
 
 **Structure**:
+
 ```tsx
 <section className="py-24 md:py-32 lg:py-40">
   <div className="container">
@@ -26,19 +44,19 @@ Components for displaying content, media, and information.
       <Badge variant="secondary" className="mb-4">
         New Feature
       </Badge>
-      
+
       {/* Headline */}
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
         Build beautiful websites{" "}
         <span className="text-primary">faster than ever</span>
       </h1>
-      
+
       {/* Subheadline */}
       <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-        The modern toolkit for building stunning web experiences. 
-        Ship faster with components that just work.
+        The modern toolkit for building stunning web experiences. Ship faster
+        with components that just work.
       </p>
-      
+
       {/* CTAs */}
       <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
         <Button size="lg">Get Started</Button>
@@ -48,7 +66,7 @@ Components for displaying content, media, and information.
         </Button>
       </div>
     </div>
-    
+
     {/* Visual (optional) */}
     <div className="mt-16">
       <div className="aspect-video overflow-hidden rounded-xl border shadow-2xl">
@@ -68,6 +86,7 @@ Components for displaying content, media, and information.
 | Minimal | Text only, lots of whitespace | Elegant brands |
 
 **Split layout variant**:
+
 ```tsx
 <div className="grid lg:grid-cols-2 gap-12 items-center">
   <div>{/* Text content */}</div>
@@ -76,6 +95,7 @@ Components for displaying content, media, and information.
 ```
 
 **Accessibility**:
+
 - Use `<h1>` for main headline
 - Meaningful alt text for images
 - Visible focus on CTAs
@@ -91,6 +111,7 @@ Components for displaying content, media, and information.
 **Usual contents**: Image (optional), title, description, metadata, actions.
 
 **Structure**:
+
 ```tsx
 import {
   Card,
@@ -99,7 +120,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 
 <Card>
   <CardHeader>
@@ -112,7 +133,7 @@ import {
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 **Variants**:
@@ -125,6 +146,7 @@ import {
 | Interactive | Hover state, clickable |
 
 **Interactive card**:
+
 ```tsx
 <Card className="transition-all hover:shadow-lg hover:-translate-y-1 cursor-pointer">
   {/* Content */}
@@ -139,6 +161,7 @@ import {
 ```
 
 **With image**:
+
 ```tsx
 <Card className="overflow-hidden">
   <div className="aspect-video">
@@ -151,10 +174,12 @@ import {
 ```
 
 **Accessibility**:
+
 - Use semantic headings in CardTitle
 - If clickable, entire card should be focusable
 
 **Refs**:
+
 - shadcn Card: https://ui.shadcn.com/docs/components/card
 
 ---
@@ -168,16 +193,17 @@ import {
 **Usual contents**: Icon, title, description.
 
 **Structure**:
+
 ```tsx
 <div className="flex flex-col items-start gap-4">
   {/* Icon */}
   <div className="rounded-lg bg-primary/10 p-3">
     <Zap className="h-6 w-6 text-primary" />
   </div>
-  
+
   {/* Title */}
   <h3 className="text-xl font-semibold">Lightning Fast</h3>
-  
+
   {/* Description */}
   <p className="text-muted-foreground">
     Optimized for speed. Your pages load instantly, keeping users engaged.
@@ -194,6 +220,7 @@ import {
 | With link | Arrow link at bottom |
 
 **Icon left variant**:
+
 ```tsx
 <div className="flex gap-4">
   <div className="shrink-0 rounded-lg bg-primary/10 p-3">
@@ -207,6 +234,7 @@ import {
 ```
 
 **Accessibility**:
+
 - Icons should be decorative (`aria-hidden`)
 - Use semantic heading level
 
@@ -221,13 +249,14 @@ import {
 **Usual contents**: Image or initials fallback.
 
 **Structure**:
+
 ```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 <Avatar>
   <AvatarImage src="/avatar.jpg" alt="@username" />
   <AvatarFallback>JD</AvatarFallback>
-</Avatar>
+</Avatar>;
 ```
 
 **Variants**:
@@ -239,6 +268,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 | xl | `h-16 w-16` | 64px | Hero profiles |
 
 **With status indicator**:
+
 ```tsx
 <div className="relative">
   <Avatar>
@@ -250,9 +280,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 ```
 
 **Avatar group**:
+
 ```tsx
 <div className="flex -space-x-4">
-  {users.map(user => (
+  {users.map((user) => (
     <Avatar key={user.id} className="border-2 border-background">
       <AvatarImage src={user.avatar} />
       <AvatarFallback>{user.initials}</AvatarFallback>
@@ -265,10 +296,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 ```
 
 **Accessibility**:
+
 - Always include `alt` text
 - Initials should be 1-2 characters
 
 **Refs**:
+
 - shadcn Avatar: https://ui.shadcn.com/docs/components/avatar
 
 ---
@@ -282,6 +315,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 **Usual contents**: Short text (1-2 words), optional icon.
 
 **Structure**:
+
 ```tsx
 import { Badge } from "@/components/ui/badge"
 
@@ -300,6 +334,7 @@ import { Badge } from "@/components/ui/badge"
 | destructive | Errors, warnings |
 
 **Custom colors** (extend in Tailwind):
+
 ```tsx
 <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20">
   Active
@@ -310,6 +345,7 @@ import { Badge } from "@/components/ui/badge"
 ```
 
 **With icon**:
+
 ```tsx
 <Badge>
   <Circle className="mr-1 h-2 w-2 fill-current" />
@@ -318,10 +354,12 @@ import { Badge } from "@/components/ui/badge"
 ```
 
 **Accessibility**:
+
 - Avoid color as only indicator
 - Include text description
 
 **Refs**:
+
 - shadcn Badge: https://ui.shadcn.com/docs/components/badge
 
 ---
@@ -335,6 +373,7 @@ import { Badge } from "@/components/ui/badge"
 **Usual contents**: Large number, label, optional trend indicator.
 
 **Structure**:
+
 ```tsx
 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
   <Card>
@@ -361,6 +400,7 @@ import { Badge } from "@/components/ui/badge"
 | With chart | Sparkline included |
 
 **Simple inline**:
+
 ```tsx
 <div className="flex gap-8">
   <div>
@@ -375,6 +415,7 @@ import { Badge } from "@/components/ui/badge"
 ```
 
 **Accessibility**:
+
 - Use semantic numbers, not just styled text
 - Trend indicators need text description
 
@@ -389,14 +430,15 @@ import { Badge } from "@/components/ui/badge"
 **Usual contents**: Quote, avatar, name, role/company.
 
 **Structure**:
+
 ```tsx
 <figure className="mx-auto max-w-2xl">
   {/* Quote */}
   <blockquote className="text-xl font-medium leading-relaxed">
-    "This product has completely transformed how we work. 
-    The team couldn't be happier with the results."
+    "This product has completely transformed how we work. The team couldn't be
+    happier with the results."
   </blockquote>
-  
+
   {/* Attribution */}
   <figcaption className="mt-6 flex items-center gap-4">
     <Avatar>
@@ -420,6 +462,7 @@ import { Badge } from "@/components/ui/badge"
 | With logo | Company logo included |
 
 **Card variant**:
+
 ```tsx
 <Card className="p-6">
   <div className="flex gap-1 mb-4">
@@ -439,6 +482,7 @@ import { Badge } from "@/components/ui/badge"
 ```
 
 **Accessibility**:
+
 - Use `<blockquote>` and `<figcaption>`
 - Include `cite` if source available
 
@@ -453,6 +497,7 @@ import { Badge } from "@/components/ui/badge"
 **Usual contents**: Date/time, title, description, optional icon.
 
 **Structure**:
+
 ```tsx
 <div className="space-y-8">
   {events.map((event, index) => (
@@ -461,12 +506,12 @@ import { Badge } from "@/components/ui/badge"
       {index !== events.length - 1 && (
         <div className="absolute left-[11px] top-6 h-full w-px bg-border" />
       )}
-      
+
       {/* Dot */}
       <div className="absolute left-0 top-1 h-6 w-6 rounded-full border bg-background flex items-center justify-center">
         <div className="h-2 w-2 rounded-full bg-primary" />
       </div>
-      
+
       {/* Content */}
       <div>
         <time className="text-sm text-muted-foreground">{event.date}</time>
@@ -486,6 +531,7 @@ import { Badge } from "@/components/ui/badge"
 | Centered | Line in middle |
 
 **Accessibility**:
+
 - Use `<time>` element for dates
 - Semantic headings for titles
 
@@ -500,6 +546,7 @@ import { Badge } from "@/components/ui/badge"
 **Usual contents**: Slides of images, cards, or content.
 
 **Structure**:
+
 ```tsx
 import {
   Carousel,
@@ -507,7 +554,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 
 <Carousel className="w-full max-w-xs">
   <CarouselContent>
@@ -523,10 +570,11 @@ import {
   </CarouselContent>
   <CarouselPrevious />
   <CarouselNext />
-</Carousel>
+</Carousel>;
 ```
 
 **Variants**:
+
 ```tsx
 // Multiple items visible
 <CarouselItem className="md:basis-1/2 lg:basis-1/3">
@@ -539,11 +587,13 @@ import {
 ```
 
 **Accessibility**:
+
 - Pause autoplay on hover/focus
 - Keyboard navigation
 - Live region for slide changes
 
 **Refs**:
+
 - shadcn Carousel: https://ui.shadcn.com/docs/components/carousel
 - Embla Carousel: https://www.embla-carousel.com/
 
@@ -558,44 +608,53 @@ import {
 **Usual contents**: Image with alt text.
 
 **Structure**:
-```tsx
-import Image from "next/image"
 
-{/* Fixed dimensions */}
-<Image 
-  src="/image.jpg" 
-  alt="Description" 
-  width={800} 
+```tsx
+import Image from "next/image";
+
+{
+  /* Fixed dimensions */
+}
+<Image
+  src="/image.jpg"
+  alt="Description"
+  width={800}
   height={600}
   className="rounded-lg"
-/>
+/>;
 
-{/* Fill container */}
+{
+  /* Fill container */
+}
 <div className="relative aspect-video">
-  <Image 
-    src="/image.jpg" 
-    alt="Description" 
+  <Image
+    src="/image.jpg"
+    alt="Description"
     fill
     className="object-cover rounded-lg"
   />
-</div>
+</div>;
 
-{/* With blur placeholder */}
-<Image 
-  src="/image.jpg" 
-  alt="Description" 
-  width={800} 
+{
+  /* With blur placeholder */
+}
+<Image
+  src="/image.jpg"
+  alt="Description"
+  width={800}
   height={600}
   placeholder="blur"
   blurDataURL="data:image/jpeg;base64,..."
-/>
+/>;
 ```
 
 **Accessibility**:
+
 - Always include meaningful `alt` text
 - Decorative images: `alt=""`
 
 **Refs**:
+
 - Next.js Image: https://nextjs.org/docs/app/api-reference/components/image
 
 ---
@@ -609,28 +668,31 @@ import Image from "next/image"
 **Usual contents**: Video element or embed iframe.
 
 **Structure**:
-```tsx
-{/* Native video */}
-<video 
-  className="aspect-video w-full rounded-lg"
-  controls
-  poster="/poster.jpg"
->
-  <source src="/video.mp4" type="video/mp4" />
-</video>
 
-{/* YouTube embed */}
+```tsx
+{
+  /* Native video */
+}
+<video className="aspect-video w-full rounded-lg" controls poster="/poster.jpg">
+  <source src="/video.mp4" type="video/mp4" />
+</video>;
+
+{
+  /* YouTube embed */
+}
 <div className="aspect-video">
-  <iframe 
+  <iframe
     className="h-full w-full rounded-lg"
     src="https://www.youtube.com/embed/VIDEO_ID"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowFullScreen
   />
-</div>
+</div>;
 
-{/* Background video (muted, autoplay) */}
-<video 
+{
+  /* Background video (muted, autoplay) */
+}
+<video
   className="absolute inset-0 h-full w-full object-cover"
   autoPlay
   muted
@@ -638,10 +700,11 @@ import Image from "next/image"
   playsInline
 >
   <source src="/bg-video.mp4" type="video/mp4" />
-</video>
+</video>;
 ```
 
 **Accessibility**:
+
 - Include captions/transcripts
 - `prefers-reduced-motion` check for autoplay
 
@@ -656,6 +719,7 @@ import Image from "next/image"
 **Usual contents**: Code snippet with language indicator.
 
 **Structure**:
+
 ```tsx
 // Using a syntax highlighter like shiki or prism
 <pre className="overflow-x-auto rounded-lg bg-muted p-4">
@@ -667,9 +731,9 @@ import Image from "next/image"
   <pre className="overflow-x-auto rounded-lg bg-muted p-4 pr-12">
     <code>{codeString}</code>
   </pre>
-  <Button 
-    size="icon" 
-    variant="ghost" 
+  <Button
+    size="icon"
+    variant="ghost"
     className="absolute right-2 top-2"
     onClick={() => copyToClipboard(codeString)}
   >
@@ -690,6 +754,7 @@ import Image from "next/image"
 ```
 
 **Accessibility**:
+
 - Use `<pre>` and `<code>` semantically
 - Ensure sufficient contrast
 
@@ -700,18 +765,18 @@ import Image from "next/image"
 **When to use**: Quotes, testimonials, citations, callouts.
 
 **Structure**:
+
 ```tsx
 <blockquote className="border-l-4 border-primary pl-6 py-2 italic">
   <p className="text-lg text-muted-foreground">
     "The best way to predict the future is to invent it."
   </p>
-  <footer className="mt-2 text-sm font-medium">
-    — Alan Kay
-  </footer>
+  <footer className="mt-2 text-sm font-medium">— Alan Kay</footer>
 </blockquote>
 ```
 
 **Variants**:
+
 ```tsx
 // Large quote
 <blockquote className="border-l-4 border-primary pl-6 py-4">
@@ -748,6 +813,7 @@ import Image from "next/image"
 ```
 
 **Accessibility**:
+
 - Use `<blockquote>` element
 - Include `<footer>` for attribution
 - Add `cite` attribute if referencing a URL
@@ -761,21 +827,22 @@ import Image from "next/image"
 **When to use**: Empty lists, first-time use, error states, success states.
 
 **Structure**:
+
 ```tsx
 <div className="flex flex-col items-center justify-center py-12 text-center">
   {/* Icon */}
   <div className="h-12 w-12 rounded-full bg-muted flex items-center justify-center mb-4">
     <Inbox className="h-6 w-6 text-muted-foreground" />
   </div>
-  
+
   {/* Title */}
   <h3 className="text-lg font-semibold">No tasks yet</h3>
-  
+
   {/* Description */}
   <p className="text-sm text-muted-foreground mt-1 max-w-sm">
     Get started by creating your first task.
   </p>
-  
+
   {/* Action */}
   <Button className="mt-4">
     <Plus className="mr-2 h-4 w-4" />
@@ -794,6 +861,7 @@ import Image from "next/image"
 | `loading` | Loader | Loading |
 
 **In a container**:
+
 ```tsx
 <div className="border rounded-lg p-8">
   <div className="flex flex-col items-center text-center">
@@ -810,6 +878,7 @@ import Image from "next/image"
 ```
 
 **Accessibility**:
+
 - Use appropriate heading level
 - Ensure sufficient color contrast
 - Provide clear next action
@@ -823,22 +892,28 @@ import Image from "next/image"
 **When to use**: Blog posts, documentation, long-form content.
 
 **Structure**:
+
 ```tsx
 <article className="prose prose-slate dark:prose-invert max-w-none">
   <h1>Article Title</h1>
   <p className="lead">Introduction paragraph with larger text...</p>
   <h2>Section Heading</h2>
-  <p>Body text with <strong>bold</strong> and <em>italic</em>...</p>
+  <p>
+    Body text with <strong>bold</strong> and <em>italic</em>...
+  </p>
   <ul>
     <li>List item one</li>
     <li>List item two</li>
   </ul>
   <blockquote>Quoted text...</blockquote>
-  <pre><code>Code block...</code></pre>
+  <pre>
+    <code>Code block...</code>
+  </pre>
 </article>
 ```
 
 **Tailwind Typography plugin**:
+
 ```bash
 npm install -D @tailwindcss/typography
 ```
@@ -846,13 +921,12 @@ npm install -D @tailwindcss/typography
 ```js
 // tailwind.config.js
 module.exports = {
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [require("@tailwindcss/typography")],
+};
 ```
 
 **Customizing**:
+
 ```tsx
 <article className={cn(
   "prose prose-slate dark:prose-invert",
@@ -873,11 +947,13 @@ module.exports = {
 | `xl` | `prose-xl` | Editorial |
 
 **Accessibility**:
+
 - Proper heading hierarchy (h1 → h2 → h3)
 - Sufficient line height (1.5-1.7)
 - Max-width for readability (65ch)
 
 **Refs**:
+
 - Tailwind Typography: https://tailwindcss.com/docs/typography-plugin
 
 ---
@@ -889,10 +965,11 @@ module.exports = {
 **When to use**: Article images, diagrams, charts with descriptions.
 
 **Structure**:
+
 ```tsx
 <figure className="my-8">
-  <img 
-    src="/diagram.png" 
+  <img
+    src="/diagram.png"
     alt="System architecture diagram"
     className="rounded-lg border"
   />
@@ -903,6 +980,7 @@ module.exports = {
 ```
 
 **Variants**:
+
 ```tsx
 // Full-width with caption
 <figure className="my-8">
@@ -926,6 +1004,7 @@ module.exports = {
 ```
 
 **Accessibility**:
+
 - Use `<figure>` and `<figcaption>` elements
 - Alt text describes image content
 - Caption provides context
@@ -939,6 +1018,7 @@ module.exports = {
 **When to use**: Between sections, list items, thematic breaks.
 
 **Structure**:
+
 ```tsx
 // Simple horizontal rule
 <hr className="my-8 border-border" />
@@ -957,6 +1037,7 @@ module.exports = {
 ```
 
 **Variants**:
+
 ```tsx
 // Dotted
 <hr className="my-8 border-dotted border-border" />
@@ -973,6 +1054,7 @@ module.exports = {
 ```
 
 **Accessibility**:
+
 - Use `<hr>` for thematic breaks
 - Ensure sufficient contrast
 - Don't use purely decorative dividers for content separation

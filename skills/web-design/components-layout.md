@@ -9,6 +9,23 @@ Foundational components for page structure and content organization.
 
 ---
 
+## Section Schema
+
+Use this template for every component section to keep retrieval reliable:
+
+- **Purpose**
+- **When to use**
+- **When not to use**
+- **Usual contents**
+- **Structure**
+- **Variants**
+- **Accessibility**
+- **Refs**
+
+If a field does not apply, write `N/A` instead of omitting it.
+
+---
+
 ## Container
 
 **Purpose**: Max-width wrapper that centers content and adds horizontal padding.
@@ -18,10 +35,9 @@ Foundational components for page structure and content organization.
 **Usual contents**: Any page content that needs width constraints.
 
 **Structure**:
+
 ```tsx
-<div className="container mx-auto px-4 md:px-6 lg:px-8">
-  {children}
-</div>
+<div className="container mx-auto px-4 md:px-6 lg:px-8">{children}</div>
 ```
 
 **Variants**:
@@ -35,14 +51,16 @@ Foundational components for page structure and content organization.
 | `full` | 100% | Edge-to-edge (with padding) |
 
 **Responsive padding**:
+
 ```tsx
 // Tighter on mobile, roomier on desktop
-className="px-4 sm:px-6 lg:px-8"
+className = "px-4 sm:px-6 lg:px-8";
 ```
 
 **Accessibility**: None specific - semantic wrapper only.
 
 **Refs**:
+
 - Tailwind Container: https://tailwindcss.com/docs/container
 
 ---
@@ -56,6 +74,7 @@ className="px-4 sm:px-6 lg:px-8"
 **Usual contents**: Section header (optional), content, CTA (optional).
 
 **Structure**:
+
 ```tsx
 <section className="py-16 md:py-24 lg:py-32">
   <div className="container">
@@ -68,7 +87,7 @@ className="px-4 sm:px-6 lg:px-8"
         Section description text
       </p>
     </div>
-    
+
     {/* Section content */}
     {children}
   </div>
@@ -84,6 +103,7 @@ className="px-4 sm:px-6 lg:px-8"
 | `hero` | py-24 md:py-32 lg:py-40 | Hero/above-fold |
 
 **Background variations**:
+
 ```tsx
 // Alternating backgrounds
 <section className="bg-muted/50">
@@ -106,16 +126,20 @@ className="px-4 sm:px-6 lg:px-8"
 **Usual contents**: Repeated items (cards, features, images).
 
 **Structure**:
+
 ```tsx
-{/* Responsive grid: 1 col → 2 col → 3 col */}
+{
+  /* Responsive grid: 1 col → 2 col → 3 col */
+}
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {items.map(item => (
+  {items.map((item) => (
     <Card key={item.id}>{item.content}</Card>
   ))}
-</div>
+</div>;
 ```
 
 **Common patterns**:
+
 ```tsx
 // 2-column split
 <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -141,6 +165,7 @@ className="px-4 sm:px-6 lg:px-8"
 **Accessibility**: Use semantic lists (`<ul>`) for card grids when appropriate.
 
 **Refs**:
+
 - Tailwind Grid: https://tailwindcss.com/docs/grid-template-columns
 
 ---
@@ -154,26 +179,33 @@ className="px-4 sm:px-6 lg:px-8"
 **Usual contents**: Any vertically or horizontally stacked items.
 
 **Structure**:
+
 ```tsx
-{/* Vertical stack */}
+{
+  /* Vertical stack */
+}
 <div className="flex flex-col gap-4">
   <Item />
   <Item />
   <Item />
-</div>
+</div>;
 
-{/* Horizontal stack */}
+{
+  /* Horizontal stack */
+}
 <div className="flex flex-row gap-4 items-center">
   <Item />
   <Item />
-</div>
+</div>;
 
-{/* Horizontal with wrap */}
+{
+  /* Horizontal with wrap */
+}
 <div className="flex flex-wrap gap-4">
   <Tag />
   <Tag />
   <Tag />
-</div>
+</div>;
 ```
 
 **Variants**:
@@ -184,18 +216,19 @@ className="px-4 sm:px-6 lg:px-8"
 | Responsive | `flex flex-col md:flex-row` |
 
 **Alignment**:
+
 ```tsx
 // Vertical alignment (for horizontal stacks)
-items-start    // Top
-items-center   // Center
-items-end      // Bottom
-items-baseline // Text baseline
+items - start; // Top
+items - center; // Center
+items - end; // Bottom
+items - baseline; // Text baseline
 
 // Horizontal alignment (for vertical stacks)
-justify-start  // Left
-justify-center // Center
-justify-end    // Right
-justify-between // Space between
+justify - start; // Left
+justify - center; // Center
+justify - end; // Right
+justify - between; // Space between
 ```
 
 **Accessibility**: None specific - layout only.
@@ -211,6 +244,7 @@ justify-between // Space between
 **Usual contents**: Navigation sidebar + main content area.
 
 **Structure**:
+
 ```tsx
 <div className="flex min-h-screen">
   {/* Sidebar */}
@@ -225,16 +259,14 @@ justify-between // Space between
       <UserMenu />
     </div>
   </aside>
-  
+
   {/* Main content */}
   <div className="flex flex-1 flex-col">
     <header className="flex h-14 items-center border-b px-4 md:px-6">
       <MobileMenuTrigger className="md:hidden" />
       <HeaderContent />
     </header>
-    <main className="flex-1 p-4 md:p-6">
-      {children}
-    </main>
+    <main className="flex-1 p-4 md:p-6">{children}</main>
   </div>
 </div>
 ```
@@ -248,6 +280,7 @@ justify-between // Space between
 | Inset | Content has its own scroll |
 
 **Collapsible sidebar pattern**:
+
 ```tsx
 const [collapsed, setCollapsed] = useState(false)
 
@@ -258,6 +291,7 @@ const [collapsed, setCollapsed] = useState(false)
 ```
 
 **Mobile drawer**:
+
 ```tsx
 // Use Sheet component for mobile nav
 <Sheet>
@@ -273,11 +307,13 @@ const [collapsed, setCollapsed] = useState(false)
 ```
 
 **Accessibility**:
+
 - Sidebar should be `<aside>` or `<nav>`
 - Use `aria-expanded` for collapsible state
 - Skip link to main content
 
 **Refs**:
+
 - shadcn Sidebar: https://ui.shadcn.com/docs/components/sidebar
 - Radix Sheet: https://www.radix-ui.com/primitives/docs/components/dialog
 
@@ -292,10 +328,11 @@ const [collapsed, setCollapsed] = useState(false)
 **Usual contents**: Images, videos, iframes.
 
 **Structure**:
+
 ```tsx
 <div className="aspect-video overflow-hidden rounded-lg">
-  <img 
-    src="/image.jpg" 
+  <img
+    src="/image.jpg"
     alt="Description"
     className="h-full w-full object-cover"
   />
@@ -312,17 +349,19 @@ const [collapsed, setCollapsed] = useState(false)
 | 21:9 | `aspect-[21/9]` | Ultra-wide banners |
 
 **With shadcn AspectRatio**:
+
 ```tsx
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 <AspectRatio ratio={16 / 9}>
   <Image src="/image.jpg" alt="Photo" fill className="object-cover" />
-</AspectRatio>
+</AspectRatio>;
 ```
 
 **Accessibility**: Always include `alt` text for images.
 
 **Refs**:
+
 - shadcn Aspect Ratio: https://ui.shadcn.com/docs/components/aspect-ratio
 - Tailwind Aspect Ratio: https://tailwindcss.com/docs/aspect-ratio
 
@@ -337,6 +376,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 **Usual contents**: None (decorative element).
 
 **Structure**:
+
 ```tsx
 {/* Horizontal separator */}
 <hr className="border-t border-border" />
@@ -349,6 +389,7 @@ import { Separator } from "@/components/ui/separator"
 ```
 
 **Variants**:
+
 ```tsx
 // Horizontal (default)
 <Separator />
@@ -369,6 +410,7 @@ import { Separator } from "@/components/ui/separator"
 ```
 
 **Spacing patterns**:
+
 ```tsx
 // In a list
 <div className="space-y-4 divide-y">
@@ -378,11 +420,13 @@ import { Separator } from "@/components/ui/separator"
 ```
 
 **Accessibility**:
+
 - Use `<hr>` for semantic separation
 - `role="separator"` added by shadcn component
 - `aria-orientation` for vertical separators
 
 **Refs**:
+
 - shadcn Separator: https://ui.shadcn.com/docs/components/separator
 
 ---
@@ -397,11 +441,11 @@ export default function FeaturePage() {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <Sidebar />
-      
+
       {/* Main content */}
       <div className="flex flex-1 flex-col">
         <Header />
-        
+
         <main className="flex-1">
           {/* Hero section */}
           <Section variant="hero">
@@ -409,20 +453,22 @@ export default function FeaturePage() {
               <HeroContent />
             </Container>
           </Section>
-          
+
           {/* Features grid */}
           <Section className="bg-muted/50">
             <Container>
-              <SectionHeader 
+              <SectionHeader
                 title="Features"
                 description="Everything you need"
               />
               <Grid cols={3} gap={6}>
-                {features.map(f => <FeatureCard key={f.id} {...f} />)}
+                {features.map((f) => (
+                  <FeatureCard key={f.id} {...f} />
+                ))}
               </Grid>
             </Container>
           </Section>
-          
+
           {/* CTA section */}
           <Section>
             <Container size="md" className="text-center">
@@ -430,11 +476,11 @@ export default function FeaturePage() {
             </Container>
           </Section>
         </main>
-        
+
         <Footer />
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -445,6 +491,7 @@ export default function FeaturePage() {
 **When to use**: Documentation pages, blog posts with TOC, product pages with filters.
 
 **Structure**:
+
 ```tsx
 <div className="grid lg:grid-cols-[1fr_280px] gap-8">
   {/* Main content */}
@@ -452,7 +499,7 @@ export default function FeaturePage() {
     <h1>{title}</h1>
     <div className="prose">{content}</div>
   </article>
-  
+
   {/* Sidebar */}
   <aside className="hidden lg:block">
     <div className="sticky top-20 space-y-6">
@@ -471,6 +518,7 @@ export default function FeaturePage() {
 | `50/50` | `grid-cols-2` | Equal split |
 
 **Responsive behavior**:
+
 ```tsx
 // Sidebar below content on mobile
 <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
@@ -490,6 +538,7 @@ export default function FeaturePage() {
 **When to use**: Navigation, dashboards, long-scrolling pages.
 
 **Structure**:
+
 ```tsx
 <div className="min-h-screen">
   {/* Sticky header */}
@@ -501,15 +550,14 @@ export default function FeaturePage() {
       </nav>
     </div>
   </header>
-  
+
   {/* Scrollable content */}
-  <main className="container py-8">
-    {content}
-  </main>
+  <main className="container py-8">{content}</main>
 </div>
 ```
 
 **Variants**:
+
 ```tsx
 // With blur effect
 <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md">
@@ -528,23 +576,25 @@ export default function FeaturePage() {
 ```
 
 **Scroll detection hook**:
+
 ```tsx
 function useScrolled(threshold = 10) {
-  const [scrolled, setScrolled] = useState(false)
-  
+  const [scrolled, setScrolled] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > threshold)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [threshold])
-  
-  return scrolled
+      setScrolled(window.scrollY > threshold);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [threshold]);
+
+  return scrolled;
 }
 ```
 
 **Accessibility**:
+
 - Use `z-50` to ensure header stays above content
 - Maintain focus order - header first in DOM
 - Consider `position: fixed` alternative for true fixed behavior
@@ -558,10 +608,11 @@ function useScrolled(threshold = 10) {
 **When to use**: Image galleries, card layouts with variable content.
 
 **Structure**:
+
 ```tsx
 // CSS Grid with auto-flow
 <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-  {items.map(item => (
+  {items.map((item) => (
     <div key={item.id} className="break-inside-avoid">
       <Card>{item.content}</Card>
     </div>
@@ -578,12 +629,13 @@ function useScrolled(threshold = 10) {
 | 4 | `xl:columns-4` | Wide |
 
 **With equal-width items**:
+
 ```tsx
 // Masonry with consistent widths
 <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] auto-rows-[10px]">
   {items.map((item, i) => (
-    <div 
-      key={i} 
+    <div
+      key={i}
       className="row-span-[var(--rows)]"
       style={{ "--rows": Math.ceil(item.height / 10) }}
     >
@@ -604,6 +656,7 @@ function useScrolled(threshold = 10) {
 **When to use**: Admin dashboards, complex applications.
 
 **Structure**:
+
 ```tsx
 <div className="min-h-screen flex flex-col">
   {/* Header */}
@@ -613,25 +666,23 @@ function useScrolled(threshold = 10) {
       <MainNav />
     </div>
   </header>
-  
+
   {/* Main area */}
   <div className="flex-1 flex">
     {/* Left sidebar */}
     <aside className="w-64 border-r hidden md:block">
       <SecondaryNav />
     </aside>
-    
+
     {/* Content */}
-    <main className="flex-1 container py-6">
-      {children}
-    </main>
-    
+    <main className="flex-1 container py-6">{children}</main>
+
     {/* Right sidebar */}
     <aside className="w-64 border-l hidden lg:block">
       <ContextPanel />
     </aside>
   </div>
-  
+
   {/* Footer */}
   <footer className="border-t py-6">
     <div className="container">
@@ -642,11 +693,13 @@ function useScrolled(threshold = 10) {
 ```
 
 **Responsive breakpoints**:
+
 - Mobile: Single column, sidebars in drawers
 - Tablet: Left sidebar visible
 - Desktop: Both sidebars visible
 
 **Accessibility**:
+
 - Use `<main>` for primary content
 - Sidebars as `<aside>` with aria-label
 - Skip-to-content link before header
@@ -660,36 +713,38 @@ function useScrolled(threshold = 10) {
 **When to use**: Hero images, full-width sections, breakout quotes.
 
 **Structure**:
+
 ```tsx
 <article className="container max-w-2xl mx-auto px-4">
   {/* Normal content */}
   <p>Article text...</p>
-  
+
   {/* Full-bleed breakout */}
   <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen">
-    <img 
-      src="/hero.jpg" 
+    <img
+      src="/hero.jpg"
       alt="Full width image"
       className="w-full h-[400px] object-cover"
     />
   </div>
-  
+
   {/* Back to normal flow */}
   <p>More article text...</p>
 </article>
 ```
 
 **Alternative with CSS Grid**:
+
 ```tsx
 <div className="grid grid-cols-[1fr_min(65ch,calc(100%-2rem))_1fr] gap-x-4">
   <div className="col-start-2">
     <p>Normal content</p>
   </div>
-  
+
   <div className="col-start-1 col-end-4">
     <img src="/full-width.jpg" />
   </div>
-  
+
   <div className="col-start-2">
     <p>Back to normal</p>
   </div>
@@ -707,36 +762,35 @@ function useScrolled(threshold = 10) {
 **When to use**: Mobile navigation, shopping cart, filters panel.
 
 **Structure**:
+
 ```tsx
 <div className="relative overflow-hidden">
   {/* Main content */}
-  <div className={cn(
-    "transition-transform duration-300",
-    isOpen && "translate-x-[280px]"
-  )}>
-    <Button onClick={() => setIsOpen(true)}>
-      Open Menu
-    </Button>
+  <div
+    className={cn(
+      "transition-transform duration-300",
+      isOpen && "translate-x-[280px]",
+    )}
+  >
+    <Button onClick={() => setIsOpen(true)}>Open Menu</Button>
     <main>{content}</main>
   </div>
-  
+
   {/* Off-canvas sidebar */}
-  <aside 
+  <aside
     className={cn(
       "fixed top-0 left-0 h-full w-[280px] bg-background border-r",
       "transform transition-transform duration-300",
-      isOpen ? "translate-x-0" : "-translate-x-full"
+      isOpen ? "translate-x-0" : "-translate-x-full",
     )}
   >
-    <Button onClick={() => setIsOpen(false)}>
-      Close
-    </Button>
+    <Button onClick={() => setIsOpen(false)}>Close</Button>
     <SidebarContent />
   </aside>
-  
+
   {/* Backdrop */}
   {isOpen && (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 z-40"
       onClick={() => setIsOpen(false)}
     />
@@ -752,10 +806,12 @@ function useScrolled(threshold = 10) {
 | Bottom | `translate-y-full` | Mobile sheets |
 
 **Accessibility**:
+
 - Trap focus when open
 - Close on Escape key
 - aria-hidden on main content when open
 - Use Sheet component from shadcn for built-in accessibility
 
 **Refs**:
+
 - shadcn Sheet: https://ui.shadcn.com/docs/components/sheet

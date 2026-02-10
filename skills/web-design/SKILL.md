@@ -9,20 +9,20 @@ This is the routing index for web design work. Load specific sub-skills based on
 
 ## Quick Reference
 
-| Task | Skill to Load | Components/Topics |
-|------|---------------|-------------------|
-| New project setup | `design-system` | Tokens, colors, typography, Tailwind config |
-| Existing project audit | `design-system` | Analyze & extend existing setup |
-| Page structure | `components-layout` | Container, Grid, Section, Stack, Sidebar |
-| Navigation | `components-navigation` | Navbar, Sidebar, Tabs, Breadcrumbs, Footer |
-| Content display | `components-content` | Hero, Card, Avatar, Badge, Testimonial |
-| Forms & inputs | `components-forms` | Input, Select, Checkbox, DatePicker, Form |
-| User feedback | `components-feedback` | Button, Alert, Toast, Modal, Tooltip |
-| Data display | `components-data` | Table, List, Accordion, Stepper |
-| Marketing pages | `components-marketing` | Pricing, CTA, FAQ, Newsletter |
-| Full pages | `page-templates` | Landing, Dashboard, Auth, Blog |
-| Motion & polish | `animations` | Entrances, micro-interactions, transitions |
-| Component docs | `storybook` | Setup, stories, visual testing |
+| Task                   | Skill to Load           | Components/Topics                           |
+| ---------------------- | ----------------------- | ------------------------------------------- |
+| New project setup      | `design-system`         | Tokens, colors, typography, Tailwind config |
+| Existing project audit | `design-system`         | Analyze & extend existing setup             |
+| Page structure         | `components-layout`     | Container, Grid, Section, Stack, Sidebar    |
+| Navigation             | `components-navigation` | Navbar, Sidebar, Tabs, Breadcrumbs, Footer  |
+| Content display        | `components-content`    | Hero, Card, Avatar, Badge, Testimonial      |
+| Forms & inputs         | `components-forms`      | Input, Select, Checkbox, DatePicker, Form   |
+| User feedback          | `components-feedback`   | Button, Alert, Toast, Modal, Tooltip        |
+| Data display           | `components-data`       | Table, List, Accordion, Stepper             |
+| Marketing pages        | `components-marketing`  | Pricing, CTA, FAQ, Newsletter               |
+| Full pages             | `page-templates`        | Landing, Dashboard, Auth, Blog              |
+| Motion & polish        | `animations`            | Entrances, micro-interactions, transitions  |
+| Component docs         | `storybook`             | Setup, stories, visual testing              |
 
 ## Existing Project Checklist
 
@@ -38,6 +38,7 @@ Before building in an existing project, check for:
 ```
 
 If these exist, **analyze before building**:
+
 1. Extract existing color tokens
 2. Identify typography scale in use
 3. Note spacing patterns
@@ -75,16 +76,18 @@ For fresh projects, establish in order:
 
 ## Component Count by Skill
 
-| Skill | Count | Key Components |
-|-------|-------|----------------|
-| `components-layout` | 7 | Container, Grid, Section, Stack, Sidebar Layout, Aspect Ratio, Separator |
-| `components-navigation` | 10 | Navbar, Mobile Nav, Sidebar, Breadcrumbs, Tabs, Pagination, Footer, Dropdown, Context Menu, Command Palette |
-| `components-content` | 12 | Hero, Card, Feature Card, Avatar, Badge, Stats, Testimonial, Timeline, Carousel, Image, Video, Code Block |
-| `components-forms` | 12 | Input, Textarea, Select, Checkbox, Radio, Switch, Slider, Date Picker, File Upload, Combobox, Search, Form |
-| `components-feedback` | 12 | Button, Alert, Toast, Dialog, Alert Dialog, Sheet, Drawer, Tooltip, Popover, Progress, Skeleton, Spinner |
-| `components-data` | 8 | Table, Data Table, List, Accordion, Tree View, Stepper, Scroll Area, Empty State |
-| `components-marketing` | 10 | Pricing Card, Pricing Table, CTA Section, FAQ, Newsletter, Logo Cloud, Comparison Table, Banner, Social Share, Cookie Consent |
-| **Total** | **71** | |
+Counts below are based on current `##` sections in each file.
+
+| Skill                   | Count   | Key Components                                                                      |
+| ----------------------- | ------- | ----------------------------------------------------------------------------------- |
+| `components-layout`     | 14      | Container, Section, Grid, Stack, Sidebar Layout, Split Layout, Sticky Header        |
+| `components-navigation` | 15      | Navbar, Mobile Nav, Sidebar, Breadcrumbs, Tabs, Pagination, Footer, Command Palette |
+| `components-content`    | 17      | Hero, Card, Feature Card, Avatar, Badge, Stats, Testimonial, Timeline, Carousel     |
+| `components-forms`      | 15      | Input, Textarea, Select, Checkbox, Radio Group, Switch, Slider, Form, Wizard        |
+| `components-feedback`   | 16      | Button, Alert, Toast, Dialog, Alert Dialog, Sheet, Drawer, Tooltip, Progress        |
+| `components-data`       | 12      | Table, Data Table, List, Accordion, Tree View, Stepper, Scroll Area, Empty State    |
+| `components-marketing`  | 14      | Pricing Card, Pricing Table, CTA Section, FAQ, Newsletter, Logo Cloud, Banner       |
+| **Total**               | **103** |                                                                                     |
 
 ## Reference Links
 
@@ -98,6 +101,7 @@ For fresh projects, establish in order:
 ## Using context7
 
 For latest docs, use context7 MCP:
+
 ```
 use context7 to look up [shadcn Button component]
 use context7 to look up [Tailwind grid utilities]

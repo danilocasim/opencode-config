@@ -14,6 +14,7 @@ Common page structures and section flows.
 **Purpose**: Convert visitors to users/customers.
 
 **Typical section flow**:
+
 1. **Hero** - Headline, value prop, CTA, visual
 2. **Logo cloud** - Social proof (trusted by)
 3. **Features** - 3-6 key benefits/features
@@ -27,12 +28,14 @@ Common page structures and section flows.
 **Key components**: Hero, Feature Card, Testimonial, Pricing Card, FAQ, CTA Section, Footer
 
 **Layout considerations**:
+
 - Full-width sections with contained content
 - Alternating backgrounds for visual rhythm
 - Mobile: Stack everything vertically
 - Clear visual hierarchy guiding to CTAs
 
 **Best practices**:
+
 - One primary CTA per section
 - Social proof early (builds trust)
 - Address objections (FAQ, guarantees)
@@ -45,6 +48,7 @@ Common page structures and section flows.
 **Purpose**: Application main interface for data and actions.
 
 **Typical structure**:
+
 ```
 ┌─────────────────────────────────────────┐
 │ Header (breadcrumbs, search, user menu) │
@@ -60,12 +64,14 @@ Common page structures and section flows.
 **Key components**: Sidebar, Navbar, Stats Card, Data Table, Card, Tabs
 
 **Layout considerations**:
+
 - Sidebar: Fixed or collapsible (icon-only on collapse)
 - Mobile: Sidebar becomes drawer/sheet
 - Main area: Scrollable, header can be sticky
 - Dense information display
 
 **Best practices**:
+
 - Most important data visible first
 - Quick actions easily accessible
 - Clear navigation hierarchy
@@ -78,6 +84,7 @@ Common page structures and section flows.
 **Purpose**: User/account configuration.
 
 **Typical structure**:
+
 ```
 ┌────────────────────────────────────────┐
 │ Page header (Settings)                 │
@@ -95,12 +102,14 @@ Common page structures and section flows.
 **Key components**: Tabs/Sidebar nav, Form, Input, Switch, Select, Button
 
 **Layout considerations**:
+
 - Vertical tabs/sidebar for many categories
 - Horizontal tabs for few categories
 - Form sections with clear headings
 - Sticky save button or per-section save
 
 **Best practices**:
+
 - Group related settings
 - Explain what each setting does
 - Show current state clearly
@@ -113,6 +122,7 @@ Common page structures and section flows.
 **Purpose**: User authentication.
 
 **Typical structure**:
+
 ```
 ┌─────────────────────────────────────────┐
 │                                         │
@@ -140,12 +150,14 @@ Common page structures and section flows.
 **Key components**: Card, Form, Input, Button, Separator ("or"), Social buttons
 
 **Layout considerations**:
+
 - Minimal distractions (no full nav)
 - Mobile: Full-width card or no card
 - Clear path between login/signup
 - Password visibility toggle
 
 **Best practices**:
+
 - Social login options (Google, GitHub, etc.)
 - "Forgot password" link visible
 - Show password requirements on signup
@@ -158,6 +170,7 @@ Common page structures and section flows.
 **Purpose**: Long-form content consumption.
 
 **Typical structure**:
+
 ```
 ┌─────────────────────────────────────────┐
 │ Header (nav)                            │
@@ -182,12 +195,14 @@ Common page structures and section flows.
 **Key components**: Avatar, Badge (tags), Prose styling, Card (related), Social Share
 
 **Layout considerations**:
+
 - Max content width: 65-75 characters per line
 - Generous line height (1.6-1.8)
 - Optional: Table of contents sidebar
 - Mobile: Full-width with padding
 
 **Best practices**:
+
 - Reading time estimate
 - Progress indicator (optional)
 - Share buttons (floating or end)
@@ -200,6 +215,7 @@ Common page structures and section flows.
 **Purpose**: Product information and purchase conversion.
 
 **Typical structure**:
+
 ```
 ┌─────────────────────────────────────────┐
 │ Header (nav, cart)                      │
@@ -225,12 +241,14 @@ Common page structures and section flows.
 **Key components**: Image gallery, Select (variants), Button, Tabs, Card, Badge (sale)
 
 **Layout considerations**:
+
 - Images: Large, zoomable, multiple angles
 - Sticky add-to-cart on mobile
 - Reviews prominently displayed
 - Trust badges near purchase button
 
 **Best practices**:
+
 - High-quality images (multiple angles)
 - Clear pricing (show savings if on sale)
 - Stock status visible
@@ -245,22 +263,27 @@ Common page structures and section flows.
 **Purpose**: Handle navigation errors gracefully.
 
 **Typical contents**:
+
 - Clear error message
 - Illustration or icon
 - Explanation of what happened
 - Links to navigate away (home, search, popular pages)
 
 **Best practices**:
+
 - Friendly, not technical language
 - Helpful navigation options
 - Consistent with site branding
 - Search box if applicable
 
-## Settings Page
+---
+
+## Settings Page (Implementation Example)
 
 **Purpose**: Configure application preferences and account settings.
 
 **Typical structure**:
+
 ```
 Settings/
 ├── Sidebar Navigation
@@ -275,6 +298,7 @@ Settings/
 ```
 
 **Key sections**:
+
 1. **Profile** - Name, avatar, bio, public info
 2. **Account** - Email, password, delete account
 3. **Notifications** - Email, push, in-app preferences
@@ -283,6 +307,7 @@ Settings/
 6. **Security** - 2FA, sessions, API keys
 
 **Structure**:
+
 ```tsx
 export default function SettingsPage() {
   return (
@@ -302,7 +327,7 @@ export default function SettingsPage() {
             {/* More nav items */}
           </nav>
         </aside>
-        
+
         {/* Main content */}
         <main className="flex-1 max-w-2xl">
           <Card>
@@ -320,7 +345,7 @@ export default function SettingsPage() {
                 </Avatar>
                 <Button variant="outline">Change Avatar</Button>
               </div>
-              
+
               <div className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <FormField name="firstName" ... />
@@ -342,6 +367,7 @@ export default function SettingsPage() {
 ```
 
 **Layout considerations**:
+
 - Sticky sidebar navigation
 - Clear section headings
 - Auto-save or prominent save button
@@ -354,27 +380,31 @@ export default function SettingsPage() {
 **Purpose**: Display user information and activity.
 
 **Typical structure**:
+
 1. **Header** - Cover photo, avatar, name, actions
 2. **Stats** - Followers, following, posts
 3. **Bio** - Description, location, links
 4. **Content tabs** - Posts, activity, media, likes
 
 **Structure**:
+
 ```tsx
 export default function ProfilePage() {
   return (
     <div>
       {/* Cover image */}
       <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600" />
-      
+
       <div className="container -mt-16">
         <div className="flex flex-col md:flex-row gap-6">
           {/* Avatar */}
           <Avatar className="h-32 w-32 border-4 border-background">
             <AvatarImage src={user.avatar} />
-            <AvatarFallback className="text-2xl">{user.initials}</AvatarFallback>
+            <AvatarFallback className="text-2xl">
+              {user.initials}
+            </AvatarFallback>
           </Avatar>
-          
+
           {/* Info */}
           <div className="flex-1">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -387,10 +417,10 @@ export default function ProfilePage() {
                 <Button>Follow</Button>
               </div>
             </div>
-            
+
             {/* Bio */}
             <p className="mt-4">{user.bio}</p>
-            
+
             {/* Meta */}
             <div className="flex flex-wrap gap-4 mt-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
@@ -406,7 +436,7 @@ export default function ProfilePage() {
                 Joined {user.joinedDate}
               </span>
             </div>
-            
+
             {/* Stats */}
             <div className="flex gap-6 mt-4">
               <div>
@@ -420,7 +450,7 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-        
+
         {/* Tabs */}
         <Tabs defaultValue="posts" className="mt-8">
           <TabsList>
@@ -436,11 +466,12 @@ export default function ProfilePage() {
         </Tabs>
       </div>
     </div>
-  )
+  );
 }
 ```
 
 **Layout considerations**:
+
 - Responsive avatar positioning
 - Clear visual hierarchy
 - Consistent spacing
@@ -453,6 +484,7 @@ export default function ProfilePage() {
 **Purpose**: Technical documentation with navigation.
 
 **Typical structure**:
+
 ```
 Docs/
 ├── Sticky Header (search, version selector)
@@ -462,6 +494,7 @@ Docs/
 ```
 
 **Key components**:
+
 1. **Search** - Full-text documentation search
 2. **Version selector** - Switch between versions
 3. **Table of contents** - Hierarchical navigation
@@ -471,6 +504,7 @@ Docs/
 7. **Callouts** - Info, warning, tip boxes
 
 **Structure**:
+
 ```tsx
 export default function DocsPage() {
   return (
@@ -478,19 +512,19 @@ export default function DocsPage() {
       {/* Left sidebar */}
       <aside className="hidden lg:block w-64 border-r sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
         <nav className="p-4 space-y-6">
-          {sections.map(section => (
+          {sections.map((section) => (
             <div key={section.title}>
               <h4 className="font-semibold mb-2">{section.title}</h4>
               <ul className="space-y-1">
-                {section.pages.map(page => (
+                {section.pages.map((page) => (
                   <li key={page.href}>
-                    <a 
+                    <a
                       href={page.href}
                       className={cn(
                         "block px-2 py-1 text-sm rounded",
-                        isActive(page.href) 
-                          ? "bg-primary/10 text-primary font-medium" 
-                          : "text-muted-foreground hover:text-foreground"
+                        isActive(page.href)
+                          ? "bg-primary/10 text-primary font-medium"
+                          : "text-muted-foreground hover:text-foreground",
                       )}
                     >
                       {page.title}
@@ -502,15 +536,15 @@ export default function DocsPage() {
           ))}
         </nav>
       </aside>
-      
+
       {/* Main content */}
       <main className="flex-1 min-w-0">
         <article className="prose prose-slate dark:prose-invert max-w-3xl mx-auto px-4 py-8">
           <h1>{doc.title}</h1>
           <p className="lead">{doc.description}</p>
-          
+
           {doc.content}
-          
+
           {/* Pagination */}
           <div className="flex justify-between mt-12 pt-6 border-t">
             {doc.prev && (
@@ -528,22 +562,22 @@ export default function DocsPage() {
           </div>
         </article>
       </main>
-      
+
       {/* Right sidebar */}
       <aside className="hidden xl:block w-64 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
         <nav className="p-4">
           <h4 className="font-semibold text-sm mb-2">On this page</h4>
           <ul className="space-y-1">
-            {headings.map(heading => (
+            {headings.map((heading) => (
               <li key={heading.id}>
-                <a 
+                <a
                   href={`#${heading.id}`}
                   className={cn(
                     "block text-sm py-1",
                     heading.level === 2 ? "" : "pl-4",
-                    isActive(heading.id) 
-                      ? "text-primary font-medium" 
-                      : "text-muted-foreground hover:text-foreground"
+                    isActive(heading.id)
+                      ? "text-primary font-medium"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {heading.text}
@@ -554,11 +588,12 @@ export default function DocsPage() {
         </nav>
       </aside>
     </div>
-  )
+  );
 }
 ```
 
 **Layout considerations**:
+
 - Sticky navigation
 - Collapsible sidebar on mobile
 - Search integration
