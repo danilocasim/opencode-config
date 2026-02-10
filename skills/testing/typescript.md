@@ -1,15 +1,32 @@
 # TypeScript/JavaScript Testing (Vitest/Jest)
 
-If you are testing a Next.js app (App Router, server actions, route handlers), prefer `node-nextjs.md`.
+## When to load
 
-## Defaults
+- You are testing TS/JS libraries, services, or React components.
+- You need a default unit/integration approach with Vitest/Jest.
 
-- Prefer Vitest for new projects; use Jest if the repo already uses it
-- Prefer behavior-focused tests with clear assertions
+## When NOT to load
 
-## Unit tests (Vitest)
+- You are testing a Next.js app (App Router, server actions, route handlers): use `node-nextjs.md`.
+- You are writing Playwright E2E tests: use `e2e-playwright.md`.
+
+## Core rules
+
+- Prefer the repo's existing runner; default to Vitest for new work.
+- Assert behavior (outputs, rendered UI, emitted events), not private internals.
+- Control time, randomness, and network; avoid real HTTP in unit tests.
+- Keep tests fast; push slow wiring to a small integration/E2E layer.
+
+## Common patterns
+
+- Vitest unit tests for pure functions and business rules.
+- React Testing Library + user-event for components.
+- MSW for HTTP mocking when you need realistic request/response behavior.
+- `vi.useFakeTimers()` for time-sensitive logic.
 
 ## Minimal examples
+
+Vitest unit test:
 
 ```ts
 import { describe, expect, it } from "vitest";
@@ -23,10 +40,7 @@ describe("normalizeDate", () => {
 });
 ```
 
-## React component tests (RTL)
-
-- Use `@testing-library/react` + `@testing-library/user-event`
-- Assert what the user can see and do
+React component test (RTL):
 
 ```tsx
 import { render, screen } from "@testing-library/react";
@@ -36,12 +50,31 @@ import { Counter } from "./Counter";
 
 it("increments when clicked", async () => {
   const user = userEvent.setup();
+
   render(<Counter />);
+
   await user.click(screen.getByRole("button", { name: /count/i }));
+
   expect(screen.getByText(/count: 1/i)).toBeInTheDocument();
 });
 ```
 
-## Network isolation
+## Anti-patterns
 
-- Prefer MSW (Mock Service Worker) for HTTP mocking when appropriate
+- Snapshot-heavy tests for business logic.
+- Mocking module internals instead of injecting boundaries.
+- Uncontrolled network/time in tests that run in CI.
+
+## Checklist
+
+- Is this the smallest test level that proves the behavior?
+- Are time/random/network inputs controlled?
+- Does the test assert user-observable outcomes?
+- Will this remain readable after six months?
+
+## References
+
+- Vitest: https://vitest.dev/
+- Jest: https://jestjs.io/
+- React Testing Library: https://testing-library.com/docs/react-testing-library/intro/
+- MSW: https://mswjs.io/

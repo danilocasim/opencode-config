@@ -1,137 +1,52 @@
 ---
 name: python
-description: Python 3.12+ conventions with strict typing (2024-2026)
+description: Python 3.12+ skill router for deterministic, strictly typed code (tools, services, agents)
 ---
 
-# Python Conventions (Python 3.12+)
+# Python Skill Router
 
-## Type Hints (Required)
-```python
-def greet(name: str, times: int = 1) -> str:
-    return f"Hello, {name}!" * times
-```
+Load this first for Python work so you can route to a small focused guide instead of mixing conventions.
 
-- **Type hints everywhere** - parameters, returns, class attributes
-- **Use `mypy --strict`** or `pyright` for type checking
-- **No `Any`** unless truly necessary
+## When to load
 
-## Modern Syntax (3.10+)
-- **Match statements**: `match value: case pattern:` (3.10+)
-- **Union syntax**: `str | None` over `Optional[str]` (3.10+)
-- **Type parameter syntax**: `def func[T](x: T) -> T:` (3.12+)
-- **F-strings**: Always, including `f"{value=}"` for debugging
+- You are writing Python for tools, agents, microservices, or libraries.
+- You need strict typing, deterministic behavior, and test-first defaults.
+- You need a recommended modern toolchain (uv + ruff + pyright).
 
-## Data Structures
-- **dataclasses**: For mutable data containers
-- **frozen dataclasses**: `@dataclass(frozen=True)` for immutable
-- **NamedTuple**: For lightweight immutable records
-- **TypedDict**: For typed dictionaries
-- **Pydantic**: For validation and serialization
+## When NOT to load
 
-```python
-from dataclasses import dataclass
+- You are building a FastAPI service and only need framework conventions -> load `../fastapi/SKILL.md`.
+- You are designing REST API contracts -> load `../api/SKILL.md`.
 
-@dataclass(frozen=True, slots=True)
-class User:
-    id: int
-    name: str
-    email: str | None = None
-```
+## Routing table
 
-## Functions
-- **Keyword-only args**: `def f(*, name: str)` for clarity
-- **Positional-only args**: `def f(x, /, y)` for flexibility (3.8+)
-- **Default to immutable defaults**: Never `def f(items=[]):`
-- **Single responsibility** - functions do one thing
+| If the task is about...                      | Load                            |
+| -------------------------------------------- | ------------------------------- |
+| Project layout and import boundaries         | `project-structure.md`          |
+| Type safety and boundary validation          | `types-and-boundaries.md`       |
+| Error strategy (exceptions vs Result)        | `errors-and-results.md`         |
+| Async IO, cancellation, bounded concurrency  | `async-and-concurrency.md`      |
+| HTTP clients, timeouts, retries, idempotency | `http-clients-and-retries.md`   |
+| Tooling (uv + ruff + pyright) and CI gates   | `tooling-and-quality.md`        |
+| Docstrings and comment policy                | `documentation-and-comments.md` |
+| Build an agent tool module                   | `recipes-agent-tool.md`         |
+| Build a CLI tool                             | `recipes-cli-tool.md`           |
+| Testing patterns for Python                  | `../testing/python.md`          |
 
-## Error Handling
-- **Specific exceptions** over bare `except:`
-- **Custom exceptions** for domain errors
-- **Context managers** for resource cleanup
-- **Exception groups** for concurrent errors (3.11+)
+## Typical load combos
 
-```python
-class UserNotFoundError(Exception):
-    def __init__(self, user_id: int) -> None:
-        self.user_id = user_id
-        super().__init__(f"User {user_id} not found")
-```
+- New Python module: `project-structure.md` + `tooling-and-quality.md` + `types-and-boundaries.md` + `errors-and-results.md`
+- HTTP integration: `http-clients-and-retries.md` + `errors-and-results.md` + `types-and-boundaries.md`
+- Async worker: `async-and-concurrency.md` + `errors-and-results.md` + `tooling-and-quality.md`
 
-## Async
-- **`async`/`await`** for I/O-bound operations
-- **`asyncio.TaskGroup`** for concurrent tasks (3.11+)
-- **Never block the event loop**
+## Stop triggers (route out)
 
-## Project Structure
-```
-src/
-  mypackage/
-    __init__.py
-    module.py
-tests/
-  test_module.py
-pyproject.toml
-```
+- Secrets, auth, SSRF, uploads, sandboxing -> `../security/SKILL.md`
+- API envelopes, pagination, versioning, idempotency -> `../api/SKILL.md`
+- DB schema/migrations/transactions -> `../database/SKILL.md`
+- CI, containers, deploy -> `../devops/SKILL.md`
 
-## Testing
-- **pytest** for testing
-- **pytest-cov** for coverage
-- **hypothesis** for property-based testing
-- Fixtures over setup/teardown
+## Always adapt to existing repos
 
-## Documentation (Google-style docstrings)
-
-Use Google-style docstrings for public functions/classes.
-
-```python
-def normalize_date(input: str, *, time_zone: str) -> str:
-    """Normalize a user-supplied date to an ISO string.
-
-    Why:
-        Storage and comparisons are safer when all dates are normalized.
-
-    Args:
-        input: User-supplied date (e.g. "2026-01-31").
-        time_zone: IANA timezone (e.g. "America/Los_Angeles").
-
-    Returns:
-        ISO 8601 date string.
-
-    Raises:
-        ValueError: If the input cannot be parsed.
-    """
-    # ...
-    raise NotImplementedError
-```
-
-Guidelines:
-- Document inputs/outputs and error conditions.
-- Prefer raising specific exceptions.
-
-## Tools
-- **Ruff**: Linting AND formatting (replaces flake8, isort, black)
-- **mypy** or **pyright**: Type checking
-- **uv** or **poetry**: Dependency management
-
-```toml
-# pyproject.toml
-[tool.ruff]
-line-length = 88
-select = ["E", "F", "I", "N", "W", "UP", "ANN", "B", "C4", "SIM"]
-
-[tool.mypy]
-strict = true
-```
-
-## Style
-- **4 spaces** indentation (PEP 8)
-- **88 chars** line length (black/ruff default)
-- **snake_case**: functions, variables, modules
-- **PascalCase**: classes
-- **SCREAMING_SNAKE_CASE**: constants
-
-## Reference Docs
-- PEP 8: https://pep8.org/
-- Ruff Rules: https://docs.astral.sh/ruff/rules/
-- mypy Docs: https://mypy.readthedocs.io/
-- Python Type Hints: https://docs.python.org/3/library/typing.html
+If the repo already has a toolchain (poetry, black, mypy, etc.), follow it.
+Only introduce uv/ruff/pyright when you own the repo or when current tooling is missing.
