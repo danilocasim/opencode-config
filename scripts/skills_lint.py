@@ -21,7 +21,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
 SKILL_NAME_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+MD_CODE_SPAN_RE = re.compile(r"`([^`\n]+?\.md)`")
 
 
 V2_SKILLS = {
@@ -93,6 +96,30 @@ def _parse_frontmatter(text: str) -> dict[str, str] | None:
     return out
 
 
+def _extract_md_code_spans(text: str) -> set[str]:
+    """Extract backticked `.md` file references from markdown text.
+
+    This is a lightweight consistency check used to catch broken router links in
+    `SKILL.md`. It intentionally ignores non-backticked links and does not try
+    to fully parse markdown.
+    """
+
+    out: set[str] = set()
+    for m in MD_CODE_SPAN_RE.finditer(text):
+        ref = m.group(1).strip()
+        if (
+            not ref
+            or "://" in ref
+            or "<" in ref
+            or ">" in ref
+            or ref.startswith("~")
+            or ref.startswith(".opencode/")
+        ):
+            continue
+        out.add(ref)
+    return out
+
+
 def lint_skill_dir(skill_dir: Path) -> list[Issue]:
     issues: list[Issue] = []
 
@@ -122,6 +149,16 @@ def lint_skill_dir(skill_dir: Path) -> list[Issue]:
     if name and not SKILL_NAME_RE.fullmatch(name):
         issues.append(Issue(skill_md, f"invalid skill name '{name}' (must match {SKILL_NAME_RE.pattern})"))
 
+    # Router link validation: keep SKILL.md references from silently breaking.
+    for ref in sorted(_extract_md_code_spans(text)):
+        if ref.startswith("skills/"):
+            target = ROOT / ref
+        else:
+            target = (skill_dir / ref)
+
+        if not target.exists():
+            issues.append(Issue(skill_md, f"references missing file: {ref}"))
+
     # V2 schema enforcement for migrated skills.
     if skill_dir.name in V2_SKILLS:
         for leaf in sorted(skill_dir.glob("*.md")):
@@ -147,8 +184,7 @@ def main(argv: list[str]) -> int:
     )
     args = parser.parse_args(argv)
 
-    root = Path(__file__).resolve().parents[1]
-    skills_dir = Path(args.skills_dir).expanduser() if args.skills_dir else (root / "skills")
+    skills_dir = Path(args.skills_dir).expanduser() if args.skills_dir else (ROOT / "skills")
 
     if not skills_dir.exists():
         print(f"skills dir not found: {skills_dir}", file=sys.stderr)
@@ -169,7 +205,7 @@ def main(argv: list[str]) -> int:
     for issue in issues:
         rel = issue.path
         try:
-            rel = issue.path.relative_to(root)
+            rel = issue.path.relative_to(ROOT)
         except ValueError:
             pass
         print(f"- {rel}: {issue.message}")
