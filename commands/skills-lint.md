@@ -5,9 +5,11 @@ agent: build
 
 Run the global skills linter and fix any issues.
 
-Here is the current lint output:
+Run:
 
-!`python3 ~/.config/opencode/scripts/skills_lint.py`
+```bash
+python3 scripts/skills_lint.py
+```
 
 If there are errors:
 
