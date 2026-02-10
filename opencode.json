@@ -15,9 +15,7 @@
     "auto": true,
     "prune": true
   },
-  "plugin": [
-    "opencode-openai-codex-auth"
-  ],
+  "plugin": ["opencode-openai-codex-auth"],
   "watcher": {
     "ignore": [
       "**/.git/**",
@@ -87,11 +85,28 @@
   "formatter": {
     "prettier": {
       "command": ["npx", "prettier", "--write", "$FILE"],
-      "extensions": [".js", ".jsx", ".ts", ".tsx", ".json", ".md", ".yml", ".yaml", ".css", ".scss"]
+      "extensions": [".json", ".md", ".yml", ".yaml", ".css", ".scss"]
+    },
+    "eslint": {
+      "command": ["npx", "eslint", "--fix", "$FILE"],
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".mjs",
+        ".cjs",
+        ".mts",
+        ".cts"
+      ]
     },
     "ruff": {
-      "command": ["ruff", "format", "$FILE"],
-      "extensions": [".py"]
+      "command": [
+        "bash",
+        "-lc",
+        "ruff check --fix \"$FILE\" && ruff format \"$FILE\""
+      ],
+      "extensions": [".py", ".pyi"]
     },
     "gofmt": {
       "command": ["gofmt", "-w", "$FILE"],
@@ -102,8 +117,8 @@
       "extensions": [".rs"]
     },
     "rubocop": {
-      "command": ["bundle", "exec", "rubocop", "-A", "$FILE"],
-      "extensions": [".rb", ".rake"]
+      "command": ["bundle", "exec", "rubocop", "-a", "$FILE"],
+      "extensions": [".rb", ".rake", ".gemspec", ".ru"]
     }
   },
   "tui": {
@@ -337,9 +352,7 @@
         "reasoningEffort": "medium",
         "reasoningSummary": "auto",
         "textVerbosity": "medium",
-        "include": [
-          "reasoning.encrypted_content"
-        ],
+        "include": ["reasoning.encrypted_content"],
         "store": false
       },
       "models": {
@@ -350,13 +363,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "none": {
@@ -393,13 +401,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "low": {
@@ -431,13 +434,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "low": {
@@ -469,13 +467,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "low": {
@@ -502,13 +495,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "medium": {
@@ -530,13 +518,8 @@
             "output": 128000
           },
           "modalities": {
-            "input": [
-              "text",
-              "image"
-            ],
-            "output": [
-              "text"
-            ]
+            "input": ["text", "image"],
+            "output": ["text"]
           },
           "variants": {
             "none": {
