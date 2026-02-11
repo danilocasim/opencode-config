@@ -7,12 +7,11 @@ function isEditLikeTool(tool: string): tool is EditLikeTool {
 }
 
 /**
- * Guardrail plugin:
- * - records loaded skills
- * - blocks file modifications until at least one skill is loaded
- * - injects loaded skills into compaction context
+ * Strict guardrail plugin:
+ * - blocks file modifications until the project-local `project` skill is loaded
+ * - injects the loaded-skill set into compaction context
  */
-export const SkillGuard: Plugin = async () => {
+export const ProjectSkillGuard: Plugin = async () => {
   const loaded = new Set<string>();
 
   return {
@@ -25,10 +24,10 @@ export const SkillGuard: Plugin = async () => {
 
     "tool.execute.before": async (input) => {
       if (!isEditLikeTool(input.tool)) return;
-      if (loaded.size > 0) return;
+      if (loaded.has("project")) return;
 
       throw new Error(
-        "SkillGuard: load skills before editing files. Prefer project-local skills under .opencode/skills/* first, then global routers + leaves."
+        "ProjectSkillGuard: load the project-local `project` skill before editing files (create it under .opencode/skills/project/SKILL.md)."
       );
     },
 
