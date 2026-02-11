@@ -5,6 +5,23 @@
 
 > Copy this to your project root as `AGENTS.md` and customize.
 
+## Skill Loading Protocol (Mandatory)
+
+- Prefer project-local skills under `.opencode/skills/` (if present).
+- If the repo does not define the needed skill(s), load the corresponding global skills from `~/.config/opencode/skills/`.
+- Load router skill(s) first, then 1-2 relevant leaf docs.
+- If behavior changes: load `testing` (and the stack test leaf).
+- If public APIs change: load `documentation` (and the language doc style).
+
+If no relevant project-local skills exist, do not block work; fall back to global skills.
+
+## Testing Policy (TDD)
+
+- Prefer TDD (red/green/refactor) for non-trivial behavior changes.
+- Write a failing test first when feasible.
+- Tests should cover success + primary failure paths.
+- Always run tests after changes and fix failures immediately.
+
 ## Project Overview
 
 <!-- Brief description of what this project does -->
