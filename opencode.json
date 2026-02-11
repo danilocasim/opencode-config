@@ -30,7 +30,13 @@
       "**/__pycache__/**",
       "**/*.pyc",
       "**/target/**",
-      "**/.dart_tool/**"
+      "**/.dart_tool/**",
+      "**/ios/Pods/**",
+      "**/ios/build/**",
+      "**/ios/DerivedData/**",
+      "**/android/.gradle/**",
+      "**/android/build/**",
+      "**/android/app/build/**"
     ]
   },
   "permission": {

@@ -68,6 +68,7 @@ When working in a specific language, load the appropriate skill for detailed con
 - **DevOps**: Load `devops` skill for Docker/CI/infrastructure patterns
 - **Dart**: Load `dart` skill for Dart 3.x idioms, null safety, and tooling
 - **Flutter**: Load `flutter` skill for Flutter architecture, widgets, and platform UX
+- **Capacitor**: Load `capacitor` skill for production iOS/Android hybrid apps and native build workflows
 
 ## Routing Skills
 

@@ -30,6 +30,7 @@ MD_CODE_SPAN_RE = re.compile(r"`([^`\n]+?\.md)`")
 V2_SKILLS = {
     "api",
     "auth",
+    "capacitor",
     "database",
     "devops",
     "dart",
