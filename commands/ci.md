@@ -17,5 +17,6 @@ For this OpenCode skills repo, the baseline CI-like checks are:
 
 ```bash
 python3 scripts/skills_lint.py
+python3 scripts/benchmarks_lint.py
 npx prettier --check .
 ```
