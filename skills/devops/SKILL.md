@@ -3,28 +3,34 @@ name: devops
 description: DevOps, CI/CD, and infrastructure conventions
 ---
 
-# DevOps & CI/CD Conventions
+# DevOps Skill Router
 
-High-level patterns for Docker, CI, and cloud infra.
+Use this when touching Dockerfiles, CI pipelines, deployment configs, or build reproducibility. The goal is fast, deterministic, secure delivery.
 
-## Docker
+## When to load
 
-- Use small base images (alpine/distroless when appropriate)
-- Multi-stage builds for production images
-- Avoid baking secrets into images
-- Prefer health checks and explicit entrypoints
+- You are editing a Dockerfile or container build.
+- You are changing CI behavior (lint/test/build, caching).
+- You are touching deployment configs.
+- You need a checklist for reproducible builds.
 
-## CI/CD
+## When NOT to load
 
-- Separate **lint/test/build** steps
-- Cache dependencies safely
-- Fail fast on lint/test errors
-- Keep pipelines deterministic and reproducible
+- You are designing API contracts (use `../api/SKILL.md`).
+- You are doing app-level auth/session (use the stack skill).
 
-## Infrastructure
+## Routing table
 
-- Infrastructure as Code (Terraform, CloudFormation, etc.)
-- Principle of least privilege for all credentials
-- Separate staging/production with clear promotion flow
+| If the task is about...          | Load file                   |
+| -------------------------------- | --------------------------- |
+| Dockerfiles and image hardening  | `dockerfiles-and-images.md` |
+| CI pipelines and reproducibility | `ci-pipelines.md`           |
+| Secrets in CI/CD                 | `secrets-in-ci.md`          |
+| Deployment strategies            | `deploy-strategies.md`      |
+| Recipe: CI-like local checks     | `recipes-ci-checks.md`      |
 
-Use this skill as a reference when the debugger or optimizer needs to touch CI, Dockerfiles, or deployment configs.
+## Default policy
+
+- Fail fast (format/lint/type before tests/build).
+- Cache safely (keyed by lockfiles).
+- Don’t bake secrets into artifacts.
