@@ -227,7 +227,7 @@ function NavItem({ href, icon: Icon, children, active }) {
         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
         active
           ? "bg-primary text-primary-foreground"
-          : "text-muted-foreground hover:bg-muted hover:text-foreground",
+          : "text-muted-foreground hover:bg-muted hover:text-foreground"
       )}
     >
       <Icon className="h-4 w-4" />
@@ -481,9 +481,7 @@ import {
           <Logo className="h-6 w-6" />
           <span className="font-bold">Brand</span>
         </Link>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Brief company description or tagline.
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">Brief company description or tagline.</p>
       </div>
 
       {/* Link columns */}
@@ -532,9 +530,7 @@ import {
 
     {/* Bottom bar */}
     <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
-      <p className="text-sm text-muted-foreground">
-        © 2024 Brand. All rights reserved.
-      </p>
+      <p className="text-sm text-muted-foreground">© 2024 Brand. All rights reserved.</p>
       <div className="flex space-x-4">
         <Link href="#" aria-label="Twitter">
           <Twitter className="h-5 w-5" />
@@ -753,11 +749,8 @@ useEffect(() => {
           className={cn(
             "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
             step.isComplete && "bg-primary text-primary-foreground",
-            step.isCurrent &&
-              "bg-primary/20 text-primary border-2 border-primary",
-            !step.isComplete &&
-              !step.isCurrent &&
-              "bg-muted text-muted-foreground",
+            step.isCurrent && "bg-primary/20 text-primary border-2 border-primary",
+            !step.isComplete && !step.isCurrent && "bg-muted text-muted-foreground"
           )}
         >
           {step.isComplete ? <Check className="w-4 h-4" /> : index + 1}
@@ -769,7 +762,7 @@ useEffect(() => {
             "ml-2 text-sm font-medium",
             step.isComplete && "text-primary",
             step.isCurrent && "text-foreground",
-            !step.isComplete && !step.isCurrent && "text-muted-foreground",
+            !step.isComplete && !step.isCurrent && "text-muted-foreground"
           )}
         >
           {step.label}
@@ -777,12 +770,7 @@ useEffect(() => {
 
         {/* Connector line */}
         {index < steps.length - 1 && (
-          <div
-            className={cn(
-              "w-full h-0.5 mx-4",
-              step.isComplete ? "bg-primary" : "bg-muted",
-            )}
-          />
+          <div className={cn("w-full h-0.5 mx-4", step.isComplete ? "bg-primary" : "bg-muted")} />
         )}
       </li>
     ))}
@@ -808,9 +796,7 @@ useEffect(() => {
         <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
           {index + 1}
         </div>
-        {index < steps.length - 1 && (
-          <div className="w-0.5 flex-1 bg-muted my-2" />
-        )}
+        {index < steps.length - 1 && <div className="w-0.5 flex-1 bg-muted my-2" />}
       </div>
 
       {/* Right column: content */}
@@ -867,7 +853,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
         "inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors",
         "hover:text-primary focus-visible:outline-none focus-visible:ring-2",
         isActive ? "text-primary" : "text-muted-foreground",
-        className,
+        className
       )}
       aria-current={isActive ? "page" : undefined}
     >
@@ -906,12 +892,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
 **External links**:
 
 ```tsx
-<a
-  href={href}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="inline-flex items-center gap-1"
->
+<a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
   {children}
   <ExternalLink className="w-3 h-3" />
 </a>
@@ -966,9 +947,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
   <div
     className={cn(
       "flex flex-col-reverse gap-2 mb-4 transition-all",
-      isOpen
-        ? "opacity-100 translate-y-0"
-        : "opacity-0 translate-y-4 pointer-events-none",
+      isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
     )}
   >
     <button className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
@@ -984,12 +963,7 @@ export function NavLink({ to, children, className }: NavLinkProps) {
     onClick={() => setIsOpen(!isOpen)}
     className="h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg"
   >
-    <Plus
-      className={cn(
-        "h-6 w-6 mx-auto transition-transform",
-        isOpen && "rotate-45",
-      )}
-    />
+    <Plus className={cn("h-6 w-6 mx-auto transition-transform", isOpen && "rotate-45")} />
   </button>
 </div>
 ```
@@ -1059,15 +1033,11 @@ export function NavLink({ to, children, className }: NavLinkProps) {
   </DropdownMenuTrigger>
   <DropdownMenuContent align="end">
     <DropdownMenuItem onClick={() => setLocale("en")}>
-      <span className={cn("mr-2", current === "en" && "font-bold")}>
-        English
-      </span>
+      <span className={cn("mr-2", current === "en" && "font-bold")}>English</span>
       {current === "en" && <Check className="h-4 w-4 ml-auto" />}
     </DropdownMenuItem>
     <DropdownMenuItem onClick={() => setLocale("es")}>
-      <span className={cn("mr-2", current === "es" && "font-bold")}>
-        Español
-      </span>
+      <span className={cn("mr-2", current === "es" && "font-bold")}>Español</span>
       {current === "es" && <Check className="h-4 w-4 ml-auto" />}
     </DropdownMenuItem>
   </DropdownMenuContent>

@@ -89,23 +89,10 @@
     },
     "eslint": {
       "command": ["npx", "eslint", "--fix", "$FILE"],
-      "extensions": [
-        ".js",
-        ".jsx",
-        ".ts",
-        ".tsx",
-        ".mjs",
-        ".cjs",
-        ".mts",
-        ".cts"
-      ]
+      "extensions": [".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".mts", ".cts"]
     },
     "ruff": {
-      "command": [
-        "bash",
-        "-lc",
-        "ruff check --fix \"$FILE\" && ruff format \"$FILE\""
-      ],
+      "command": ["bash", "-lc", "ruff check --fix \"$FILE\" && ruff format \"$FILE\""],
       "extensions": [".py", ".pyi"]
     },
     "gofmt": {

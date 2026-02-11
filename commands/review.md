@@ -9,6 +9,7 @@ Review the following code for quality issues:
 $ARGUMENTS
 
 Focus on:
+
 1. Simplicity - could this be simpler?
 2. DRY violations - any repeated logic?
 3. Documentation - are public APIs documented?

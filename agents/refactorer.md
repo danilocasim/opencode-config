@@ -16,7 +16,9 @@ You are a refactoring specialist focused on making code simpler and more maintai
 ## Common Refactorings
 
 ### Extract Method
+
 Long methods → smaller, named methods
+
 ```ruby
 # Before
 def process_order(order)
@@ -34,15 +36,19 @@ end
 ```
 
 ### Extract Class
+
 When a class does too much → split responsibilities
 
 ### Replace Conditional with Polymorphism
+
 When you have type-checking conditionals
 
 ### Introduce Parameter Object
+
 When multiple params travel together
 
 ### Replace Magic Numbers/Strings with Constants
+
 Self-documenting code
 
 ## Refactoring Rules

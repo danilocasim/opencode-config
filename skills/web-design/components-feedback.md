@@ -127,9 +127,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 <Alert>
   <Terminal className="h-4 w-4" />
   <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can add components to your app using the CLI.
-  </AlertDescription>
+  <AlertDescription>You can add components to your app using the CLI.</AlertDescription>
 </Alert>;
 ```
 
@@ -357,8 +355,8 @@ import {
     <AlertDialogHeader>
       <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
       <AlertDialogDescription>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
+        This action cannot be undone. This will permanently delete your account and remove your data
+        from our servers.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
@@ -490,12 +488,7 @@ import {
 **Structure**:
 
 ```tsx
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 <TooltipProvider>
   <Tooltip>
@@ -542,11 +535,7 @@ import {
 **Structure**:
 
 ```tsx
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 <Popover>
   <PopoverTrigger asChild>
@@ -556,9 +545,7 @@ import {
     <div className="grid gap-4">
       <div className="space-y-2">
         <h4 className="font-medium leading-none">Dimensions</h4>
-        <p className="text-sm text-muted-foreground">
-          Set the dimensions for the layer.
-        </p>
+        <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
       </div>
       {/* More content */}
     </div>
@@ -820,12 +807,7 @@ confetti({
 **Structure**:
 
 ```tsx
-export function Rating({
-  value,
-  max = 5,
-  onChange,
-  readOnly = false,
-}: RatingProps) {
+export function Rating({ value, max = 5, onChange, readOnly = false }: RatingProps) {
   const [hoverValue, setHoverValue] = useState<number | null>(null);
 
   return (
@@ -845,14 +827,11 @@ export function Rating({
             className={cn(
               "p-1 transition-colors",
               isFilled ? "text-yellow-400" : "text-muted-foreground",
-              !readOnly && "hover:scale-110 cursor-pointer",
+              !readOnly && "hover:scale-110 cursor-pointer"
             )}
             aria-label={`Rate ${starValue} stars`}
           >
-            <Star
-              className="h-5 w-5"
-              fill={isFilled ? "currentColor" : "none"}
-            />
+            <Star className="h-5 w-5" fill={isFilled ? "currentColor" : "none"} />
           </button>
         );
       })}
@@ -896,11 +875,8 @@ export function Rating({
         className={cn(
           "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
           step.isComplete && "bg-primary text-primary-foreground",
-          step.isCurrent &&
-            "bg-primary/20 text-primary border-2 border-primary",
-          !step.isComplete &&
-            !step.isCurrent &&
-            "bg-muted text-muted-foreground",
+          step.isCurrent && "bg-primary/20 text-primary border-2 border-primary",
+          !step.isComplete && !step.isCurrent && "bg-muted text-muted-foreground"
         )}
       >
         {step.isComplete ? <Check className="w-4 h-4" /> : index + 1}
@@ -909,21 +885,14 @@ export function Rating({
       <span
         className={cn(
           "ml-2 text-sm hidden sm:block",
-          step.isCurrent
-            ? "text-foreground font-medium"
-            : "text-muted-foreground",
+          step.isCurrent ? "text-foreground font-medium" : "text-muted-foreground"
         )}
       >
         {step.label}
       </span>
 
       {index < steps.length - 1 && (
-        <div
-          className={cn(
-            "flex-1 h-0.5 mx-4",
-            step.isComplete ? "bg-primary" : "bg-muted",
-          )}
-        />
+        <div className={cn("flex-1 h-0.5 mx-4", step.isComplete ? "bg-primary" : "bg-muted")} />
       )}
     </div>
   ))}

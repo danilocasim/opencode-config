@@ -70,10 +70,7 @@ import { Label } from "@/components/ui/label";
 ```tsx
 <div className="grid gap-1.5">
   <Label htmlFor="email">Email</Label>
-  <Input
-    id="email"
-    className="border-destructive focus-visible:ring-destructive"
-  />
+  <Input id="email" className="border-destructive focus-visible:ring-destructive" />
   <p className="text-sm text-destructive">Please enter a valid email.</p>
 </div>
 ```
@@ -336,9 +333,7 @@ import { Switch } from "@/components/ui/switch";
 <div className="flex items-center justify-between">
   <div className="space-y-0.5">
     <Label htmlFor="notifications">Push notifications</Label>
-    <p className="text-sm text-muted-foreground">
-      Receive notifications on your device.
-    </p>
+    <p className="text-sm text-muted-foreground">Receive notifications on your device.</p>
   </div>
   <Switch id="notifications" />
 </div>
@@ -430,12 +425,7 @@ const [date, setDate] = useState<Date>()
 **Date range**:
 
 ```tsx
-<Calendar
-  mode="range"
-  selected={dateRange}
-  onSelect={setDateRange}
-  numberOfMonths={2}
-/>
+<Calendar mode="range" selected={dateRange} onSelect={setDateRange} numberOfMonths={2} />
 ```
 
 **Accessibility**:
@@ -494,9 +484,7 @@ const [date, setDate] = useState<Date>()
       <FileIcon className="h-8 w-8 text-muted-foreground" />
       <div className="flex-1 min-w-0">
         <p className="truncate font-medium">{file.name}</p>
-        <p className="text-sm text-muted-foreground">
-          {formatBytes(file.size)}
-        </p>
+        <p className="text-sm text-muted-foreground">{formatBytes(file.size)}</p>
       </div>
       <Button variant="ghost" size="icon" onClick={removeFile}>
         <X className="h-4 w-4" />
@@ -720,9 +708,8 @@ export function WizardForm() {
               className={cn(
                 "flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium",
                 step > i + 1 && "bg-primary text-primary-foreground",
-                step === i + 1 &&
-                  "bg-primary/20 text-primary border-2 border-primary",
-                step < i + 1 && "bg-muted text-muted-foreground",
+                step === i + 1 && "bg-primary/20 text-primary border-2 border-primary",
+                step < i + 1 && "bg-muted text-muted-foreground"
               )}
             >
               {step > i + 1 ? <Check className="w-4 h-4" /> : i + 1}
@@ -734,20 +721,9 @@ export function WizardForm() {
 
       {/* Step content */}
       <div className="border rounded-lg p-6">
-        {step === 1 && (
-          <StepOne data={data} onNext={next} updateData={updateData} />
-        )}
-        {step === 2 && (
-          <StepTwo
-            data={data}
-            onNext={next}
-            onBack={back}
-            updateData={updateData}
-          />
-        )}
-        {step === 3 && (
-          <StepThree data={data} onBack={back} onSubmit={handleSubmit} />
-        )}
+        {step === 1 && <StepOne data={data} onNext={next} updateData={updateData} />}
+        {step === 2 && <StepTwo data={data} onNext={next} onBack={back} updateData={updateData} />}
+        {step === 3 && <StepThree data={data} onBack={back} onSubmit={handleSubmit} />}
       </div>
 
       {/* Step indicator text */}
@@ -993,11 +969,7 @@ export function InlineProfileEdit() {
 
               <div className="flex gap-2">
                 <Button type="submit">Save</Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsEditing(false)}
-                >
+                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
                   Cancel
                 </Button>
               </div>

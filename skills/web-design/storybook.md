@@ -48,46 +48,46 @@ npx storybook@latest add @storybook/addon-themes
 ### Basic Pattern
 
 ```tsx
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button } from './button'
+import { Button } from "./button";
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
-  tags: ['autodocs'],
-}
+  tags: ["autodocs"],
+};
 
-export default meta
-type Story = StoryObj<typeof Button>
+export default meta;
+type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
   args: {
-    children: 'Button',
+    children: "Button",
   },
-}
+};
 ```
 
 ### With Controls
 
 ```tsx
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Button>
+export default meta;
+type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    variant: 'primary',
-    children: 'Primary',
+    variant: "primary",
+    children: "Primary",
   },
-}
+};
 
 export const AllVariants: Story = {
   render: () => (
@@ -98,28 +98,28 @@ export const AllVariants: Story = {
       <Button variant="ghost">Ghost</Button>
     </div>
   ),
-}
+};
 ```
 
 ### ArgTypes Definition
 
 ```tsx
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['default', 'secondary', 'outline', 'ghost', 'destructive'],
-      description: 'Button variant',
+      control: "select",
+      options: ["default", "secondary", "outline", "ghost", "destructive"],
+      description: "Button variant",
     },
     size: {
-      control: 'select',
-      options: ['sm', 'default', 'lg'],
-      description: 'Button size',
+      control: "select",
+      options: ["sm", "default", "lg"],
+      description: "Button size",
     },
   },
-}
+};
 ```
 
 ---
@@ -158,11 +158,11 @@ Tests boundary conditions, error states.
 
 ```tsx
 const meta: Meta<typeof Component> = {
-  title: 'ComponentName',
-  subtitle: 'Brief description',
+  title: "ComponentName",
+  subtitle: "Brief description",
   component: Component,
-  tags: ['category', 'another-category'],
-}
+  tags: ["category", "another-category"],
+};
 ```
 
 ### Description Block
@@ -176,24 +176,20 @@ export default function ComponentName() {
         <p>Detailed description of what this component does and when to use it.</p>
       </Story>
     </>
-  )
+  );
 }
 ```
 
 ### Example Code
 
-```tsx
+````tsx
 <Story name="Examples">
   <Canvas>
     <ComponentExample />
   </Canvas>
-  <Raw>
-    ```tsx
-    // Your code here
-    ```
-  </Raw>
+  <Raw>```tsx // Your code here ```</Raw>
 </Story>
-```
+````
 
 ---
 
@@ -207,14 +203,14 @@ export default function ComponentName() {
 
 ### Tagging Strategy
 
-| Tag | Purpose |
-|-----|---------|
-| `category:ui` | UI components |
-| `category:forms` | Form components |
-| `category:data` | Data display |
-| `category:layout` | Layout components |
-| `category:navigation` | Navigation |
-| `category:marketing` | Marketing |
+| Tag                   | Purpose           |
+| --------------------- | ----------------- |
+| `category:ui`         | UI components     |
+| `category:forms`      | Form components   |
+| `category:data`       | Data display      |
+| `category:layout`     | Layout components |
+| `category:navigation` | Navigation        |
+| `category:marketing`  | Marketing         |
 
 ---
 
@@ -227,7 +223,7 @@ Generated from JSDoc comments in your component:
 ```tsx
 /**
  * Button component for primary actions.
- * 
+ *
  * @param variant - Visual style of the button
  * @param size - Size of the button
  * @param icon - Optional icon to display

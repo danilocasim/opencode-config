@@ -34,7 +34,7 @@ it("normalizeEmail is idempotent", () => {
   fc.assert(
     fc.property(fc.string(), (s) => {
       expect(normalizeEmail(normalizeEmail(s))).toBe(normalizeEmail(s));
-    }),
+    })
   );
 });
 ```

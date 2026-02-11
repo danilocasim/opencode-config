@@ -8,6 +8,7 @@ Let's implement this using TDD (red/green/refactor):
 $ARGUMENTS
 
 Start by:
+
 1. Understanding the requirements
 2. Writing the first failing test
 3. Making it pass with minimal code

@@ -51,16 +51,10 @@ export default async function ProjectsPage() {
 
 import { useState } from "react";
 
-export function ProjectsList({
-  projects,
-}: {
-  projects: { id: string; name: string }[];
-}) {
+export function ProjectsList({ projects }: { projects: { id: string; name: string }[] }) {
   const [q, setQ] = useState("");
 
-  const filtered = projects.filter((p) =>
-    p.name.toLowerCase().includes(q.toLowerCase()),
-  );
+  const filtered = projects.filter((p) => p.name.toLowerCase().includes(q.toLowerCase()));
 
   return (
     <div>

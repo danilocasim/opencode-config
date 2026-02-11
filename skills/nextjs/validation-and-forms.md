@@ -39,12 +39,9 @@ Server Action boundary validation:
 
 import type { FormResult } from "@/lib/forms/form-result";
 
-export async function createProject(
-  formData: FormData,
-): Promise<FormResult<{ id: string }>> {
+export async function createProject(formData: FormData): Promise<FormResult<{ id: string }>> {
   const name = String(formData.get("name") ?? "").trim();
-  if (!name)
-    return { ok: false, message: "invalid", fieldErrors: { name: "required" } };
+  if (!name) return { ok: false, message: "invalid", fieldErrors: { name: "required" } };
 
   // ... auth + write ...
   return { ok: true, value: { id: "p_123" } };

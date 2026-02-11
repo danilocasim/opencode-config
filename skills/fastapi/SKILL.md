@@ -6,12 +6,14 @@ description: FastAPI conventions with Pydantic (2024-2026)
 # FastAPI Conventions (FastAPI 0.100+)
 
 ## Core Principles
+
 - **Type hints everywhere**
 - **Pydantic for validation**
 - **Async by default**
 - **OpenAPI auto-generation**
 
 ## Project Structure
+
 ```
 app/
   __init__.py
@@ -38,6 +40,7 @@ tests/
 ```
 
 ## Schemas (Pydantic v2)
+
 ```python
 from pydantic import BaseModel, Field, ConfigDict
 
@@ -54,6 +57,7 @@ class UserResponse(UserBase):
 ```
 
 ## Endpoints
+
 ```python
 from fastapi import APIRouter, Depends, HTTPException, status
 
@@ -81,6 +85,7 @@ async def create_user(
 ```
 
 ## Dependencies
+
 ```python
 from typing import Annotated
 from fastapi import Depends
@@ -101,16 +106,19 @@ async def get_me(user: CurrentUser) -> UserResponse:
 ```
 
 ## Error Handling
+
 - Use `HTTPException` for HTTP errors
 - Custom exception handlers for domain errors
 - Pydantic `ValidationError` auto-handled
 
 ## Async Database
+
 - SQLAlchemy 2.0 async
 - `asyncpg` for PostgreSQL
 - Repository pattern for data access
 
 ## Testing
+
 ```python
 import pytest
 from httpx import AsyncClient
@@ -125,12 +133,13 @@ async def test_create_user(client: AsyncClient):
 ```
 
 ## Tools
+
 - Ruff for linting/formatting
 - mypy for type checking
 - pytest-asyncio for async tests
 
 ## Reference Docs
+
 - FastAPI Docs: https://fastapi.tiangolo.com/
 - Pydantic v2: https://docs.pydantic.dev/
 - SQLAlchemy 2.0: https://docs.sqlalchemy.org/
-

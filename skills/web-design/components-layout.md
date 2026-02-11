@@ -80,12 +80,8 @@ className = "px-4 sm:px-6 lg:px-8";
   <div className="container">
     {/* Optional section header */}
     <div className="mx-auto max-w-2xl text-center mb-12">
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        Section Title
-      </h2>
-      <p className="mt-4 text-lg text-muted-foreground">
-        Section description text
-      </p>
+      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Section Title</h2>
+      <p className="mt-4 text-lg text-muted-foreground">Section description text</p>
     </div>
 
     {/* Section content */}
@@ -331,11 +327,7 @@ const [collapsed, setCollapsed] = useState(false)
 
 ```tsx
 <div className="aspect-video overflow-hidden rounded-lg">
-  <img
-    src="/image.jpg"
-    alt="Description"
-    className="h-full w-full object-cover"
-  />
+  <img src="/image.jpg" alt="Description" className="h-full w-full object-cover" />
 </div>
 ```
 
@@ -457,10 +449,7 @@ export default function FeaturePage() {
           {/* Features grid */}
           <Section className="bg-muted/50">
             <Container>
-              <SectionHeader
-                title="Features"
-                description="Everything you need"
-              />
+              <SectionHeader title="Features" description="Everything you need" />
               <Grid cols={3} gap={6}>
                 {features.map((f) => (
                   <FeatureCard key={f.id} {...f} />
@@ -721,11 +710,7 @@ function useScrolled(threshold = 10) {
 
   {/* Full-bleed breakout */}
   <div className="relative left-1/2 right-1/2 -mx-[50vw] w-screen">
-    <img
-      src="/hero.jpg"
-      alt="Full width image"
-      className="w-full h-[400px] object-cover"
-    />
+    <img src="/hero.jpg" alt="Full width image" className="w-full h-[400px] object-cover" />
   </div>
 
   {/* Back to normal flow */}
@@ -766,12 +751,7 @@ function useScrolled(threshold = 10) {
 ```tsx
 <div className="relative overflow-hidden">
   {/* Main content */}
-  <div
-    className={cn(
-      "transition-transform duration-300",
-      isOpen && "translate-x-[280px]",
-    )}
-  >
+  <div className={cn("transition-transform duration-300", isOpen && "translate-x-[280px]")}>
     <Button onClick={() => setIsOpen(true)}>Open Menu</Button>
     <main>{content}</main>
   </div>
@@ -781,7 +761,7 @@ function useScrolled(threshold = 10) {
     className={cn(
       "fixed top-0 left-0 h-full w-[280px] bg-background border-r",
       "transform transition-transform duration-300",
-      isOpen ? "translate-x-0" : "-translate-x-full",
+      isOpen ? "translate-x-0" : "-translate-x-full"
     )}
   >
     <Button onClick={() => setIsOpen(false)}>Close</Button>
@@ -789,12 +769,7 @@ function useScrolled(threshold = 10) {
   </aside>
 
   {/* Backdrop */}
-  {isOpen && (
-    <div
-      className="fixed inset-0 bg-black/50 z-40"
-      onClick={() => setIsOpen(false)}
-    />
-  )}
+  {isOpen && <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setIsOpen(false)} />}
 </div>
 ```
 

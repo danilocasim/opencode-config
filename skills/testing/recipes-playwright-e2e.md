@@ -37,9 +37,7 @@ test("checkout completes", async ({ page }) => {
   await page.getByRole("link", { name: "Cart" }).click();
   await page.getByRole("button", { name: "Checkout" }).click();
 
-  await expect(
-    page.getByRole("heading", { name: "Order confirmed" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Order confirmed" })).toBeVisible();
 });
 ```
 

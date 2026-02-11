@@ -400,9 +400,7 @@ export default function ProfilePage() {
           {/* Avatar */}
           <Avatar className="h-32 w-32 border-4 border-background">
             <AvatarImage src={user.avatar} />
-            <AvatarFallback className="text-2xl">
-              {user.initials}
-            </AvatarFallback>
+            <AvatarFallback className="text-2xl">{user.initials}</AvatarFallback>
           </Avatar>
 
           {/* Info */}
@@ -524,7 +522,7 @@ export default function DocsPage() {
                         "block px-2 py-1 text-sm rounded",
                         isActive(page.href)
                           ? "bg-primary/10 text-primary font-medium"
-                          : "text-muted-foreground hover:text-foreground",
+                          : "text-muted-foreground hover:text-foreground"
                       )}
                     >
                       {page.title}
@@ -577,7 +575,7 @@ export default function DocsPage() {
                     heading.level === 2 ? "" : "pl-4",
                     isActive(heading.id)
                       ? "text-primary font-medium"
-                      : "text-muted-foreground hover:text-foreground",
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {heading.text}

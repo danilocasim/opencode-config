@@ -7,6 +7,7 @@ Fix the following issue:
 $ARGUMENTS
 
 Approach:
+
 1. Understand the bug (reproduce if possible)
 2. Identify the root cause (not just symptoms)
 3. Write a failing test that demonstrates the bug

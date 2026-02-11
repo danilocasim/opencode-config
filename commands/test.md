@@ -8,6 +8,7 @@ Write or update tests for:
 $ARGUMENTS
 
 Guidelines:
+
 1. Focus on behavior, not implementation details.
 2. Cover happy paths, edge cases, and error conditions.
 3. Prefer one logical behavior per test.

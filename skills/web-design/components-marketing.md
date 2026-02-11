@@ -314,9 +314,7 @@ If a field does not apply, write `N/A` instead of omitting it.
       </div>
       <div>
         <h3 className="font-semibold">{feature.title}</h3>
-        <p className="text-sm text-muted-foreground mt-1">
-          {feature.description}
-        </p>
+        <p className="text-sm text-muted-foreground mt-1">{feature.description}</p>
       </div>
     </div>
   ))}
@@ -432,15 +430,9 @@ function AnimatedCounter({ value, suffix = "" }: CounterProps) {
       href={integration.url}
       className="group flex flex-col items-center p-4 rounded-lg border hover:border-primary transition-colors"
     >
-      <img
-        src={integration.logo}
-        alt={integration.name}
-        className="h-12 w-12 object-contain"
-      />
+      <img src={integration.logo} alt={integration.name} className="h-12 w-12 object-contain" />
       <span className="mt-2 text-sm font-medium">{integration.name}</span>
-      <span className="text-xs text-muted-foreground">
-        {integration.category}
-      </span>
+      <span className="text-xs text-muted-foreground">{integration.category}</span>
     </a>
   ))}
 </div>

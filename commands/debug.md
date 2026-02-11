@@ -8,6 +8,7 @@ Debug the following issue:
 $ARGUMENTS
 
 Workflow:
+
 1. Clarify expected vs actual behavior and how to reproduce.
 2. Reproduce the bug using existing tests or commands.
 3. Trace the code path to find the true root cause.

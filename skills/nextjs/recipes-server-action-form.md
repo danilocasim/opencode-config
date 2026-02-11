@@ -35,8 +35,7 @@ type Result =
 
 export async function createProject(formData: FormData): Promise<Result> {
   const name = String(formData.get("name") ?? "").trim();
-  if (!name)
-    return { ok: false, message: "invalid", fieldErrors: { name: "required" } };
+  if (!name) return { ok: false, message: "invalid", fieldErrors: { name: "required" } };
 
   // ... auth + write ...
   revalidateTag("projects");

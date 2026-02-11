@@ -12,6 +12,7 @@ Animation principles using Framer Motion and Tailwind.
 ## Tailwind Built-in Animations
 
 ### Transition Utilities
+
 ```tsx
 // Fade
 <Fade in className="opacity-0 opacity-100 duration-300" />
@@ -24,14 +25,25 @@ Animation principles using Framer Motion and Tailwind.
 ```
 
 ### Custom Keyframes
+
 ```css
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes slideIn {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 ```
 
@@ -42,14 +54,11 @@ Animation principles using Framer Motion and Tailwind.
 ### Entrance Animations
 
 #### Fade In
-```tsx
-import { motion, AnimatePresence } from "framer-motion"
 
-<Fade in
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.3 }}
-/>
+```tsx
+import { motion, AnimatePresence } from "framer-motion";
+
+<Fade in initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} />;
 ```
 
 **Variants**:
@@ -63,6 +72,7 @@ import { motion, AnimatePresence } from "framer-motion"
 ---
 
 #### Slide In
+
 ```tsx
 <motion.div
   initial={{ x: "-100%" }}
@@ -82,6 +92,7 @@ import { motion, AnimatePresence } from "framer-motion"
 ---
 
 #### Staggered Children
+
 ```tsx
 <motion.ul
   initial="hidden"
@@ -92,15 +103,13 @@ import { motion, AnimatePresence } from "framer-motion"
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   }}
 >
   {items.map((item, i) => (
-    <motion.li key={i}>
-      {item}
-    </motion.li>
+    <motion.li key={i}>{item}</motion.li>
   ))}
 </motion.ul>
 ```
@@ -112,6 +121,7 @@ import { motion, AnimatePresence } from "framer-motion"
 ### Layout Animations
 
 #### Accordion/Collapse
+
 ```tsx
 <AnimatePresence>
   {isOpen && (
@@ -127,6 +137,7 @@ import { motion, AnimatePresence } from "framer-motion"
 ```
 
 #### Tab Switch
+
 ```tsx
 <motion.div
   layoutId={tabId}
@@ -141,21 +152,19 @@ import { motion, AnimatePresence } from "framer-motion"
 ### Micro-interactions
 
 #### Button Hover
+
 ```tsx
-<motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-/>
+<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} />
 ```
 
 #### Focus Rings
+
 ```tsx
-<motion.input
-  focus={{ boxShadow: "0 0 0 3px rgba(primary, 0.2)" }}
-/>
+<motion.input focus={{ boxShadow: "0 0 0 3px rgba(primary, 0.2)" }} />
 ```
 
 #### Hover Cards
+
 ```tsx
 <motion.div
   whileHover={{ y: -4, scale: 1.02 }}
@@ -168,13 +177,13 @@ import { motion, AnimatePresence } from "framer-motion"
 ### Page Transitions (Next.js App Router)
 
 ```tsx
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import { useRouter } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export function PageTransition({ children }) {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -191,7 +200,7 @@ export function PageTransition({ children }) {
         {children}
       </motion.div>
     </AnimatePresence>
-  )
+  );
 }
 ```
 
@@ -200,12 +209,13 @@ export function PageTransition({ children }) {
 ## Scroll-triggered Animations
 
 ### While In View
+
 ```tsx
-import { useInView } from "framer-motion"
+import { useInView } from "framer-motion";
 
 function AnimatedSection({ children }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: false, amount: 0.3 })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, amount: 0.3 });
 
   return (
     <motion.section
@@ -216,23 +226,24 @@ function AnimatedSection({ children }) {
     >
       {children}
     </motion.section>
-  )
+  );
 }
 ```
 
 ### Scroll Progress
+
 ```tsx
-import { useScroll } from "framer-motion"
+import { useScroll } from "framer-motion";
 
 function ScrollProgress() {
-  const { scrollYProgress } = useScroll()
+  const { scrollYProgress } = useScroll();
 
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 h-1 bg-primary"
       style={{ scaleX: scrollYProgress }}
     />
-  )
+  );
 }
 ```
 
@@ -241,6 +252,7 @@ function ScrollProgress() {
 ## Loading States
 
 ### Skeleton Loading
+
 ```tsx
 <motion.div
   animate={{ opacity: [0.4, 0.8, 1] }}
@@ -250,17 +262,19 @@ function ScrollProgress() {
 ```
 
 ### Pulse Loading
+
 ```tsx
 <motion.div
   animate={{
     scale: [1, 1, 1, 1],
-    opacity: [1, 0.8, 0.6, 1]
+    opacity: [1, 0.8, 0.6, 1],
   }}
   transition={{ duration: 1.5, repeat: Infinity }}
 />
 ```
 
 ### Spinner
+
 ```tsx
 <motion.div
   animate={{ rotate: 360 }}
@@ -276,18 +290,18 @@ Check user's motion preference:
 
 ```tsx
 function useReducedMotion() {
-  const [prefersReduced, setPrefersReduced] = useState(false)
+  const [prefersReduced, setPrefersReduced] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
-    setPrefersReduced(mediaQuery.matches)
-  }, [])
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReduced(mediaQuery.matches);
+  }, []);
 
-  return prefersReduced
+  return prefersReduced;
 }
 
 // Apply to animations
-const duration = useReducedMotion() ? 0 : 0.3
+const duration = useReducedMotion() ? 0 : 0.3;
 ```
 
 ---

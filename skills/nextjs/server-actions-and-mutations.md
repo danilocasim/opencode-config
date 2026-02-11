@@ -31,9 +31,7 @@ Writes are where consistency breaks. Centralizing mutations in Server Actions ke
 Typed action result shape:
 
 ```ts
-type ActionResult<T> =
-  | { ok: true; value: T }
-  | { ok: false; code: string; message: string };
+type ActionResult<T> = { ok: true; value: T } | { ok: false; code: string; message: string };
 
 function requireNonEmpty(input: string, field: string): ActionResult<string> {
   const v = input.trim();
@@ -52,9 +50,7 @@ function requireNonEmpty(input: string, field: string): ActionResult<string> {
 
 import { revalidateTag } from "next/cache";
 
-export async function createProject(
-  formData: FormData,
-): Promise<ActionResult<{ id: string }>> {
+export async function createProject(formData: FormData): Promise<ActionResult<{ id: string }>> {
   const nameRes = requireNonEmpty(String(formData.get("name") ?? ""), "name");
 
   if (!nameRes.ok) return nameRes;

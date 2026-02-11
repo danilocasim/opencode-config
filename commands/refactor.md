@@ -8,6 +8,7 @@ Refactor the following:
 $ARGUMENTS
 
 Goals:
+
 1. Reduce complexity
 2. Eliminate duplication (DRY)
 3. Improve readability

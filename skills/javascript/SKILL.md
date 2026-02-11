@@ -16,17 +16,17 @@ description: JavaScript conventions and JSDoc documentation style (2024-2026)
 - Prefer ESM in new code:
 
 ```js
-import { readFile } from "node:fs/promises"
+import { readFile } from "node:fs/promises";
 export function loadConfig(path) {
-  return readFile(path, "utf8")
+  return readFile(path, "utf8");
 }
 ```
 
 - If the repo is CommonJS, stay consistent:
 
 ```js
-const fs = require("node:fs")
-module.exports = { fs }
+const fs = require("node:fs");
+module.exports = { fs };
 ```
 
 ## Types in JS
@@ -86,14 +86,14 @@ export async function fetchUser(id) {
  */
 export class Cache {
   /** @type {Map<string, unknown>} */
-  #store = new Map()
+  #store = new Map();
 
   /**
    * @param {string} key
    * @returns {unknown | undefined}
    */
   get(key) {
-    return this.#store.get(key)
+    return this.#store.get(key);
   }
 }
 ```
@@ -112,8 +112,8 @@ export class Cache {
 ```js
 export class NotFoundError extends Error {
   constructor(message) {
-    super(message)
-    this.name = "NotFoundError"
+    super(message);
+    this.name = "NotFoundError";
   }
 }
 ```

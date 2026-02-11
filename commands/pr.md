@@ -18,6 +18,7 @@ If a template exists, use it as the PR body (fill in the sections).
 If multiple templates exist, pick the best match based on the change type.
 
 Workflow:
+
 1. Inspect branch status and recent commits.
 2. Inspect any PR template(s) and adopt that structure.
 3. Summarize changes, test plan, and risks in the template format.

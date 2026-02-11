@@ -6,12 +6,14 @@ description: Go conventions and idiomatic patterns (2024-2026)
 # Go Conventions (Go 1.22+)
 
 ## Style Essentials
+
 - `gofmt` is the law - no debate
 - Package names: short, lowercase, no underscores
 - Exported names: `CamelCase`
 - Unexported names: `camelCase`
 
 ## Modern Go (1.22+)
+
 ```go
 // Range over integers (1.22+)
 for i := range 10 {
@@ -32,6 +34,7 @@ logger.Info("user created", "id", userID, "email", email)
 ```
 
 ## Project Structure
+
 ```
 project/
 ├── cmd/
@@ -55,6 +58,7 @@ project/
 ```
 
 ## Error Handling
+
 ```go
 // Return errors, don't panic
 func fetchUser(id int) (*User, error) {
@@ -79,6 +83,7 @@ if errors.Is(err, sql.ErrNoRows) {
 ```
 
 ## Patterns
+
 ```go
 // Accept interfaces, return structs
 type Reader interface {
@@ -99,7 +104,7 @@ type Storer interface {
 func fetchWithTimeout(ctx context.Context, url string) (*Response, error) {
     ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
     defer cancel()
-    
+
     req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
     if err != nil {
         return nil, err
@@ -109,6 +114,7 @@ func fetchWithTimeout(ctx context.Context, url string) (*Response, error) {
 ```
 
 ## Testing
+
 ```go
 // Table-driven tests
 func TestCalculate(t *testing.T) {
@@ -121,12 +127,12 @@ func TestCalculate(t *testing.T) {
         {"negative", -2, -3, -5},
         {"mixed", -2, 3, 1},
     }
-    
+
     for _, tt := range tests {
         t.Run(tt.name, func(t *testing.T) {
             result := Calculate(tt.a, tt.b)
             if result != tt.expected {
-                t.Errorf("Calculate(%d, %d) = %d; want %d", 
+                t.Errorf("Calculate(%d, %d) = %d; want %d",
                     tt.a, tt.b, result, tt.expected)
             }
         })
@@ -163,10 +169,12 @@ func NormalizeEmail(s string) string {
 ```
 
 Guidelines:
+
 - Start with the identifier name (`Foo ...`).
 - Keep comments as close as possible to what a consumer needs.
 
 ## Configuration (go.mod)
+
 ```go
 module github.com/user/project
 
@@ -179,12 +187,14 @@ require (
 ```
 
 ## Tools
+
 - `gofmt` / `goimports`: Formatting (enforced)
 - `golangci-lint`: Comprehensive linting
 - `go vet`: Static analysis
 - `go test -race`: Race condition detection
 
 ## Reference Docs
+
 - Effective Go: https://go.dev/doc/effective_go
 - Go Code Review: https://go.dev/wiki/CodeReviewComments
 - Go Proverbs: https://go-proverbs.github.io/

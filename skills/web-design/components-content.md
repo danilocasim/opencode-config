@@ -47,14 +47,13 @@ If a field does not apply, write `N/A` instead of omitting it.
 
       {/* Headline */}
       <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-        Build beautiful websites{" "}
-        <span className="text-primary">faster than ever</span>
+        Build beautiful websites <span className="text-primary">faster than ever</span>
       </h1>
 
       {/* Subheadline */}
       <p className="mt-6 text-lg text-muted-foreground md:text-xl">
-        The modern toolkit for building stunning web experiences. Ship faster
-        with components that just work.
+        The modern toolkit for building stunning web experiences. Ship faster with components that
+        just work.
       </p>
 
       {/* CTAs */}
@@ -435,8 +434,8 @@ import { Badge } from "@/components/ui/badge"
 <figure className="mx-auto max-w-2xl">
   {/* Quote */}
   <blockquote className="text-xl font-medium leading-relaxed">
-    "This product has completely transformed how we work. The team couldn't be
-    happier with the results."
+    "This product has completely transformed how we work. The team couldn't be happier with the
+    results."
   </blockquote>
 
   {/* Attribution */}
@@ -615,24 +614,13 @@ import Image from "next/image";
 {
   /* Fixed dimensions */
 }
-<Image
-  src="/image.jpg"
-  alt="Description"
-  width={800}
-  height={600}
-  className="rounded-lg"
-/>;
+<Image src="/image.jpg" alt="Description" width={800} height={600} className="rounded-lg" />;
 
 {
   /* Fill container */
 }
 <div className="relative aspect-video">
-  <Image
-    src="/image.jpg"
-    alt="Description"
-    fill
-    className="object-cover rounded-lg"
-  />
+  <Image src="/image.jpg" alt="Description" fill className="object-cover rounded-lg" />
 </div>;
 
 {
@@ -692,13 +680,7 @@ import Image from "next/image";
 {
   /* Background video (muted, autoplay) */
 }
-<video
-  className="absolute inset-0 h-full w-full object-cover"
-  autoPlay
-  muted
-  loop
-  playsInline
->
+<video className="absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline>
   <source src="/bg-video.mp4" type="video/mp4" />
 </video>;
 ```
@@ -867,9 +849,7 @@ import Image from "next/image";
   <div className="flex flex-col items-center text-center">
     <Search className="h-10 w-10 text-muted-foreground mb-4" />
     <h3 className="font-semibold">No results found</h3>
-    <p className="text-sm text-muted-foreground mt-1">
-      Try adjusting your search or filters.
-    </p>
+    <p className="text-sm text-muted-foreground mt-1">Try adjusting your search or filters.</p>
     <Button variant="outline" className="mt-4">
       Clear Filters
     </Button>
@@ -968,11 +948,7 @@ module.exports = {
 
 ```tsx
 <figure className="my-8">
-  <img
-    src="/diagram.png"
-    alt="System architecture diagram"
-    className="rounded-lg border"
-  />
+  <img src="/diagram.png" alt="System architecture diagram" className="rounded-lg border" />
   <figcaption className="mt-3 text-sm text-center text-muted-foreground">
     Figure 1: System architecture showing data flow between services
   </figcaption>

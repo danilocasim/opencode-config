@@ -19,9 +19,10 @@ You are a technical writer who creates clear, useful documentation.
 ## What to Document
 
 ### Functions/Methods
+
 ```ruby
 # Calculates the total price including discounts and tax.
-# 
+#
 # Uses tiered discount logic: orders over $100 get 10% off,
 # over $500 get 20% off. Tax is calculated based on shipping address.
 #
@@ -33,18 +34,21 @@ def calculate_total(items, shipping_address)
 ```
 
 ### Classes/Modules
+
 - Purpose and responsibility
 - Key concepts and terminology
 - Usage examples
 - Important caveats
 
 ### APIs
+
 - Endpoint purpose
 - Request/response examples
 - Error codes and meanings
 - Rate limits and auth
 
 ### Architecture Decisions
+
 - Context and problem
 - Decision made
 - Alternatives considered

@@ -34,9 +34,7 @@ Shared primitive (domain-neutral):
 ```tsx
 // components/ui/badge.tsx
 export function Badge({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="inline-flex rounded px-2 py-0.5 text-sm">{children}</span>
-  );
+  return <span className="inline-flex rounded px-2 py-0.5 text-sm">{children}</span>;
 }
 ```
 

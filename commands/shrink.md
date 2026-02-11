@@ -8,6 +8,7 @@ This file is too long. Shrink it to under 250 lines:
 $ARGUMENTS
 
 Strategies:
+
 1. Extract classes/modules to separate files
 2. Extract repeated logic to shared utilities
 3. Remove dead code

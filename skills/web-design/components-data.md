@@ -229,9 +229,7 @@ If a field does not apply, write `N/A` instead of omitting it.
                 <Badge variant="outline" className="text-xs">
                   {task.priority}
                 </Badge>
-                <span className="text-xs text-muted-foreground">
-                  {task.dueDate}
-                </span>
+                <span className="text-xs text-muted-foreground">{task.dueDate}</span>
               </div>
             </CardContent>
           </Card>
@@ -288,10 +286,7 @@ If a field does not apply, write `N/A` instead of omitting it.
 ```tsx
 <Popover>
   <PopoverTrigger asChild>
-    <Button
-      variant="outline"
-      className="w-[280px] justify-start text-left font-normal"
-    >
+    <Button variant="outline" className="w-[280px] justify-start text-left font-normal">
       <CalendarIcon className="mr-2 h-4 w-4" />
       {date ? format(date, "PPP") : <span>Pick a date</span>}
     </Button>
@@ -305,12 +300,7 @@ If a field does not apply, write `N/A` instead of omitting it.
 **Date range picker**:
 
 ```tsx
-<Calendar
-  mode="range"
-  selected={dateRange}
-  onSelect={setDateRange}
-  numberOfMonths={2}
-/>
+<Calendar mode="range" selected={dateRange} onSelect={setDateRange} numberOfMonths={2} />
 ```
 
 **Variants**:

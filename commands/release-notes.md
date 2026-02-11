@@ -8,6 +8,7 @@ Draft release notes.
 $ARGUMENTS
 
 Include:
+
 - Highlights (features/fixes)
 - Breaking changes
 - Migration notes
