@@ -69,6 +69,7 @@ When working in a specific language, load the appropriate skill for detailed con
 - **Dart**: Load `dart` skill for Dart 3.x idioms, null safety, and tooling
 - **Flutter**: Load `flutter` skill for Flutter architecture, widgets, and platform UX
 - **Capacitor**: Load `capacitor` skill for production iOS/Android hybrid apps and native build workflows
+- **Ionic**: Load `ionic` skill for Ionic UI, routing, theming, and Capacitor integration
 
 ## Routing Skills
 

@@ -38,6 +38,7 @@ V2_SKILLS = {
     "expo",
     "git",
     "incident-response",
+    "ionic",
     "nextjs",
     "observability",
     "performance",
