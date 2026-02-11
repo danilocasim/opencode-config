@@ -53,67 +53,61 @@ Note: For agent/skill/config prompt files (this repo), longer files are acceptab
 - Descriptive commit messages: what and why, not how.
 - Branch names: `feature/`, `fix/`, `refactor/`, `docs/`.
 
-## Language-Specific Conventions
+## Skills Index (By Category)
 
-When working in a specific language, load the appropriate skill for detailed conventions:
+Load skills by their folder name under `skills/<name>/SKILL.md`.
+If you're unsure where something belongs, start with the router skills: `documentation`, `testing`, `system-design`, `web-design`.
 
-- **Ruby**: Load `ruby` skill for Ruby 3.x idioms and Rubocop rules
-- **JavaScript**: Load `javascript` skill for JS conventions and JSDoc
-- **TypeScript**: Load `typescript` skill for TS 5.x strict patterns and TSDoc
-- **Python**: Load `python` skill for Python 3.12+ and Ruff/Pyright rules
-- **Rust**: Load `rust` skill for idiomatic Rust and Clippy lints
-- **Go**: Load `go` skill for Go conventions, GoDoc, and table-driven tests
-- **Swift**: Load `swift` skill for Swift conventions and SwiftDoc
-- **Kotlin**: Load `kotlin` skill for Kotlin conventions and KDoc
-- **DevOps**: Load `devops` skill for Docker/CI/infrastructure patterns
-- **Dart**: Load `dart` skill for Dart 3.x idioms, null safety, and tooling
-- **Flutter**: Load `flutter` skill for Flutter architecture, widgets, and platform UX
-- **Capacitor**: Load `capacitor` skill for production iOS/Android hybrid apps and native build workflows
-- **Ionic**: Load `ionic` skill for Ionic UI, routing, theming, and Capacitor integration
+Languages:
 
-## Routing Skills
+- `ruby` (Ruby idioms/tooling)
+- `javascript` (JS conventions + JSDoc)
+- `typescript` (TS strictness + TSDoc)
+- `python` (Python strict typing/tooling)
+- `go` (Go idioms/tooling)
+- `rust` (Rust idioms/tooling)
+- `swift` (Swift idioms/tooling)
+- `kotlin` (Kotlin idioms/tooling)
+- `dart` (Dart idioms/tooling)
 
-- For documentation style selection, load `documentation` (routes to YARD/JSDoc/TSDoc/docstrings/etc.).
-- For test framework selection, load `testing` (routes to pytest/Vitest/Jest/RSpec/etc.).
-- For system design work, load `system-design` (architecture patterns, data modeling, API design, UX flows, UI specs).
-- For UI/UX implementation, load `web-design` (routes to component skills, Tailwind, shadcn patterns).
+Frameworks and App Stacks:
 
-## Skills Index
+- `rails` (Rails thin MVC + PORO patterns)
+- `nextjs` (App Router + RSC + server actions)
+- `fastapi` (FastAPI + Pydantic patterns)
+- `react` (React conventions)
+- `react-native` (RN architecture + platform UX)
+- `flutter` (Flutter architecture + widgets + platform UX)
+- `expo` (Expo router/build/updates)
+- `ionic` (Ionic UI/routing/theming)
+- `capacitor` (Hybrid iOS/Android apps + plugins/builds)
 
-Load these by name (they route you to the right leaf docs):
+Contracts, Data, and Safety:
 
-- **api**: REST/OpenAPI conventions, error contracts, pagination, versioning
-- **auth**: Sessions/tokens and authorization models with safe defaults
-- **capacitor**: Production hybrid iOS/Android apps, plugins, builds, WebView UX
-- **database**: Migrations/backfills, indexing, transactions, query performance
-- **dart**: Dart 3.x null safety, async/streams, tooling, testing
-- **devops**: Docker, CI pipelines, secrets in CI, deploy strategies
-- **documentation**: Doc style router (YARD/JSDoc/TSDoc/docstrings)
-- **expo**: Expo Router, EAS build/dev client, updates, capabilities
-- **fastapi**: FastAPI conventions with Pydantic
-- **flutter**: Flutter architecture, widgets/theming, platform UX, testing
-- **git**: Commit hygiene, staging, PR practices
-- **incident-response**: Triage/mitigation, comms, postmortems
-- **ionic**: Ionic UI/routing/theming + Capacitor integration
-- **javascript**: JS conventions + JSDoc
-- **kotlin**: Kotlin conventions + KDoc
-- **nextjs**: App Router + RSC boundaries, data/cache, server actions
-- **observability**: Logs/metrics/tracing + production debugging playbooks
-- **performance**: Profiling discipline, caching, latency budgets
-- **python**: Python 3.12+ strict typing/tooling router
-- **rails**: Thin MVC Rails, services/queries, concerns, tests
-- **react**: React (TS) conventions for web apps
-- **react-native**: React Native architecture, platform UX, native integration
-- **refactoring**: Safe refactor workflows and extraction playbooks
-- **ruby**: Ruby 3.x idioms, tooling, and design
-- **rust**: Rust conventions and idioms
-- **security**: Input validation, secrets, web threats, SSRF, uploads
-- **skill-authoring**: Skill routers/leaf standards, recipes, benchmarks
-- **swift**: Swift conventions and SwiftDoc
-- **system-design**: Architecture, data modeling, APIs, UX flows
-- **testing**: TDD playbook + stack routing, E2E, mocks, CI reliability
-- **typescript**: TS 5.x strict type safety + TSDoc
-- **web-design**: UI/UX implementation patterns, design systems, components
+- `api` (REST/OpenAPI, pagination, versioning)
+- `auth` (sessions/tokens + authorization models)
+- `database` (migrations, indexes, transactions)
+- `security` (input validation, secrets, SSRF, uploads)
+
+Delivery and Operations:
+
+- `devops` (CI/CD, Docker, deploy strategies)
+- `observability` (logs/metrics/tracing)
+- `performance` (profiling, caching, latency budgets)
+- `incident-response` (triage, comms, postmortems)
+
+Engineering Workflow:
+
+- `git` (commit hygiene, staging, PR practices)
+- `refactoring` (safe refactor playbooks)
+- `skill-authoring` (skill standards, recipes, benchmarks)
+
+Routers and Design:
+
+- `testing` (TDD playbook + stack routing)
+- `documentation` (doc style router)
+- `system-design` (architecture, data models, UX flows)
+- `web-design` (UI/UX implementation + design systems)
 
 These skills contain modern conventions (2024-2026), tooling configs, and reference docs.
 
