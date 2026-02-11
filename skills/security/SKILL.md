@@ -3,34 +3,38 @@ name: security
 description: Security checklist and safe patterns across common stacks
 ---
 
-# Security Skill
+# Security Skill Router
 
-Use this when auditing or making security-sensitive changes.
+Use this when making security-sensitive changes or doing an audit. The goal is to prevent common classes of vulns by default: unsafe inputs, secret leakage, broken auth, SSRF, and unsafe uploads.
 
-## Universal checklist
+## When to load
 
-- Validate and sanitize inputs at boundaries (HTTP, CLI, jobs, queues)
-- Avoid secrets in logs
-- Principle of least privilege (tokens, DB roles, IAM)
-- Safe error handling (no stack traces / internals to users)
-- Dependency hygiene (pin, audit, update)
+- You are handling user-controlled input (HTTP, CLI, jobs, queues).
+- You are touching auth/authz, sessions, or secrets.
+- You are adding file uploads or outbound HTTP.
+- You need a quick threat checklist for a change.
 
-## Web apps
+## When NOT to load
 
-- AuthN/AuthZ: deny by default
-- CSRF protection for cookie-based auth
-- XSS: escape outputs, avoid dangerouslySetInnerHTML
-- SSRF: restrict outbound HTTP destinations
-- File uploads: size limits, type validation, storage isolation
+- You only need API envelope conventions (use `../api/SKILL.md`).
+- You only need Docker/CI guidance (use `../devops/SKILL.md`).
 
-## APIs
+## Routing table
 
-- Rate limit sensitive endpoints
-- Use consistent error responses
-- Avoid leaking existence (user enumeration)
+| If the task is about...              | Load file                         |
+| ------------------------------------ | --------------------------------- |
+| Boundary validation and safe parsing | `input-validation.md`             |
+| Secrets, logging, and redaction      | `secrets-and-logging.md`          |
+| CSRF/XSS and common web threats      | `web-threats-csrf-xss.md`         |
+| SSRF and outbound HTTP controls      | `ssrf-and-outbound-http.md`       |
+| Safe file uploads                    | `file-uploads.md`                 |
+| Dependency and supply-chain hygiene  | `dependency-hygiene.md`           |
+| Recipe: verify a webhook             | `recipes-webhook-verification.md` |
 
-## Data
+## Universal checklist (quick)
 
-- Encrypt secrets at rest
-- Avoid storing raw tokens
-- Use rotation-ready credential design
+- Validate inputs at boundaries.
+- Do not log secrets.
+- Deny by default (authz).
+- Bound outbound HTTP (SSRF).
+- Make uploads safe (size/type/isolation).
