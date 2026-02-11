@@ -3,25 +3,33 @@ name: database
 description: Database patterns for migrations, indexing, transactions, and performance
 ---
 
-# Database Conventions
+# Database Skill Router
 
-## Migrations
+Use this skill when schema, query patterns, or transactional boundaries matter. The goal is correctness first, then performance, without risky production operations.
 
-- Always use migrations for schema changes
-- Backfill data in safe batches
-- Avoid long-running locks in production
+## When to load
 
-## Indexing
+- You are writing a migration/backfill.
+- You are adding indexes or changing query patterns.
+- You need a transaction boundary for multi-step invariants.
+- You are debugging slow queries or N+1 behavior.
 
-- Index by query patterns
-- Watch for N+1 queries
+## When NOT to load
 
-## Transactions
+- You are designing API contracts (use `../api/SKILL.md`).
+- You are doing framework-only refactors without DB behavior changes.
 
-- Use transactions for multi-step invariants
-- Keep transaction scope small
+## Routing table
 
-## Safety
+| If the task is about...                        | Load file                           |
+| ---------------------------------------------- | ----------------------------------- |
+| Safe migrations and data backfills             | `migrations-and-backfills.md`       |
+| Indexing by query patterns                     | `indexes-and-query-patterns.md`     |
+| Transaction boundaries and consistency         | `transactions-and-consistency.md`   |
+| Query performance and avoiding N+1             | `query-performance-and-n-plus-1.md` |
+| Recipe: online schema change (expand/contract) | `recipes-online-migration.md`       |
 
-- Validate inputs
-- Use parameterized queries
+## Typical load combos
+
+- New column rollout: `migrations-and-backfills.md` + `recipes-online-migration.md`
+- Slow endpoint: `query-performance-and-n-plus-1.md` + `indexes-and-query-patterns.md`
