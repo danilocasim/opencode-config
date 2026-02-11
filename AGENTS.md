@@ -11,6 +11,26 @@
 - **Minimal commentary**. Skip "Great question!" and "I'd be happy to help!"
 - **Batch actions**. Run parallel tool calls when possible to save tokens.
 
+## Skill Loading Protocol (Mandatory)
+
+Skills are the primary mechanism for consistent, production-quality output.
+Follow this protocol before making non-trivial changes.
+
+Rules:
+
+- If a project defines skills under `.opencode/skills/`, those are higher priority than global skills.
+- For any code change, load the smallest set of skills that constrain the work.
+- If you skip skill loading, you must have a concrete reason (pure Q&A, trivial edit).
+
+Protocol:
+
+1. Identify the stack(s): language + framework (and any cross-cutting concerns like `security`, `database`, `devops`).
+2. Check for project-local skills first: `.opencode/skills/<name>/SKILL.md`.
+3. Load the router skill(s) for the stack.
+4. Load 1-2 leaf docs that match the task (avoid loading every leaf).
+5. If behavior changes: always load `testing` (and the stack test leaf).
+6. If public APIs change: load `documentation` (and the language doc style).
+
 ## Philosophy
 
 - **Minimal & Concise**: Less code is better. If it can be shorter, make it shorter.
