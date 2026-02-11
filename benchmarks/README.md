@@ -9,3 +9,9 @@ Each benchmark should specify:
 - Expected output traits (structure + tests + contracts)
 
 See `skills/skill-authoring/benchmarks.md` for the benchmark format.
+
+Lint benchmarks:
+
+```bash
+python3 scripts/benchmarks_lint.py
+```

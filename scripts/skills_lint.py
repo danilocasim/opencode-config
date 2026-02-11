@@ -164,8 +164,11 @@ def lint_skill_dir(skill_dir: Path) -> list[Issue]:
     if name and not SKILL_NAME_RE.fullmatch(name):
         issues.append(Issue(skill_md, f"invalid skill name '{name}' (must match {SKILL_NAME_RE.pattern})"))
 
+    refs = _extract_md_code_spans(text)
+    refs_by_basename = {Path(r).name for r in refs}
+
     # Router link validation: keep SKILL.md references from silently breaking.
-    for ref in sorted(_extract_md_code_spans(text)):
+    for ref in sorted(refs):
         if ref.startswith("skills/"):
             target = ROOT / ref
         else:
@@ -173,6 +176,24 @@ def lint_skill_dir(skill_dir: Path) -> list[Issue]:
 
         if not target.exists():
             issues.append(Issue(skill_md, f"references missing file: {ref}"))
+
+    # V2 router hygiene: ensure routers actually route to their leaf docs.
+    if skill_dir.name in V2_SKILLS:
+        leaves = [p for p in sorted(skill_dir.glob("*.md")) if p.name != "SKILL.md"]
+
+        required_refs = min(3, len(leaves))
+        leaf_refs = {name for name in refs_by_basename if name != "SKILL.md" and (skill_dir / name).exists()}
+        if len(leaf_refs) < required_refs:
+            issues.append(
+                Issue(
+                    skill_md,
+                    f"expected at least {required_refs} leaf .md reference(s) in SKILL.md (found {len(leaf_refs)})",
+                )
+            )
+
+        for leaf in leaves:
+            if leaf.name not in refs_by_basename:
+                issues.append(Issue(skill_md, f"SKILL.md does not reference leaf: {leaf.name}"))
 
     # V2 schema enforcement for migrated skills.
     if skill_dir.name in V2_SKILLS:
