@@ -60,7 +60,7 @@ When working in a specific language, load the appropriate skill for detailed con
 - **Ruby**: Load `ruby` skill for Ruby 3.x idioms and Rubocop rules
 - **JavaScript**: Load `javascript` skill for JS conventions and JSDoc
 - **TypeScript**: Load `typescript` skill for TS 5.x strict patterns and TSDoc
-- **Python**: Load `python` skill for Python 3.12+ and Ruff/mypy rules
+- **Python**: Load `python` skill for Python 3.12+ and Ruff/Pyright rules
 - **Rust**: Load `rust` skill for idiomatic Rust and Clippy lints
 - **Go**: Load `go` skill for Go conventions, GoDoc, and table-driven tests
 - **Swift**: Load `swift` skill for Swift conventions and SwiftDoc
