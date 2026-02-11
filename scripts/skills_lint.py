@@ -32,6 +32,8 @@ V2_SKILLS = {
     "auth",
     "database",
     "devops",
+    "dart",
+    "flutter",
     "expo",
     "git",
     "incident-response",

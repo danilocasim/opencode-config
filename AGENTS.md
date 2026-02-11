@@ -66,6 +66,8 @@ When working in a specific language, load the appropriate skill for detailed con
 - **Swift**: Load `swift` skill for Swift conventions and SwiftDoc
 - **Kotlin**: Load `kotlin` skill for Kotlin conventions and KDoc
 - **DevOps**: Load `devops` skill for Docker/CI/infrastructure patterns
+- **Dart**: Load `dart` skill for Dart 3.x idioms, null safety, and tooling
+- **Flutter**: Load `flutter` skill for Flutter architecture, widgets, and platform UX
 
 ## Routing Skills
 

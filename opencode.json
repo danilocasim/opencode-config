@@ -29,7 +29,8 @@
       "**/.pytest_cache/**",
       "**/__pycache__/**",
       "**/*.pyc",
-      "**/target/**"
+      "**/target/**",
+      "**/.dart_tool/**"
     ]
   },
   "permission": {
@@ -106,6 +107,10 @@
     "rubocop": {
       "command": ["bundle", "exec", "rubocop", "-a", "$FILE"],
       "extensions": [".rb", ".rake", ".gemspec", ".ru"]
+    },
+    "dartfmt": {
+      "command": ["dart", "format", "$FILE"],
+      "extensions": [".dart"]
     }
   },
   "tui": {
