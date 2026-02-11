@@ -3,25 +3,36 @@ name: api
 description: REST/OpenAPI conventions, error shapes, pagination, and versioning
 ---
 
-# API Conventions
+# API Skill Router
 
-## Errors
+Use this skill to design and implement stable HTTP APIs: predictable envelopes, explicit error contracts, pagination, versioning, and OpenAPI.
 
-- Use consistent JSON error shapes
-- Prefer stable error codes over string matching
-- Avoid leaking internals
+## When to load
 
-## Pagination
+- You are adding or changing an API endpoint.
+- You need a consistent error contract across endpoints.
+- You need pagination/filtering rules that won’t paint you into a corner.
+- You are maintaining an OpenAPI spec.
 
-- Prefer cursor pagination for large datasets
-- Provide `next_cursor` and `has_more`
+## When NOT to load
 
-## Versioning
+- You are implementing authentication/session mechanisms (load `skills/auth/SKILL.md` once it exists).
+- You are doing DB schema/migrations (use `../database/SKILL.md`).
+- You are hardening against security threats (use `../security/SKILL.md`).
 
-- Prefer URL versioning (`/v1/...`) or header versioning
-- Avoid breaking changes in-place
+## Routing table
 
-## OpenAPI
+| If the task is about...                | Load file                         |
+| -------------------------------------- | --------------------------------- |
+| Error envelopes and status codes       | `errors-and-response-shapes.md`   |
+| Pagination, filtering, sorting         | `pagination-filtering-sorting.md` |
+| Versioning, deprecation, compatibility | `versioning-and-deprecation.md`   |
+| OpenAPI and keeping specs in sync      | `openapi-and-examples.md`         |
+| Idempotency and retries                | `idempotency-and-retries.md`      |
+| Recipe: add a new endpoint             | `recipes-new-endpoint.md`         |
 
-- Keep spec in sync
-- Include examples and error responses
+## Typical load combos
+
+- New endpoint: `errors-and-response-shapes.md` + `recipes-new-endpoint.md`
+- Listing endpoint: `pagination-filtering-sorting.md` + `errors-and-response-shapes.md`
+- Backwards-compatible change: `versioning-and-deprecation.md`
