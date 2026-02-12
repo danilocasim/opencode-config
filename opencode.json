@@ -299,13 +299,20 @@
       "permission": {
         "edit": "ask",
         "bash": {
-          "*": "ask",
-          "git status*": "allow",
-          "git diff*": "allow",
-          "git log*": "allow",
-          "ls*": "allow",
-          "rg*": "allow",
-          "tree*": "allow"
+          "*": "allow",
+          "rm *": "deny",
+          "sudo *": "deny",
+          "chmod *": "deny",
+          "chown *": "deny",
+          "dd *": "deny",
+          "mv *": "ask",
+          "curl *": "ask",
+          "wget *": "ask",
+          "git push *": "deny",
+          "git reset *": "deny",
+          "git clean *": "deny",
+          "git rebase *": "deny",
+          "git commit --amend*": "deny"
         },
         "task": {
           "*": "allow"
