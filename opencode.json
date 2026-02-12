@@ -297,7 +297,29 @@
       "steps": 60,
       "color": "#8B5CF6",
       "permission": {
-        "edit": "ask",
+        "read": {
+          "*": "allow"
+        },
+        "edit": {
+          "*": "deny",
+          "*.md": "allow",
+          "*.mdx": "allow",
+          "*.txt": "allow",
+          "*.rst": "allow",
+          "*.adoc": "allow",
+          "*.yaml": "allow",
+          "*.yml": "allow"
+        },
+        "write": {
+          "*": "deny",
+          "*.md": "allow",
+          "*.mdx": "allow",
+          "*.txt": "allow",
+          "*.rst": "allow",
+          "*.adoc": "allow",
+          "*.yaml": "allow",
+          "*.yml": "allow"
+        },
         "bash": {
           "*": "allow",
           "rm *": "deny",
