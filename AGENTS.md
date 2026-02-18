@@ -67,11 +67,12 @@ Note: For agent/skill/config prompt files (this repo), longer files are acceptab
 - Explicit error handling. No silent failures.
 - Validate inputs at boundaries.
 
-## Git
+## Git and GitHub
 
 - Atomic commits. One logical change per commit.
 - Descriptive commit messages: what and why, not how.
 - Branch names: `feature/`, `fix/`, `refactor/`, `docs/`.
+- Use `gh` for GitHub operations (PRs, issues, Actions, releases).
 
 ## Skills Index (By Category)
 
@@ -119,6 +120,7 @@ Delivery and Operations:
 Engineering Workflow:
 
 - `git` (commit hygiene, staging, PR practices)
+- `gh` (GitHub CLI: PRs, issues, Actions, repos)
 - `refactoring` (safe refactor playbooks)
 - `skill-authoring` (skill standards, recipes, benchmarks)
 
