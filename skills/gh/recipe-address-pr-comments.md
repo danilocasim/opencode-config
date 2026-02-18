@@ -1,16 +1,17 @@
 # Recipe: Address PR Comments (Your PR)
 
-Address feedback on your pull request quickly: fetch comments, decide what needs code changes, push updates, and reply.
+Address feedback on your pull request systematically: checkout branch, analyze comments, create an action plan, get user approval, implement changes, and reply to each comment thread.
 
 ## Goal
 
-Turn PR feedback into either code changes or clear replies, with minimal back-and-forth.
+Turn PR feedback into either code changes or clear replies, with user approval at each step and proper threaded responses (not top-level comments).
 
 ## Load
 
 - `SKILL.md`
 - `prs.md`
 - `../git/SKILL.md`
+- Stack-specific skill based on PR changes (e.g., `../rails/SKILL.md`, `../nextjs/SKILL.md`)
 
 ## Preconditions
 
@@ -23,131 +24,341 @@ Turn PR feedback into either code changes or clear replies, with minimal back-an
 
 ## Steps
 
-1. Identify the PR and repo context:
+### 1. Switch to the PR branch
 
 ```bash
-gh pr view <number> --json number,title,url,headRefName,baseRefName
+gh pr checkout <number>
+git status
+git log --oneline -3
 ```
 
-2. Fetch PR conversation comments (high signal for general feedback):
+### 2. Fetch all PR comments
+
+**Conversation comments (general feedback):**
 
 ```bash
 gh pr view <number> --comments
 ```
 
-3. Fetch inline review/diff comments (line-level feedback):
+**Inline review/diff comments (line-level feedback):**
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/<number>/comments --jq '.[] | {id: .id, user: .user.login, path: .path, line: .line, body: .body}'
+gh api repos/{owner}/{repo}/pulls/<number>/comments --jq '.[] | {id: .id, user: .user.login, path: .path, line: .line, body: .body, in_reply_to_id: .in_reply_to_id}'
 ```
 
-4. Build an "action list" from comments (use this format so it is easy to respond):
+### 3. Create a fix/change plan
+
+Analyze each comment and categorize:
 
 ```text
-[ ] <comment id or link>: <short restatement> -> (change | explain)
+PR Comment Action Plan
+======================
+
+Comment ID: 2820395876
+File: src/components/UserProfile.tsx
+Line: 45
+Author: @reviewer
+─────────────────────────────────────
+Original comment:
+"Consider extracting this validation logic into a separate hook"
+
+Proposed action: [IMPLEMENT]
+- Create useUserValidation hook
+- Move validation logic from component
+- Update component to use new hook
+- Add tests for the hook
+
+Estimated effort: 15 minutes
+─────────────────────────────────────
+
+Comment ID: 2820395880
+File: src/utils/auth.ts
+Line: 23
+Author: @reviewer
+─────────────────────────────────────
+Original comment:
+"This console.log should be removed before merge"
+
+Proposed action: [IMPLEMENT]
+- Remove console.log statement
+- No tests needed (cleanup only)
+
+Estimated effort: 2 minutes
+─────────────────────────────────────
+
+Comment ID: 2820395890
+File: src/api/users.ts
+Line: 67
+Author: @reviewer
+─────────────────────────────────────
+Original comment:
+"Should we add rate limiting here?"
+
+Proposed action: [COMMENT]
+- Reply explaining rate limiting is handled at middleware layer
+- Point to existing rate limiter implementation
+
+Reasoning: Out of scope for this PR, already covered
+─────────────────────────────────────
+
+Comment ID: 2820395900
+File: src/components/Chart.tsx
+Line: 34
+Author: @reviewer
+─────────────────────────────────────
+Original comment:
+"Consider using useMemo for expensive calculation"
+
+Proposed action: [SKIP]
+- Calculation is not expensive enough to warrant useMemo
+- Benchmarked: 0.2ms average
+
+Reasoning: Premature optimization, will add complexity without benefit
+─────────────────────────────────────
+
+SUMMARY:
+- Implement: 2 comments
+- Comment (reply only): 1 comment
+- Skip: 1 comment
+- Total estimated time: 20 minutes
 ```
 
-5. Checkout the PR branch (if you are not already on it):
+### 4. Ask user for approval
 
-```bash
-gh pr checkout <number>
-git status
-```
-
-6. For each action item:
+Present the plan and ask for explicit direction:
 
 ```text
-If change:
-- implement fix
-- add/update tests if behavior changes
-- run the project's test command(s)
+I've analyzed all PR comments and created an action plan.
 
-If explain:
-- write a short, specific reply (why no change; what you verified)
+**PROPOSED ACTIONS:**
+
+✅ IMPLEMENT (2 comments):
+   1. Extract validation hook (15 min)
+   2. Remove console.log (2 min)
+
+💬 COMMENT/REPLY (1 comment):
+   3. Explain rate limiting is handled elsewhere
+
+⏭️ SKIP (1 comment):
+   4. useMemo suggestion (not needed - see reasoning)
+
+**What would you like me to do?**
+
+Options:
+- "implement all" - Do all 2 implementations + replies
+- "implement 1,2" - Only do specific items
+- "skip 4" - Skip item 4, do the rest
+- "comment on 3 only" - Just reply, no code changes
+- "revise plan" - Let me know what to change
+
+Please specify which items to implement, skip, or reply to.
 ```
 
-7. Commit and push changes (repeat as needed; keep commits reviewable):
+### 5. Act on user's feedback
+
+**For IMPLEMENT items:**
 
 ```bash
-git status
-git diff
+# Load relevant skills first
+skill(name="rails")  # or nextjs, python, etc.
+skill(name="testing")
+
+# Make the changes
+# ... implement fix ...
+
+# Run tests if behavior changed
+<run project test command>
+
+# Stage and commit
 git add -A
-git commit -m "<message>"
+git commit -m "fix(<scope>): address PR feedback - <brief description>"
+```
+
+**For COMMENT items:**
+
+Skip code changes, proceed to step 6 to reply.
+
+**For SKIP items:**
+
+No action needed, just note the reasoning for step 6 replies.
+
+### 6. Create commits
+
+Keep commits reviewable and focused:
+
+```bash
+# Review what changed
+git status
+git diff --stat
+
+# If multiple logical changes, commit separately
+git add src/components/UserProfile.tsx src/hooks/useUserValidation.ts
+git commit -m "refactor(user): extract validation into useUserValidation hook
+
+- Move validation logic from UserProfile component
+- Add comprehensive tests for validation hook
+- Addresses PR comment #2820395876"
+
+git add src/utils/auth.ts
+git commit -m "chore(auth): remove debug console.log
+
+- Clean up leftover debug statement
+- Addresses PR comment #2820395880"
+
+# Push all commits
 git push
 ```
 
-8. Reply back on the PR:
+### 7. Reply to comments (proper threaded replies, NOT top-level comments)
 
-Conversation reply (general):
+**IMPORTANT: Reply to each inline comment using the replies endpoint. Do NOT use top-level PR comments.**
 
-```bash
-gh pr comment <number> -b "<reply with what changed + commit SHA(s) or reasoning>"
-```
-
-Reply to a specific inline review comment (threaded):
-
-1. Get the comment ID from step 3 output (the `id` field)
-2. Use the replies endpoint (requires PR number in path):
+For each comment you addressed, post a threaded reply:
 
 ```bash
+# Reply to implemented changes
 gh api repos/{owner}/{repo}/pulls/<number>/comments/<comment_id>/replies \
   -X POST \
-  -f body='<your reply message>'
+  -f body='Fixed in commit <sha> - extracted validation into useUserValidation hook with tests'
+
+# Reply to skipped items (explain why)
+gh api repos/{owner}/{repo}/pulls/<number>/comments/<comment_id>/replies \
+  -X POST \
+  -f body='I looked into this, but the calculation averages 0.2ms in benchmarks. Adding useMemo would add complexity without meaningful performance benefit. Happy to revisit if we see performance issues in production.'
+
+# Reply to acknowledged suggestions
+gh api repos/{owner}/{repo}/pulls/<number>/comments/<comment_id>/replies \
+  -X POST \
+  -f body='Good point! Rate limiting is actually handled at the middleware layer (see src/middleware/rateLimiter.ts). This endpoint inherits that protection automatically.'
 ```
 
-Example:
+**Example with real values:**
 
 ```bash
 gh api repos/beamtree/picq-web/pulls/2952/comments/2820395876/replies \
   -X POST \
-  -f body='Fixed in commit 6c9284f91 - removed the nil checks as suggested'
+  -f body='Fixed in commit 6c9284f91 - extracted validation into useUserValidation hook with comprehensive tests. The component is now much cleaner!'
 ```
 
-**Why this approach:**
+**Why use the replies endpoint:**
 
 - The `gh` CLI has no native command to reply to review comments (open feature request: cli/cli#11552)
-- The previous endpoint `/pulls/<number>/comments` with `in_reply_to` parameter doesn't work
+- Top-level PR comments (`gh pr comment`) don't thread properly with review feedback
 - The correct endpoint is `/pulls/<number>/comments/<comment_id>/replies` with POST method
-- The PR number is required in the URL path, not just the comment_id
+- This creates proper threaded conversations that reviewers can see in context
 
-9. Verify CI status (optional but recommended):
+### 8. Verify and summarize
 
 ```bash
+# Check CI status
 gh pr checks <number>
+
+# View all your replies
+gh api repos/{owner}/{repo}/pulls/<number>/comments --jq '.[] | select(.user.login == "<your-username>") | {id: .id, body: .body}'
+```
+
+**Post a summary comment (optional, only if helpful):**
+
+Only post a top-level summary if there are multiple complex changes:
+
+```bash
+gh pr comment <number> -b "$(cat <<'EOF'
+## Updates Made
+
+### Implemented:
+1. ✅ Extracted validation hook (commit: 6c9284f)
+2. ✅ Removed debug console.log (commit: a3b2c1d)
+
+### Replied:
+3. 💬 Explained rate limiting architecture
+4. 💬 Documented why useMemo wasn't needed (with benchmarks)
+
+All CI checks passing. Ready for re-review!
+EOF
+)"
 ```
 
 ## Anti-patterns
 
-- Replying "done" without pointing to what changed (commit SHA, files, or behavior).
-- Making broad refactors while addressing narrow feedback.
-- Skipping tests when changing behavior.
+- **Posting top-level comments** instead of threaded replies to review comments
+- Replying "done" without pointing to what changed (commit SHA, files, or behavior)
+- Making broad refactors while addressing narrow feedback
+- Skipping tests when changing behavior
+- Not getting user approval before implementing changes
+- Combining multiple unrelated fixes into one commit
+- Forgetting to reply to comments you skipped (always explain why)
 
 ## Test plan
 
-- Run the repo test command(s) locally.
-- Check `gh pr checks <number>` is green.
+- Run the repo test command(s) locally after each change
+- Check `gh pr checks <number>` is green before finishing
+- Verify threaded replies appear in the correct conversation threads
 
-## Commit message
+## Commit message templates
 
-- `fix(<scope>): address PR feedback on <topic>`
+**For fixes:**
 
-## PR replies (copy-ready)
+```
+fix(<scope>): address PR feedback on <topic>
 
-```text
-Addressed in <sha>:
-- <what changed>
-
-Verified:
-- <tests run>
-
-Notes:
-- <why this approach / why no change for some items>
+- <specific change made>
+- <test updates if any>
+- Addresses PR comment #<id>
 ```
 
-```text
-I don't think we need to change this because:
-- <reason>
+**For refactors:**
 
-Verified:
-- <what you checked>
+```
+refactor(<scope>): <description> per PR feedback
+
+- <what changed and why>
+- <impact>
+- Addresses PR comment #<id>
+```
+
+**For cleanup:**
+
+```
+chore(<scope>): <cleanup task>
+
+- <what was cleaned up>
+- Addresses PR comment #<id>
+```
+
+## Reply templates (for threaded comments)
+
+**Implemented:**
+
+```text
+Fixed in commit <sha>:
+- <what changed>
+- <test coverage>
+```
+
+**Acknowledged with explanation:**
+
+```text
+Good catch! I looked into this and <explanation of what you found>.
+
+<why you're not changing it / what you did instead>
+```
+
+**Out of scope (with context):**
+
+```text
+This is a great suggestion but out of scope for this PR because <reason>.
+
+<where it should be handled instead>
+
+Happy to create a follow-up issue if you'd like!
+```
+
+**Question for clarification:**
+
+```text
+I'm not sure I understand the suggestion. Are you asking for:
+- <option A>, or
+- <option B>?
+
+Could you clarify what you'd like to see here?
 ```
