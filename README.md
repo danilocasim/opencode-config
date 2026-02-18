@@ -42,6 +42,23 @@ The system follows these principles:
 3. **Load only what you need** - Prevent context bloat with precise routing
 4. **Explicit over implicit** - Decision rules, checklists, and anti-patterns over generic advice
 
+### The Foundational Principle
+
+> **IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any tasks.**
+>
+> **Before writing code, first explore the project structure, then invoke the skills, rules and standards for documentation.**
+
+This principle, inspired by [Vercel's research](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals), is what makes this entire system work. Instead of letting the AI rely on its training data (which may be outdated, inconsistent, or wrong), we force it to **retrieve** specific, current, project-relevant guidance before acting.
+
+**Why this matters:**
+
+- **Consistency** - Every task follows the same conventions, regardless of which AI model is used
+- **Accuracy** - Skills contain up-to-date patterns (2024-2026) rather than potentially stale training data
+- **Predictability** - Same input produces same output because constraints are explicit
+- **Team alignment** - Project-local skills encode team conventions that everyone follows
+
+This is the glue that binds everything together: the router-first architecture, the skill loading protocol, the guardrails, and the quality checks all serve this single principle—**retrieve before you reason**.
+
 ---
 
 ## System Architecture
