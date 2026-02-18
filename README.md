@@ -486,10 +486,10 @@ flowchart LR
     E --> F[Load 1-2 Leaves]
 
     F --> G{Task Type?}
-    G -->|New Feature| H[/plan or /build]
-    G -->|Bug Fix| I[/debug]
-    G -->|Refactor| J[/refactor]
-    G -->|UI Work| K[/ui]
+    G -->|New Feature| H[plan or build]
+    G -->|Bug Fix| I[debug]
+    G -->|Refactor| J[refactor]
+    G -->|UI Work| K[ui]
 
     H --> L[Implement]
     I --> L
@@ -501,11 +501,11 @@ flowchart LR
     M -->|No| O[Review]
     N --> O
 
-    O --> P[/review]
+    O --> P[review]
     P --> Q{Issues?}
     Q -->|Yes| R[Fix Issues]
     R --> P
-    Q -->|No| S[/commit]
+    Q -->|No| S[commit]
     S --> T[Done]
 ```
 
