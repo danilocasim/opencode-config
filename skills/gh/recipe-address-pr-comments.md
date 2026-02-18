@@ -86,9 +86,29 @@ gh pr comment <number> -b "<reply with what changed + commit SHA(s) or reasoning
 
 Reply to a specific inline review comment (threaded):
 
+1. Get the comment ID from step 3 output (the `id` field)
+2. Use the replies endpoint (requires PR number in path):
+
 ```bash
-gh api -X POST repos/{owner}/{repo}/pulls/<number>/comments -f body='<reply>' -F in_reply_to=<comment_id>
+gh api repos/{owner}/{repo}/pulls/<number>/comments/<comment_id>/replies \
+  -X POST \
+  -f body='<your reply message>'
 ```
+
+Example:
+
+```bash
+gh api repos/beamtree/picq-web/pulls/2952/comments/2820395876/replies \
+  -X POST \
+  -f body='Fixed in commit 6c9284f91 - removed the nil checks as suggested'
+```
+
+**Why this approach:**
+
+- The `gh` CLI has no native command to reply to review comments (open feature request: cli/cli#11552)
+- The previous endpoint `/pulls/<number>/comments` with `in_reply_to` parameter doesn't work
+- The correct endpoint is `/pulls/<number>/comments/<comment_id>/replies` with POST method
+- The PR number is required in the URL path, not just the comment_id
 
 9. Verify CI status (optional but recommended):
 
