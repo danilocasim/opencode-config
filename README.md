@@ -22,7 +22,7 @@ This repository contains a comprehensive OpenCode configuration system designed 
 
 ## Overview
 
-This is one of the most comprehensive OpenCode configuration systems available. It features:
+This repository provides a complete OpenCode configuration system with:
 
 - **35+ specialized skills** covering languages, frameworks, and cross-cutting concerns
 - **Router-first architecture** for precise, minimal context loading
