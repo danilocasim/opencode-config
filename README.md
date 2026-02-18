@@ -7,16 +7,15 @@ This repository contains a comprehensive OpenCode configuration system designed 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [System Architecture](#system-architecture)
-3. [Agent Types](#agent-types)
-4. [Skills Inventory](#skills-inventory)
-5. [Skill Structure & Philosophy](#skill-structure--philosophy)
-6. [Commands](#commands)
-7. [Configuration](#configuration)
-8. [Workflow Guide](#workflow-guide)
-9. [Project Setup](#project-setup)
-10. [Quality Assurance](#quality-assurance)
-11. [Contributing](#contributing)
+2. [Agent Types](#agent-types)
+3. [Skills Inventory](#skills-inventory)
+4. [Skill Structure & Philosophy](#skill-structure--philosophy)
+5. [Commands](#commands)
+6. [Configuration](#configuration)
+7. [Workflow Guide](#workflow-guide)
+8. [Project Setup](#project-setup)
+9. [Quality Assurance](#quality-assurance)
+10. [Contributing](#contributing)
 
 ---
 
@@ -58,65 +57,6 @@ This principle, inspired by [Vercel's research](https://vercel.com/blog/agents-m
 - **Team alignment** - Project-local skills encode team conventions that everyone follows
 
 This is the glue that binds everything together: the router-first architecture, the skill loading protocol, the guardrails, and the quality checks all serve this single principle—**retrieve before you reason**.
-
----
-
-## System Architecture
-
-```mermaid
-graph TB
-    subgraph "Global Config (~/.config/opencode)"
-        A[opencode.json] --> B[Agent Definitions]
-        A --> C[Permission Rules]
-        A --> D[MCP Servers]
-        A --> E[Formatter Config]
-
-        F[AGENTS.md] --> G[Core Rules]
-        F --> H[Cross-Cutting Instructions]
-
-        I[skills/] --> J[Language Skills]
-        I --> K[Framework Skills]
-        I --> L[Cross-Cutting Skills]
-
-        M[commands/] --> N[Custom Commands]
-
-        O[templates/] --> P[Project Templates]
-    end
-
-    subgraph "Project Local (.opencode/)"
-        Q[skills/project/] --> R[Repo Conventions]
-        S[plugins/] --> T[SkillGuard]
-        U[commands/] --> V[Project Commands]
-    end
-
-    subgraph "Runtime"
-        W[User Request] --> X{Load Skills}
-        X -->|Global| I
-        X -->|Local| Q
-        X --> Y[Agent Selection]
-        Y --> Z[Execution]
-    end
-
-    J -.-> X
-    K -.-> X
-    L -.-> X
-    R -.-> X
-    T -.-> Z
-```
-
-### Configuration Hierarchy
-
-OpenCode pulls behavior from multiple sources (project-local always wins):
-
-| Source               | Location                           | Purpose                                    |
-| -------------------- | ---------------------------------- | ------------------------------------------ |
-| **Global Config**    | `~/.config/opencode/opencode.json` | Agent definitions, permissions, formatters |
-| **Global Rules**     | `~/.config/opencode/AGENTS.md`     | Universal coding standards                 |
-| **Global Skills**    | `~/.config/opencode/skills/*/`     | Language/framework guidance                |
-| **Global Commands**  | `~/.config/opencode/commands/*.md` | Reusable workflows                         |
-| **Project Skills**   | `.opencode/skills/*/`              | Repo-specific conventions                  |
-| **Project Commands** | `.opencode/commands/*.md`          | Project-specific workflows                 |
-| **Project Plugins**  | `.opencode/plugins/*`              | Guardrails and hooks                       |
 
 ---
 
