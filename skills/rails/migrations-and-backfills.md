@@ -2,6 +2,24 @@
 
 Production migrations must be safe: avoid long locks, avoid table rewrites, and separate schema changes from data backfills.
 
+## CRITICAL: Data Preservation Rule
+
+**NEVER suggest dropping, resetting, or destroying a database as the first or primary solution.** This includes but is not limited to:
+
+- `rails db:drop`, `rails db:reset`, `rails db:migrate:reset`, `rails db:schema:load` (on non-empty DB)
+- `DROP DATABASE`, `DROP SCHEMA ... CASCADE`, `TRUNCATE TABLE`
+- **Any equivalent command in any ORM/framework**
+
+**Instead:** Diagnose the specific failure, fix or skip the broken migration, and resolve incrementally.
+
+**Only consider database destruction as an absolute last resort** when:
+
+1. All other migration/recovery options have been exhausted
+2. The user explicitly confirms they want to destroy data
+3. The database is confirmed to be empty or disposable (e.g., fresh test environment with no data)
+
+**Always warn the user** that this will destroy all existing data and ask for explicit consent before proceeding.
+
 ## When to load
 
 - You are adding a migration on a table with real traffic.
@@ -56,6 +74,7 @@ Contract (later deploy): make it required once fully backfilled.
 
 ## Anti-patterns
 
+- Dropping or resetting the database to "fix" migration problems (`rails db:reset`, `rails db:drop`, etc.).
 - Data backfills inside a migration that runs during deploy.
 - Iterating with `User.all.each` (loads too much, no batching).
 - Using application models with validations/callbacks in backfills.

@@ -145,6 +145,32 @@ These skills contain modern conventions (2024-2026), tooling configs, and refere
 - Present options with tradeoffs when multiple approaches exist.
 - Prefer reversible decisions over irreversible ones.
 
+## Destructive Operations
+
+### Database: NEVER destroy data as a first option
+
+When dealing with database migrations, schema changes, or migration failures:
+
+1. **ALWAYS prefer safe migration patterns** (expand/contract, batched backfills, reversible migrations).
+2. **NEVER suggest dropping/resetting the database** as the primary solution.
+3. **Instead:** Diagnose the specific failure, fix or skip the broken migration, and resolve incrementally.
+4. **Only consider database destruction as an absolute last resort** when:
+   - All other migration/recovery options have been exhausted.
+   - The user explicitly confirms they want to destroy data.
+   - The database is confirmed empty/disposable (e.g., fresh test environment with no data).
+5. **Always warn and get explicit consent** before any destructive operation.
+
+**Forbidden as first options (any ORM/framework):**
+
+- `prisma migrate reset`, `prisma db push --force-reset`
+- `rails db:drop`, `rails db:reset`, `rails db:migrate:reset`
+- `python manage.py flush`, `python manage.py reset_db`
+- `sequelize.sync({ force: true })`, `sequelize.drop()`
+- TypeORM `synchronize: true` in non-empty DB, `dropDatabase()`
+- `php artisan migrate:fresh`, `php artisan db:wipe`
+- `DROP DATABASE`, `DROP SCHEMA ... CASCADE`, `TRUNCATE TABLE`
+- **Any equivalent command in any ORM/framework that destroys existing data**
+
 ## Project Context Priority
 
 1. **Project AGENTS.md / rules** - highest priority

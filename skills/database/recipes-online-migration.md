@@ -2,6 +2,10 @@
 
 Use this when you need a safe, deployable sequence to add/change a column without downtime.
 
+## CRITICAL: Data Preservation Rule
+
+**NEVER suggest dropping, resetting, or destroying a database as the first or primary solution.** Diagnose the specific failure, fix or skip the broken migration, and resolve incrementally. Database destruction is an absolute last resort requiring explicit user consent. See `migrations-and-backfills.md` for the full rule.
+
 ## When to load
 
 - You are rolling out a new column or changing how data is stored.
@@ -34,6 +38,7 @@ deploy 4: contract
 
 ## Anti-patterns
 
+- Dropping or resetting the database instead of following the expand/contract sequence.
 - Doing expand + backfill + contract in one deploy.
 - Backfills that cannot be paused/resumed.
 - Adding strict constraints before the data is ready.

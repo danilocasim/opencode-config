@@ -2,6 +2,27 @@
 
 Schema changes are easy to write and hard to run in production. Optimize for safety: short locks, resumable backfills, and deployable sequences.
 
+## CRITICAL: Data Preservation Rule
+
+**NEVER suggest dropping, resetting, or destroying a database as the first or primary solution.** This includes but is not limited to:
+
+- `DROP DATABASE`, `DROP SCHEMA ... CASCADE`, `TRUNCATE TABLE`
+- `prisma migrate reset`, `prisma db push --force-reset`
+- `rails db:drop`, `rails db:reset`, `rails db:migrate:reset`
+- `sequelize.sync({ force: true })`, TypeORM `synchronize: true` / `dropDatabase()`
+- `python manage.py flush`, `php artisan migrate:fresh`
+- **Any equivalent command in any ORM/framework**
+
+**Instead:** Diagnose the specific failure, fix or skip the broken migration, and resolve incrementally.
+
+**Only consider database destruction as an absolute last resort** when:
+
+1. All other migration/recovery options have been exhausted
+2. The user explicitly confirms they want to destroy data
+3. The database is confirmed to be empty or disposable (e.g., fresh test environment with no data)
+
+**Always warn the user** that this will destroy all existing data and ask for explicit consent before proceeding.
+
 ## When to load
 
 - You are changing schema on a production table.
@@ -45,8 +66,9 @@ ALTER TABLE users ALTER COLUMN normalized_email SET NOT NULL;
 
 ## Anti-patterns
 
+- Dropping or resetting the database to "fix" migration problems (`prisma migrate reset`, `DROP DATABASE`, etc.).
 - Backfilling millions of rows inside a migration.
-- Unbounded “one shot” scripts with no resume point.
+- Unbounded "one shot" scripts with no resume point.
 - Adding NOT NULL constraints before backfill.
 
 ## Checklist
