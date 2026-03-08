@@ -117,10 +117,11 @@ Fetch PR review/diff comments (inline comments on changed lines):
 gh api repos/owner/repo/pulls/123/comments --jq '.[] | {id: .id, path: .path, line: .line, body: .body}'
 ```
 
-Reply to a specific PR review/diff comment:
+Reply to a specific PR review/diff comment (threaded reply):
 
 ```bash
-gh api -X POST repos/owner/repo/pulls/123/comments -f body='Done - updated this block to be deterministic.' -F in_reply_to=123456789
+gh api -X POST repos/owner/repo/pulls/comments/123456789/replies \
+  -f body='Done - updated this block to be deterministic.'
 ```
 
 ## Anti-patterns

@@ -119,6 +119,12 @@
       "extensions": [".dart"]
     }
   },
+  "tui": {
+    "scroll_acceleration": {
+      "enabled": true
+    },
+    "diff_style": "auto"
+  },
   "agent": {
     "qa": {
       "mode": "primary",
@@ -329,134 +335,6 @@
           "git clean *": "deny",
           "git rebase *": "deny",
           "git commit --amend*": "deny"
-        },
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
-    "marketing-strategist": {
-      "mode": "primary",
-      "description": "Brand strategist and content marketing lead - positioning, messaging, content strategy, and campaign planning",
-      "temperature": 0.4,
-      "maxSteps": 40,
-      "permission": {
-        "edit": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "write": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "bash": {
-          "*": "deny"
-        },
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
-    "biz-dev": {
-      "mode": "primary",
-      "description": "Business development strategist - partnerships, outreach, proposals, deal structuring, and growth opportunities",
-      "temperature": 0.4,
-      "maxSteps": 40,
-      "permission": {
-        "edit": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "write": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "bash": {
-          "*": "deny"
-        },
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
-    "pitch-deck": {
-      "mode": "primary",
-      "description": "Pitch deck strategist and investor relations - fundraising narrative, deck structure, financial modeling, and investor communications",
-      "temperature": 0.3,
-      "maxSteps": 40,
-      "permission": {
-        "edit": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "write": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "bash": {
-          "*": "deny"
-        },
-        "task": {
-          "*": "allow"
-        }
-      }
-    },
-    "ops-pm": {
-      "mode": "primary",
-      "description": "Operations and project management - processes, SOPs, timelines, resource planning, and vendor management",
-      "temperature": 0.3,
-      "maxSteps": 40,
-      "permission": {
-        "edit": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "write": {
-          "*": "deny",
-          "*.md": "allow",
-          "*.mdx": "allow",
-          "*.txt": "allow",
-          "*.yaml": "allow",
-          "*.yml": "allow",
-          "*.csv": "allow"
-        },
-        "bash": {
-          "*": "deny"
         },
         "task": {
           "*": "allow"

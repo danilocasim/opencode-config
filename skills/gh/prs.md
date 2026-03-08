@@ -123,7 +123,16 @@ gh api repos/{owner}/{repo}/pulls/123/comments --jq '.[] | {id: .id, user: .user
 2. Reply to a specific review comment:
 
 ```bash
-gh api -X POST repos/{owner}/{repo}/pulls/123/comments -f body='Good catch - updated to handle nil here.' -F in_reply_to=123456789
+gh api -X POST repos/{owner}/{repo}/pulls/123/comments/123456789/replies \
+  -f body='Good catch - updated to handle nil here.'
+```
+
+Alternative (also works):
+
+```bash
+gh api -X POST repos/{owner}/{repo}/pulls/123/comments \
+  -f body='Good catch - updated to handle nil here.' \
+  -F in_reply_to=123456789
 ```
 
 ### Merge a PR

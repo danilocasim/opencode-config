@@ -1,292 +1,134 @@
-# Recipe: Review and Comment on Others' PRs
+# Recipe: Review Others' PRs
 
-Review someone else's PR with proper inline comments: inspect changes, load relevant skills, draft review comments for approval, then post them as a proper review with threaded feedback.
+Review someone else's PR: gather context, read the diff, draft a small set of actionable comments, then post them as a proper review.
 
 ## Goal
 
-Provide clear, actionable review feedback using GitHub's review system (not top-level comments), with proper line references and code suggestions.
+Leave feedback that is easy to act on: a concise review summary + (optionally) a few threaded inline diff comments.
 
 ## Load
 
 - `SKILL.md`
 - `prs.md`
+- `api.md` (only if you need threaded inline diff comments or replies)
 - `../git/SKILL.md`
-- `../code-reviewer/SKILL.md` (for review quality)
-- Stack-specific skill (e.g., `../rails/SKILL.md`, `../nextjs/SKILL.md`) based on PR changes
+- `../code-reviewer/SKILL.md` (optional)
 
 ## Preconditions
 
 - You have a PR number or URL.
-- You have repository access to view/comment.
+- `gh auth status` shows you are authenticated.
+- You have permission to review/comment in the target repo.
 
 ## Files to touch
 
-- None (review only, unless you need to checkout to understand context).
+- None (review-only).
+
+## Default behaviors
+
+- Read PR context and diff before commenting.
+- Prefer 1 coherent review with 0-5 comments over many small comments.
+- Prefer `gh pr review` for the review summary.
+- Use the REST API only for threaded inline diff comments (the `gh` CLI is limited here).
+- Do not post anything to GitHub unless the user explicitly asked; otherwise draft the commands and review text.
 
 ## Steps
 
-1. **Collect PR context:**
+1. Collect PR context (includes head SHA for line comments):
 
 ```bash
-gh pr view <number> --json title,url,author,state,baseRefName,headRefName,reviewDecision,labels,body
+gh pr view <number> --json number,url,title,author,baseRefName,headRefName,headRepository,headRefOid
 ```
 
-2. **Inspect the diff to understand changes:**
+2. Inspect the diff:
 
 ```bash
 gh pr diff <number>
 ```
 
-3. **Load necessary skills based on the code being reviewed:**
+3. Draft your review summary (what you reviewed, main risks, what to change).
 
-Identify the stack from file extensions and paths:
+4. Optional: leave threaded inline diff comments.
 
-- `.rb` files + `Gemfile` → Load `rails/SKILL.md` + `ruby/SKILL.md`
-- `.tsx/.ts` files + `package.json` → Load `nextjs/SKILL.md` or `react/SKILL.md`
-- `.py` files → Load `python/SKILL.md` + `fastapi/SKILL.md` if applicable
-- Database migrations → Load `database/SKILL.md`
-- API changes → Load `api/SKILL.md`
-- Security-sensitive code → Load `security/SKILL.md`
-
-4. **Fetch existing review comments to avoid duplication:**
+First, list existing review/diff comments to avoid duplicates:
 
 ```bash
-gh api repos/{owner}/{repo}/pulls/<number>/comments --jq '.[] | {id: .id, user: .user.login, path: .path, line: .line, body: .body}'
-```
-
-5. **Checkout the PR branch (optional but recommended for complex reviews):**
-
-```bash
-gh pr checkout <number>
-git log --oneline origin/<base>..HEAD
-```
-
-6. **Draft your review comments in a confirmable list:**
-
-Present to user for approval before posting:
-
-````text
-Proposed PR Review Comments:
-
-File: src/components/UserProfile.tsx
-─────────────────────────────────────
-Line 45-52 (start_line: 45, line: 52):
-Severity: [suggestion]
-Comment: Consider extracting this validation logic into a separate hook
-
-```typescript
-// Suggested change:
-const useUserValidation = (user: User) => {
-  const errors = [];
-  if (!user.email) errors.push('Email required');
-  if (!user.name) errors.push('Name required');
-  return errors;
-};
-````
-
-Reasoning: This would make the component cleaner and allow reuse in other forms.
-
-─────────────────────────────────────
-
-File: src/utils/auth.ts
-─────────────────────────────────────
-Line 23 (start_line: 23, line: 23):
-Severity: [concern]
-Comment: The token is being logged to console - potential security issue
-
-```typescript
-// Current (problematic):
-console.log("Token:", authToken);
-
-// Suggested:
-// Remove console.log or use a proper logger with redaction
-```
-
-─────────────────────────────────────
-
-**Review Summary:**
-
-- Total comments: 2
-- Severity breakdown: 1 suggestion, 1 concern
-- Estimated review time: 5 minutes
-
-**Do you approve posting these comments as a review?** (yes/no/edit)
-
-````
-
-7. **Wait for user approval before posting anything.**
-
-8. **Post the review using the proper review API (creates threaded comments):**
-
-**IMPORTANT: Use the review API, NOT top-level PR comments.**
-
-First, create the review object:
-
-```bash
-# Create a review (returns review ID)
-gh api repos/{owner}/{repo}/pulls/<number>/reviews \
-  -X POST \
-  -f body='Reviewed the changes. See inline comments for specific feedback.' \
-  -f event='COMMENT' \
-  --jq '.id'
-````
-
-Then add individual review comments with proper line references:
-
-```bash
-# Comment on specific lines (use the review ID from above)
 gh api repos/{owner}/{repo}/pulls/<number>/comments \
-  -X POST \
-  -f body='<comment text with code blocks>' \
-  -f path='src/components/UserProfile.tsx' \
-  -f line=52 \
-  -f start_line=45 \
-  -f side='RIGHT' \
-  -f commit_id='<head_commit_sha>' \
-  -f in_reply_to=<review_id>
+  --jq '.[] | {id: .id, user: .user.login, path: .path, line: .line, body: .body, in_reply_to_id: .in_reply_to_id}'
 ```
 
-**Required fields explained:**
-
-- `path`: File path relative to repo root
-- `line`: Ending line number of the comment range
-- `start_line`: Starting line number (for multi-line comments)
-- `side`: 'RIGHT' for PR changes, 'LEFT' for original
-- `commit_id`: SHA of the commit being reviewed (get from `gh pr view`)
-
-9. **Alternative: Use gh pr review for simpler reviews:**
-
-If you just need to submit a review without specific line comments:
+Create a new inline diff comment (single-line):
 
 ```bash
-# Submit a review with general feedback
+gh api -X POST repos/{owner}/{repo}/pulls/<number>/comments \
+  -f body='Consider extracting this validation into a helper to keep the handler readable.' \
+  -f commit_id='<headRefOid>' \
+  -f path='src/foo.ts' \
+  -f line=42 \
+  -f side='RIGHT'
+```
+
+Create a multi-line inline diff comment:
+
+```bash
+gh api -X POST repos/{owner}/{repo}/pulls/<number>/comments \
+  -f body='This block is doing two things (parsing + validation). Can we split it for testability?' \
+  -f commit_id='<headRefOid>' \
+  -f path='src/foo.ts' \
+  -f start_line=40 \
+  -f line=55 \
+  -f start_side='RIGHT' \
+  -f side='RIGHT'
+```
+
+Reply to an existing top-level review/diff comment (threaded reply):
+
+```bash
+gh api -X POST repos/{owner}/{repo}/pulls/<number>/comments/<comment_id>/replies \
+  -f body='Good catch - I think we can tighten this by validating earlier. Will you be OK with that approach?'
+```
+
+5. Post the review summary.
+
+Comment-only review:
+
+```bash
 gh pr review <number> --comment -b "$(cat <<'EOF'
-## Review Summary
+## Review summary
 
-### Changes reviewed:
-- Component refactoring looks good
-- Test coverage is adequate
+- Readability: overall good; a couple spots could be decomposed.
+- Correctness: please confirm error handling for <case>.
 
-### Suggestions:
-1. Consider adding error boundaries
-2. The loading state could be smoother
-
-Overall: Nice work! A few minor suggestions above.
+## Suggestions
+1. <actionable change>
+2. <actionable change>
 EOF
 )"
 ```
 
-10. **Approve or request changes (only if you mean it):**
+Approve / request changes (only if you mean it):
 
 ```bash
-# Approve
-gh pr review <number> --approve -b "LGTM - approved with minor suggestions"
-
-# Request changes
-gh pr review <number> --request-changes -b "Needs changes - see inline comments"
+gh pr review <number> --approve -b "LGTM - nice cleanup."
+gh pr review <number> --request-changes -b "Needs changes: please address the inline comments (esp. error handling + tests)."
 ```
 
 ## Anti-patterns
 
-- **DO NOT post top-level PR comments** for code feedback - use review threads instead
-- Posting many tiny comments that could be one coherent review
-- Asking for changes without a reason and a suggested direction
-- Approving while also leaving a blocking comment
-- Not specifying exact line numbers (start_line and line)
-- Forgetting to wait for user approval before posting
+- Using `gh pr comment` for code feedback (not threaded; hard to follow).
+- Leaving comments against a stale `commit_id` (line comments can appear as outdated).
+- Replying to a reply (GitHub only supports replies to top-level review comments).
+- Approving while also leaving a blocking concern.
 
 ## Test plan
 
-- Verify line numbers match the diff before posting
-- Check that commit_id is the latest HEAD of the PR
-- Confirm user approved the draft comments
+- Verify the PR's `headRefOid` matches what you're commenting on.
+- Confirm any inline comments render on the intended diff lines (not as outdated).
 
-## PR Review Comment Templates (copy-ready)
+## Commit message
 
-### Code Suggestion Template:
+- Not applicable.
 
-````text
-**Issue:** <what's wrong or could be better>
+## PR body (copy-ready)
 
-**Suggested change:**
-```<language>
-<before>
-````
-
-**After:**
-
-```<language>
-<after>
-```
-
-**Why:** <explanation>
-
-````
-
-### Security Concern Template:
-
-```text
-**Security concern:** <vulnerability>
-
-**Current code:**
-```<language>
-<vulnerable code>
-````
-
-**Suggested fix:**
-
-```<language>
-<secure code>
-```
-
-**Impact:** <what could go wrong>
-
-````
-
-### Performance Template:
-
-```text
-**Performance suggestion:** <issue>
-
-**Current approach:**
-```<language>
-<code>
-````
-
-**Optimized alternative:**
-
-```<language>
-<better code>
-```
-
-**Expected improvement:** <metrics>
-
-````
-
-## Example Complete Review Workflow
-
-```bash
-# 1. Get PR info
-gh pr view 123 --json number,headRefOid,files
-
-# 2. View diff
-gh pr diff 123
-
-# 3. Draft comments (present to user for approval)
-# ... user approves ...
-
-# 4. Create review
-gh api repos/owner/repo/pulls/123/reviews \
-  -X POST \
-  -f body='Reviewed - see inline comments' \
-  -f event='COMMENT'
-
-# 5. Add specific line comment
-gh api repos/owner/repo/pulls/123/comments \
-  -X POST \
-  -f body='Consider using useMemo here to prevent unnecessary recalculations' \
-  -f path='src/components/Chart.tsx' \
-  -f line=34 \
-  -f side='RIGHT' \
-  -f commit_id='abc123'
-````
+- Not applicable.

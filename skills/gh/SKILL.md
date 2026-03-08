@@ -5,7 +5,7 @@ description: GitHub CLI operations for PRs, issues, repos, and Actions
 
 # gh
 
-GitHub CLI operations for PRs, issues, repos, and Actions. Use this skill when automating GitHub workflows from the terminal.
+GitHub CLI operations for PRs, issues, repos, and Actions.
 
 ## When to load
 
@@ -29,12 +29,13 @@ GitHub CLI operations for PRs, issues, repos, and Actions. Use this skill when a
 | View workflow runs, download logs | `actions.md`                    |
 | Create/fork repos, view repo info | `repos.md`                      |
 | Make authenticated API calls      | `api.md`                        |
+| Create a PR with a canonical body | `recipe-create-pr.md`           |
 | Address PR feedback (your PR)     | `recipe-address-pr-comments.md` |
 | Review and comment on others' PRs | `recipe-review-others-pr.md`    |
 
 ## Typical load combos
 
-- Creating a PR: `SKILL.md` + `prs.md`
+- Creating a PR: `SKILL.md` + `prs.md` + `recipe-create-pr.md`
 - Debugging CI failure: `SKILL.md` + `actions.md`
 - Triage session: `SKILL.md` + `issues.md` + `prs.md`
 - Addressing PR feedback: `SKILL.md` + `prs.md` + `recipe-address-pr-comments.md`
@@ -42,6 +43,7 @@ GitHub CLI operations for PRs, issues, repos, and Actions. Use this skill when a
 
 ## Stop triggers
 
+- Any operation that writes to GitHub (create PR, comment, merge, close) -> only run if the user asked; otherwise prepare commands and ask.
 - PR introduces security concerns -> load `../security/SKILL.md`
 - PR touches database migrations -> load `../database/SKILL.md`
 - PR changes API contracts -> load `../api/SKILL.md`
