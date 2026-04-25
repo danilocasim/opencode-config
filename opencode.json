@@ -465,6 +465,11 @@
     }
   },
   "mcp": {
+    "firebase": {
+      "type": "local",
+      "command": ["npx", "-y", "firebase-tools@latest", "mcp"],
+      "enabled": true
+    },
     "context7": {
       "type": "remote",
       "url": "https://mcp.context7.com/mcp",
